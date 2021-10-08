@@ -1,0 +1,60 @@
+[
+     {
+          "id": 1,
+          "type": "development",
+          "ticketId":"12346",
+          "workName": "Operational Plan v1",
+          "branch": "feature/operatinal-plan-v1",
+          "currentEnv": 3,
+          "created":"01.07.2021",
+          "dev": {
+               "active":true,
+               "updated":"01.10.2028"
+          },
+          "fut": {
+               "active":true,
+               "updated":"01.10.2028"
+          },
+          "uat": {
+               "active":true,
+               "updated":"01.10.2028"
+          },
+          "preprod": {
+               "active":false,
+               "updated":"01.10.2028"
+          },
+          "prod": {
+               "active":false,
+               "updated":"01.10.2028"
+          }
+     },
+     {
+          "id": 2,
+          "type": "bug",
+          "ticketId":"1597140",
+          "workName": "Column Size",
+          "branch": "feature/1597140-column-size",
+          "currentEnv": 2,
+          "created":"01.09.2021",
+          "dev": {
+               "active":true,
+               "updated":"01.10.2028"
+          },
+          "fut": {
+               "active":true,
+               "updated":"01.10.2028"
+          },
+          "uat": {
+               "active":false,
+               "updated":"01.10.2028"
+          },
+          "preprod": {
+               "active":false,
+               "updated":"01.10.2028"
+          },
+          "prod": {
+               "active":false,
+               "updated":"01.10.2028"
+          }
+     }
+]
