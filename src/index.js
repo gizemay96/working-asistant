@@ -31,19 +31,22 @@ import ThemeContextWrapper from "./components/ThemeWrapper/ThemeWrapper";
 import BackgroundColorWrapper from "./components/BackgroundColorWrapper/BackgroundColorWrapper";
 import { Provider } from "react-redux";
 import { store } from './helpers/store';
+import { UserProvider } from "contexts/UserContext";
 ReactDOM.render(
   <Provider store={store}>
-  <ThemeContextWrapper>
-    <BackgroundColorWrapper>
-        <BrowserRouter>
-          <Switch>
-            <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
-            <Route path="/rtl" render={(props) => <RTLLayout {...props} />} />
-            <Redirect from="/" to="/admin/dashboard" />
-          </Switch>
-        </BrowserRouter>
-    </BackgroundColorWrapper>
-  </ThemeContextWrapper>
+    <UserProvider>
+      <ThemeContextWrapper>
+        <BackgroundColorWrapper>
+          <BrowserRouter>
+            <Switch>
+              <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
+              <Route path="/rtl" render={(props) => <RTLLayout {...props} />} />
+              <Redirect from="/" to="/admin/dashboard" />
+            </Switch>
+          </BrowserRouter>
+        </BackgroundColorWrapper>
+      </ThemeContextWrapper>
+    </UserProvider>
   </Provider>,
   document.getElementById("root")
 );

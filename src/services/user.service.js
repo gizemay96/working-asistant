@@ -1,14 +1,26 @@
 import { authHeader } from '../helpers/auth-header.js';
 import axios from 'axios';
+import { useUser } from 'contexts/UserContext.js';
+import  React  from "react";
+
+const SomeComponent = () => {
+    const {activeUser} = useUser();
+
+    React.useEffect(() => {
+        console.log(activeUser)
+    }, [login])
+  
+    return (
+      <div className="div"></div>
+    );
+  };
 
 export const userService = {
     login,
     logout,
     getAll
 };
-
 function login(username, password) {
-
     return axios
         .post('http://localhost:1337/auth/local', {
             identifier: username,

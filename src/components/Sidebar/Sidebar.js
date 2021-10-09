@@ -33,10 +33,13 @@ import {
 
 var ps;
 
+import { useUser } from '../../contexts/UserContext';
+
 function Sidebar(props) {
   const location = useLocation();
   const sidebarRef = React.useRef(null);
-  const [user] = React.useState(JSON.parse(localStorage.getItem('user')));
+  const [user , setUser] = React.useState(false);
+  const { activeUser } = useUser();
 
   // verifies if routeName is the one active (in browser input)
   const activeRoute = (routeName) => {
@@ -58,9 +61,10 @@ function Sidebar(props) {
   });
 
   React.useEffect(() => {
-  //  const user = JSON.parse(localStorage.getItem('user'));
-   console.log(user)
-  } , [localStorage]);
+    console.log(activeUser)
+    setUser(activeUser.id ? true : false);
+    console.log(user)
+  } , [activeUser]);
 
   const linkOnClick = () => {
     document.documentElement.classList.remove("nav-open");
