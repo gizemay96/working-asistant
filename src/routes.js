@@ -15,9 +15,9 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import { LoginPage } from "components/Authentication/Signup/LoginPage";
 import Dashboard from "views/Dashboard.js";
 import Icons from "views/Icons.js";
+import Login from "views/Login";
 import Map from "views/Map.js";
 import Notifications from "views/Notifications.js";
 import Rtl from "views/Rtl.js";
@@ -59,7 +59,7 @@ var routes = [
     name: "Login",
     rtlName: "الرموز",
     icon: "tim-icons icon-atom",
-    component: LoginPage,
+    component: Login,
     layout: "/admin",
     authControl: false
   },

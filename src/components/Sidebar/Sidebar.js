@@ -16,7 +16,7 @@
 
 */
 /*eslint-disable*/
-import  React  from "react";
+import React from "react";
 import { NavLink, Link, useLocation } from "react-router-dom";
 // nodejs library to set properties for components
 import { PropTypes } from "prop-types";
@@ -33,12 +33,12 @@ import {
 
 var ps;
 
-import { useUser } from '../../contexts/UserContext';
+import { useUser } from '../../contexts/userContext';
 
 function Sidebar(props) {
   const location = useLocation();
   const sidebarRef = React.useRef(null);
-  const [user , setUser] = React.useState(false);
+  // const [user, setUser] = React.useState(false);
   const { activeUser } = useUser();
 
   // verifies if routeName is the one active (in browser input)
@@ -61,15 +61,13 @@ function Sidebar(props) {
   });
 
   React.useEffect(() => {
-    console.log(activeUser)
-    setUser(activeUser.id ? true : false);
-    console.log(user)
-  } , [activeUser]);
+    // setUser(activeUser.id ? true : false);
+  }, [activeUser]);
 
   const linkOnClick = () => {
     document.documentElement.classList.remove("nav-open");
   };
-  
+
   const { routes, rtlActive, logo } = props;
   let logoImg = null;
   let logoText = null;
@@ -134,27 +132,27 @@ function Sidebar(props) {
             <Nav>
               {routes.map((prop, key) => {
                 if (prop.redirect) return null;
-                else if (user) return (
-                  prop.authControl && 
+                else if (activeUser && activeUser.id) return (
+                  prop.authControl &&
                   <li
-                  className={
-                    activeRoute(prop.path) + (prop.pro ? " active-pro" : "")
-                  }
-                  key={key}
-                >
-                  <NavLink
-                    to={prop.layout + prop.path}
-                    className="nav-link"
-                    activeClassName="active"
-                    onClick={props.toggleSidebar}
+                    className={
+                      activeRoute(prop.path) + (prop.pro ? " active-pro" : "")
+                    }
+                    key={key}
                   >
-                    <i className={prop.icon} />
-                    <p>{rtlActive ? prop.rtlName : prop.name}</p>
-                  </NavLink>
-                </li>
-                ) 
+                    <NavLink
+                      to={prop.layout + prop.path}
+                      className="nav-link"
+                      activeClassName="active"
+                      onClick={props.toggleSidebar}
+                    >
+                      <i className={prop.icon} />
+                      <p>{rtlActive ? prop.rtlName : prop.name}</p>
+                    </NavLink>
+                  </li>
+                )
                 else return (
-                  !prop.authControl && 
+                  !prop.authControl &&
                   <li
                     className={
                       activeRoute(prop.path) + (prop.pro ? " active-pro" : "")

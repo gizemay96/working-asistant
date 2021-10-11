@@ -29,11 +29,8 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 
 import ThemeContextWrapper from "./components/ThemeWrapper/ThemeWrapper";
 import BackgroundColorWrapper from "./components/BackgroundColorWrapper/BackgroundColorWrapper";
-import { Provider } from "react-redux";
-import { store } from './helpers/store';
-import { UserProvider } from "contexts/UserContext";
+import { UserProvider } from "contexts/userContext";
 ReactDOM.render(
-  <Provider store={store}>
     <UserProvider>
       <ThemeContextWrapper>
         <BackgroundColorWrapper>
@@ -46,7 +43,6 @@ ReactDOM.render(
           </BrowserRouter>
         </BackgroundColorWrapper>
       </ThemeContextWrapper>
-    </UserProvider>
-  </Provider>,
+    </UserProvider>,
   document.getElementById("root")
 );

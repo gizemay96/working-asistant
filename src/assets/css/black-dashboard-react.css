@@ -4579,6 +4579,7 @@ a.close.disabled {
       content: none; }
 
 .modal-content {
+  background-color: #07152a !important;
   position: relative;
   display: flex;
   flex-direction: column;

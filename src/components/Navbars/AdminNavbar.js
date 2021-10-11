@@ -18,6 +18,7 @@
 import React from "react";
 // nodejs library that concatenates classes
 import classNames from "classnames";
+import { useUser } from '../../contexts/userContext'
 
 // reactstrap components
 import {
@@ -39,10 +40,14 @@ import {
   ModalHeader,
 } from "reactstrap";
 
-function AdminNavbar(props) {
+import { useHistory } from "react-router-dom";
+const AdminNavbar = (props) => {
   const [collapseOpen, setcollapseOpen] = React.useState(false);
   const [modalSearch, setmodalSearch] = React.useState(false);
   const [color, setcolor] = React.useState("navbar-transparent");
+  const { activeUser, setActiveUser } = useUser();
+  let history = useHistory();
+
   React.useEffect(() => {
     window.addEventListener("resize", updateColor);
     // Specify how to clean up after this effect:
@@ -50,6 +55,11 @@ function AdminNavbar(props) {
       window.removeEventListener("resize", updateColor);
     };
   });
+
+  React.useEffect(() => {
+    console.log(activeUser)
+  }, [activeUser]);
+
   // function that adds color white/transparent to the navbar on resize (this is for the collapse)
   const updateColor = () => {
     if (window.innerWidth < 993 && collapseOpen) {
@@ -71,6 +81,14 @@ function AdminNavbar(props) {
   const toggleModalSearch = () => {
     setmodalSearch(!modalSearch);
   };
+
+  const logOut = () => {
+    setActiveUser({});
+    localStorage.removeItem('jwt');
+    localStorage.removeItem('user');
+    history.push('/admin/login')
+  }
+
   return (
     <>
       <Navbar className={classNames("navbar-absolute", color)} expand="lg">
@@ -98,80 +116,86 @@ function AdminNavbar(props) {
           </NavbarToggler>
           <Collapse navbar isOpen={collapseOpen}>
             <Nav className="ml-auto" navbar>
-              <InputGroup className="search-bar">
+              {/* <InputGroup className="search-bar">
                 <Button color="link" onClick={toggleModalSearch}>
                   <i className="tim-icons icon-zoom-split" />
                   <span className="d-lg-none d-md-block">Search</span>
                 </Button>
-              </InputGroup>
-              <UncontrolledDropdown nav>
-                <DropdownToggle
-                  caret
-                  color="default"
-                  data-toggle="dropdown"
-                  nav
-                >
-                  <div className="notification d-none d-lg-block d-xl-block" />
-                  <i className="tim-icons icon-sound-wave" />
-                  <p className="d-lg-none">Notifications</p>
-                </DropdownToggle>
-                <DropdownMenu className="dropdown-navbar" right tag="ul">
-                  <NavLink tag="li">
-                    <DropdownItem className="nav-item">
-                      Mike John responded to your email
-                    </DropdownItem>
-                  </NavLink>
-                  <NavLink tag="li">
-                    <DropdownItem className="nav-item">
-                      You have 5 more tasks
-                    </DropdownItem>
-                  </NavLink>
-                  <NavLink tag="li">
-                    <DropdownItem className="nav-item">
-                      Your friend Michael is in town
-                    </DropdownItem>
-                  </NavLink>
-                  <NavLink tag="li">
-                    <DropdownItem className="nav-item">
-                      Another notification
-                    </DropdownItem>
-                  </NavLink>
-                  <NavLink tag="li">
-                    <DropdownItem className="nav-item">
-                      Another one
-                    </DropdownItem>
-                  </NavLink>
-                </DropdownMenu>
-              </UncontrolledDropdown>
-              <UncontrolledDropdown nav>
-                <DropdownToggle
-                  caret
-                  color="default"
-                  nav
-                  onClick={(e) => e.preventDefault()}
-                >
-                  <div className="photo">
-                    <img
-                      alt="..."
-                      src={require("assets/img/anime3.png").default}
-                    />
-                  </div>
-                  <b className="caret d-none d-lg-block d-xl-block" />
-                  <p className="d-lg-none">Log out</p>
-                </DropdownToggle>
-                <DropdownMenu className="dropdown-navbar" right tag="ul">
-                  <NavLink tag="li">
-                    <DropdownItem className="nav-item">Profile</DropdownItem>
-                  </NavLink>
-                  <NavLink tag="li">
-                    <DropdownItem className="nav-item">Settings</DropdownItem>
-                  </NavLink>
-                  <DropdownItem divider tag="li" />
-                  <NavLink tag="li">
-                    <DropdownItem className="nav-item">Log out</DropdownItem>
-                  </NavLink>
-                </DropdownMenu>
-              </UncontrolledDropdown>
+              </InputGroup> */}
+              {
+                activeUser.id &&
+                <>
+                  <UncontrolledDropdown nav>
+                    <DropdownToggle
+                      caret
+                      color="default"
+                      data-toggle="dropdown"
+                      nav
+                    >
+                      <div className="notification d-none d-lg-block d-xl-block" />
+                      <i className="tim-icons icon-sound-wave" />
+                      <p className="d-lg-none">Notifications</p>
+                    </DropdownToggle>
+                    <DropdownMenu className="dropdown-navbar" right tag="ul">
+                      <NavLink tag="li">
+                        <DropdownItem className="nav-item">
+                          Mike John responded to your email
+                        </DropdownItem>
+                      </NavLink>
+                      <NavLink tag="li">
+                        <DropdownItem className="nav-item">
+                          You have 5 more tasks
+                        </DropdownItem>
+                      </NavLink>
+                      <NavLink tag="li">
+                        <DropdownItem className="nav-item">
+                          Your friend Michael is in town
+                        </DropdownItem>
+                      </NavLink>
+                      <NavLink tag="li">
+                        <DropdownItem className="nav-item">
+                          Another notification
+                        </DropdownItem>
+                      </NavLink>
+                      <NavLink tag="li">
+                        <DropdownItem className="nav-item">
+                          Another one
+                        </DropdownItem>
+                      </NavLink>
+                    </DropdownMenu>
+                  </UncontrolledDropdown>
+                  <UncontrolledDropdown nav>
+                    <DropdownToggle
+                      caret
+                      color="default"
+                      nav
+                      onClick={(e) => e.preventDefault()}
+                    >
+                      <div className="photo">
+                        <img
+                          alt="..."
+                          src={require("assets/img/anime3.png").default}
+                        />
+                      </div>
+                      <b className="caret d-none d-lg-block d-xl-block" />
+                      <p className="d-lg-none">Log out</p>
+                    </DropdownToggle>
+                    <DropdownMenu className="dropdown-navbar" right tag="ul">
+                      <NavLink tag="li">
+                        <DropdownItem className="nav-item">Profile</DropdownItem>
+                      </NavLink>
+                      <NavLink tag="li">
+                        <DropdownItem className="nav-item">Settings</DropdownItem>
+                      </NavLink>
+                      <DropdownItem divider tag="li" />
+                      <NavLink tag="li">
+                        <DropdownItem onClick={logOut} className="nav-item">Log out</DropdownItem>
+                      </NavLink>
+                    </DropdownMenu>
+                  </UncontrolledDropdown>
+                </>
+              }
+
               <li className="separator d-lg-none" />
             </Nav>
           </Collapse>

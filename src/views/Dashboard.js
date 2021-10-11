@@ -15,7 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import {React , useState , useEffect} from "react";
+import {React , useState } from "react";
 // nodejs library that concatenates classes
 import classNames from "classnames";
 // react plugin used to create charts
@@ -45,13 +45,11 @@ import {
 
 // core components
 import {
-  chartExample1,
+  // chartExample1,
   chartExample2,
   chartExample3,
   chartExample4,
 } from "variables/charts.js";
-
-import workItemData from '../assets/json/works.json'
 
 function Dashboard(props) {
   const [bigChartData, setbigChartData] = useState("data1");
