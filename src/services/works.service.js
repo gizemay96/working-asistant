@@ -26,9 +26,9 @@ export const addWork = (params) => {
           });
 }
 
-export const updateWork = (params) => {
+export const updateWork = (params , updateId) => {
      return axios
-          .put(`http://localhost:1337/works/${params.id}`, params)
+          .put(`http://localhost:1337/works/${updateId}`, params)
           .then(response => {
                return response;
           });
@@ -44,6 +44,7 @@ export const deleteWork = (id) => {
 
 
 const getQuery = (obj) => {
+     console.log(obj)
      let str;
      str = [];
      for (const p in obj) {

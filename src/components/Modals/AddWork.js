@@ -20,8 +20,8 @@ function AddWork(props) {
      const [itemForUpdate] = useState(props.updateItem)
      const [environments, setEnvironment] = useState({
           dev: itemForUpdate ? itemForUpdate.dev : {
-               active: true,
-               date: `${new Date()}`
+               active: false,
+               date: `${new Date().toLocaleDateString()}`
           },
           fut: itemForUpdate ? itemForUpdate.fut : {
                active: false,
@@ -41,35 +41,50 @@ function AddWork(props) {
           },
      });
 
-     // useEffect(() => {
-     //      console.log(itemForUpdate)
-     // }, [])
-
      const formik = useFormik({
           initialValues: {
                type: itemForUpdate ? itemForUpdate.type : 'Development',
                ticketId: itemForUpdate ? itemForUpdate.ticketId : '',
                name: itemForUpdate ? itemForUpdate.name : '',
                branch: itemForUpdate ? itemForUpdate.branch : '',
-               currentEnv: itemForUpdate ? itemForUpdate.currentEnv : 1,
+               currentEnv: itemForUpdate ? itemForUpdate.currentEnv : 0,
                ...environments
           },
           onSubmit: values => {
                if (itemForUpdate) {
-                    updateWork({ ...itemForUpdate, values })
+                    updateWork(values, itemForUpdate.id)
+                    .then(res => {
+                         formik.resetForm();
+                         props.closeModal(true)
+                    });
                } else {
                     addWork(values)
+                    .then(res => {
+                         formik.resetForm();
+                         props.closeModal(true)
+                    });
                }
-               formik.resetForm();
-               props.closeModal(true)
+           
           },
           validationSchema: addWorkValidationShema,
      });
 
      const changeEnv = (key) => {
           const data = environments;
-          data[key].active = !data[key].active
-          data[key].date = !data[key].active ? '' : `${new Date()}`;
+          const keys = Object.keys(environments);
+          const ind2 = keys.findIndex(item => item === key)
+          keys.map((mapKey, ind) => {
+               if (ind > ind2) {
+                    data[mapKey].active = false
+                    data[mapKey].date = '';
+               }
+               else if(!data[mapKey].active) {
+                    data[mapKey].active = true;
+                    data[mapKey].date = `${new Date().toLocaleString()}`;
+               }
+               formik.setFieldValue("currentEnv", ind2 + 1);
+          });
+          console.log(data)
           setEnvironment({ ...data });
      }
 
