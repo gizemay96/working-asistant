@@ -19,7 +19,7 @@ import {
 } from "reactstrap";
 import { Tooltip } from 'reactstrap';
 
-import { getWorks, deleteWork } from '../services/works.service'
+import { getWorks, deleteWork, getWorksCount } from '../services/works.service'
 import AddWork from "components/Modals/AddWork";
 
 function WorkItems(props) {
@@ -29,6 +29,10 @@ function WorkItems(props) {
      const [selectedItem, setSelectedItem] = useState(null);
      const [environments] = useState(['Dev', 'Fut', 'Uat', 'Preprod', 'Prod']);
      const [searchInput, setSearchInput] = useState([]);
+     const [currentPage, setCurrentPage] = useState({
+          page: 1,
+          total: 0
+     });
 
      const [nameInputValue, setNameInputValue] = useState('');
      const [branchInputValue, setBranchInputValue] = useState('');
@@ -39,8 +43,11 @@ function WorkItems(props) {
           type: '',
           name_contains: '',
           branch_contains: '',
-          ticketId_contains: ''
+          ticketId_contains: '',
+          _start: 0,
+          _limit: 9
      });
+
 
      useEffect(() => {
           setfilterApplying(true);
@@ -60,22 +67,30 @@ function WorkItems(props) {
      const toggleModal = () => setModal(!modal, modal === true ? setSelectedItem(null) : null);
 
      // Edit - Get - Delete Functions
-     const getItems = (closeModal = false) => {
+     const getItems = async (closeModal = false, getFor = '') => {
           if (closeModal)
                toggleModal();
 
-          getWorks(filters)
-               .then(res => {
-                    setWorkItems(res.data);
-                    setTimeout(() => {
-                         setfilterApplying(false)
-                    }, 600);
-               });
+          const worksData = await getWorks(filters)
+          setWorkItems(worksData.data);
+          setfilterApplying(false);
+
+
+          if (worksData.data.length === 0 && getFor === 'delete') {
+               setCurrentPage({ ...currentPage, page: currentPage.page - 1 });
+               setFilter({ ...filters, _start: filters._start - filters._limit });
+          } else {
+               const workCount = await getWorksCount();
+               setCurrentPage({ ...currentPage, total: workCount.data })
+          }
+
+
      }
 
-     const deleteItem = (id) => {
-          deleteWork(id)
-               .then(res => { getItems(); })
+     const deleteItem = async (id) => {
+          setfilterApplying(true);
+          await deleteWork(id)
+               .then(res => { getItems(false, 'delete'); })
      }
 
      const editItem = (item) => {
@@ -115,6 +130,21 @@ function WorkItems(props) {
           setSearchInput([...inputs]);
      }
 
+     const changePage = (type) => {
+          switch (type) {
+               case 'previous':
+                    setFilter({ ...filters, _start: filters._start - filters._limit });
+                    break;
+               case 'next':
+                    setFilter({ ...filters, _start: filters._start + filters._limit });
+                    break;
+
+               default:
+                    break;
+          }
+          setCurrentPage({ ...currentPage, page: type === 'previous' ? currentPage.page - 1 : currentPage.page + 1 });
+     }
+
      return (
           <>
                <div className="content">
@@ -136,7 +166,7 @@ function WorkItems(props) {
                          </div>
                          <div>
                               <div>
-                                   <Button color="danger" onClick={toggleModal}>{buttonLabel}Add New</Button>
+                                   <Button color="info btn-md" onClick={toggleModal}>{buttonLabel}Add Work</Button>
                                    <Modal isOpen={modal} toggle={toggleModal} className={className}>
                                         <ModalBody>
                                              <AddWork updateItem={selectedItem} closeModal={getItems} ></AddWork>
@@ -153,7 +183,7 @@ function WorkItems(props) {
                                         <CardTitle tag="h4">My Works</CardTitle>
                                    </CardHeader>
                                    <CardBody className="table-case">
-                                        <Table className="tablesorter">
+                                        <Table className="tablesorter" hover>
                                              <thead className="text-primary">
                                                   {/* WORK TYPE HEADER */}
                                                   <tr>
@@ -328,10 +358,10 @@ function WorkItems(props) {
                                                                       </Tooltip>
                                                                  </td>
                                                                  <td className="text-right">
-                                                                      <Button onClick={() => editItem(item)} className="btn-icon btn-simple" color="info" size="sm">
+                                                                      <Button onClick={() => editItem(item)} className="btn-icon" color="info" size="sm">
                                                                            <i className="fa fa-edit"></i>
                                                                       </Button>{` `}
-                                                                      <Button onClick={() => deleteItem(item.id)} className="btn-icon btn-simple" color="danger" size="sm">
+                                                                      <Button onClick={() => deleteItem(item.id)} className="btn-icon" color="danger" size="sm">
                                                                            <i className="fa fa-times" />
                                                                       </Button>{` `}
                                                                  </td>
@@ -344,6 +374,18 @@ function WorkItems(props) {
                               </Card>
                          </Col>
                     </Row>
+
+                    <div className="d-flex justify-content-center">
+                         <Button disabled={currentPage.page === 1} onClick={() => changePage('previous')} className="btn-icon" color="info" size="sm">
+                              <i class="fas fa-caret-left"></i>
+                         </Button>{` `}
+                         <Button disabled className="btn-simple ml-4 mr-4" color="info" size="sm">
+                              {currentPage.page}
+                         </Button>{` `}
+                         <Button disabled={currentPage.page + 1 * filters._limit > currentPage.total} onClick={() => changePage('next')} className="btn-icon" color="info" size="sm">
+                              <i class="fas fa-caret-right"></i>
+                         </Button>{` `}
+                    </div>
                </div>
           </>
      );

@@ -24,7 +24,7 @@ import { Container, Nav, NavItem, NavLink } from "reactstrap";
 function Footer() {
   return (
     <footer className="footer">
-      <Container fluid>
+      {/* <Container fluid>
         <Nav>
           <NavItem>
             <NavLink href="https://www.creative-tim.com/?ref=bdr-user-archive-footer">
@@ -53,7 +53,7 @@ function Footer() {
           </a>{" "}
           for a better web.
         </div>
-      </Container>
+      </Container> */}
     </footer>
   );
 }

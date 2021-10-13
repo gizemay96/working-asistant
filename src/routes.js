@@ -25,6 +25,7 @@ import TableList from "views/TableList.js";
 import Typography from "views/Typography.js";
 import UserProfile from "views/UserProfile.js";
 import WorkItems from "views/WorkItems";
+import Releases from "views/Releases";
 
 var routes = [
   {
@@ -36,12 +37,21 @@ var routes = [
     layout: "/admin",
     authControl: true
   },
-    {
+  {
     path: "/work-items",
     name: "My Works",
     rtlName: "الرموز",
     icon: "tim-icons icon-atom",
     component: WorkItems,
+    layout: "/admin",
+    authControl: true
+  },
+  {
+    path: "/releases",
+    name: "Releases",
+    rtlName: "الرموز",
+    icon: "tim-icons icon-atom",
+    component: Releases,
     layout: "/admin",
     authControl: true
   },
@@ -88,15 +98,15 @@ var routes = [
     layout: "/admin",
     authControl: true
   },
-  {
-    path: "/tables",
-    name: "Table List",
-    rtlName: "قائمة الجدول",
-    icon: "tim-icons icon-puzzle-10",
-    component: TableList,
-    layout: "/admin",
-    authControl: true
-  },
+  // {
+  //   path: "/tables",
+  //   name: "Table List",
+  //   rtlName: "قائمة الجدول",
+  //   icon: "tim-icons icon-puzzle-10",
+  //   component: TableList,
+  //   layout: "/admin",
+  //   authControl: true
+  // },
   // {
   //   path: "/typography",
   //   name: "Typography",

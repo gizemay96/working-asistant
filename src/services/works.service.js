@@ -1,19 +1,16 @@
 import axios from 'axios';
 
-export const getWorks = (params) => {
+export const getWorks = async (params) => {
      const token = JSON.parse(localStorage.getItem('jwt'));
      const user = JSON.parse(localStorage.getItem('user'));
      const query = getQuery(params);
 
-     return axios
+     return await axios
           .get(`http://localhost:1337/works?${query}&[users_permissions_user.id]=${user.id}`, {
                headers: {
                     Authorization: `Bearer ${token}`,
                },
           })
-          .then(response => {
-               return response;
-          });
 }
 
 
@@ -27,6 +24,16 @@ export const getWorksCountWithDate = (ltDate , gtDate , params) => {
                return response;
           });
 }
+
+export const getWorksCount = async (params) => {
+     const user = JSON.parse(localStorage.getItem('user'));
+     const query = getQuery(params);
+
+     return await axios
+          .get(`http://localhost:1337/works/count?[users_permissions_user.id]=${user.id}&${query}`)
+}
+
+
 export const addWork = (params) => {
      const user = JSON.parse(localStorage.getItem('user'));
      params.users_permissions_user = user.id;
@@ -45,12 +52,9 @@ export const updateWork = (params , updateId) => {
           });
 }
 
-export const deleteWork = (id) => {
-     return axios
+export const deleteWork = async (id) => {
+     return await axios
           .delete(`http://localhost:1337/works/${id}`)
-          .then(response => {
-               return response;
-          });
 }
 
 
