@@ -8,14 +8,15 @@ import {
      Row,
      Col,
 } from 'reactstrap';
-import { deleteFileById } from 'services/fileService';
+import { deleteFileById, uploadFileToWorkItem } from 'services/fileService';
 import { getWorkById } from 'services/works.service';
+import { updateWork } from '../../services/works.service'
 import '../../assets/scss/black-dashboard-react/custom/_docsModal.scss'
 import '../../assets/scss/black-dashboard-react/custom/general.scss'
 
 
 function DocsModal(props) {
-     const [documentList, setDocumentList] = useState(props.updateItem?.Documents || []);
+     const [workItem, setWorkItem] = useState({});
      const [filesLoading, setfilesLoading] = useState(true);
 
      const [fileIcons] = useState({
@@ -25,21 +26,40 @@ function DocsModal(props) {
      })
 
      useEffect(() => {
-          console.log(props)
           getFiles();
-     }, [], [documentList])
+     }, [], [workItem])
 
 
      const getFiles = async () => {
-          console.log(props.updateItem)
           await getWorkById(props.updateItem.id)
-               .then(res => { setDocumentList(res.data.Documents); setfilesLoading(false) });
+               .then(res => { setWorkItem(res.data); setfilesLoading(false) });
      }
 
      const deleteFile = async (fileId) => {
           setfilesLoading(true);
           await deleteFileById(fileId)
                .then(res => getFiles());
+     }
+
+     const upload = () => {
+          document.getElementById("selectFile").click()
+     }
+
+     const fileSelectHandler = async (files) => {
+          setfilesLoading(true);
+          let uploadedFiles = [];
+          for (let i = 0; i < files.length; i++) {
+               const res = await uploadFileToWorkItem(files[i], props.updateItem.id);
+               uploadedFiles.push(res.data[0]);
+          }
+
+          if (files.length === uploadedFiles.length) {
+               const newDocs = [...uploadedFiles, ...workItem.Documents];
+               const updatedWorkItem = workItem;
+               updatedWorkItem.Documents = newDocs;
+               await updateWork(updatedWorkItem, updatedWorkItem.id)
+                    .then(res => { getFiles(); })
+          }
      }
 
      return (
@@ -49,27 +69,29 @@ function DocsModal(props) {
                          <Card>
                               <CardHeader className="file-modal-header">
                                    <CardTitle tag="h4">Documents</CardTitle>
-                                   <Button onClick={props.closeDocModal} className="btn-sm" color="danger">
-                                      Close
-                                   </Button>
+                                   <div>
+                                        <Button onClick={upload} className="btn-sm" color="success">
+                                             <i class="fas fa-upload"></i> Upload
+                                        </Button>
+                                        <Button onClick={props.closeDocModal} className="btn-sm" color="danger">
+                                             Close
+                                        </Button>
+                                        <input id='selectFile' hidden multiple type="file" onChange={(event) => fileSelectHandler(event.target.files)} />
+                                   </div>
                               </CardHeader>
                               <CardBody>
 
                                    {
                                         filesLoading &&
-                                        <tr>
-                                             <td colspan="9">
-                                                  <div class="spinner">
-                                                       <div class="dot1"></div>
-                                                       <div class="dot2"></div>
-                                                  </div>
-                                             </td>
-                                        </tr>
+                                        <div class="spinner">
+                                             <div class="dot1"></div>
+                                             <div class="dot2"></div>
+                                        </div>
                                    }
 
                                    {
-                                        !filesLoading && documentList.length > 0 &&
-                                        <div className="d-flex mb-2 pb-3 align-items-start file-item">
+                                        !filesLoading && workItem.Documents.length > 0 &&
+                                        <div key="upload" className="d-flex mb-2 pb-3 align-items-start file-item">
                                              <div className="col-3" style={{ color: "white", fontSize: "12px" }}>File Name</div>
                                              <div className="col-6 pl-0" style={{ color: "white", fontSize: "12px" }}>File Name</div>
                                              <div className="col-5">
@@ -78,7 +100,7 @@ function DocsModal(props) {
                                    }
 
                                    {!filesLoading &&
-                                        documentList.map((doc, ind) =>
+                                        workItem.Documents.map((doc, ind) =>
                                              <>
                                                   <div key={ind} className="d-flex mb-2 pb-3 align-items-start file-item">
                                                        <div className="col-2"><CardImg className="file-img" top src={fileIcons[doc.ext?.substring(1)]} alt="..." /></div>

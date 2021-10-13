@@ -56,8 +56,8 @@ export const addWork = (params) => {
           });
 }
 
-export const updateWork = (params , updateId) => {
-     return axios
+export const updateWork = async (params , updateId) => {
+     return await axios
           .put(`http://localhost:1337/works/${updateId}`, params)
           .then(response => {
                return response;
