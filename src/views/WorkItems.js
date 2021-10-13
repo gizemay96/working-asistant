@@ -158,7 +158,7 @@ function WorkItems(props) {
                                                   {/* WORK TYPE HEADER */}
                                                   <tr>
                                                        {searchInput.every(item => item !== 'type') &&
-                                                            <th onClick={() => openInput('type')} ><b>Type</b> <i class="fas fa-search-plus"></i>
+                                                            <th onClick={() => openInput('type')} ><b>Type</b> <i class="fas fa-search-plus ml-2"></i>
                                                             </th>
                                                        }
                                                        {/* WORK TYPE SEARCH INPUT */}
@@ -168,8 +168,9 @@ function WorkItems(props) {
                                                                       type="select"
                                                                       name="type"
                                                                       id="type"
-                                                                      onChange={(event) => setFilter({ ...filters, type: event.target.value })}
+                                                                      onChange={(event) => setFilter({ ...filters, type: event.target.value === 'All' ? '' : event.target.value })}
                                                                  >
+                                                                      <option>All</option>
                                                                       <option>Development</option>
                                                                       <option>Bug</option>
                                                                  </Input>
@@ -179,7 +180,7 @@ function WorkItems(props) {
 
                                                        {/* TICKET ID HEADER */}
                                                        {searchInput.every(item => item !== 'ticketId') &&
-                                                            <th onClick={() => openInput('ticketId')} ><b>Ticket Id</b> <i class="fas fa-search-plus"></i>
+                                                            <th onClick={() => openInput('ticketId')} ><b>Ticket Id</b> <i class="fas fa-search-plus ml-2"></i>
                                                             </th>
                                                        }
                                                        {/* TICKET ID SEARCH INPUT */}
@@ -206,7 +207,7 @@ function WorkItems(props) {
 
                                                        {/* NAME HEADER */}
                                                        {searchInput.every(item => item !== 'name') &&
-                                                            <th onClick={() => openInput('name')} ><b>Work</b> <i class="fas fa-search-plus"></i>
+                                                            <th onClick={() => openInput('name')} ><b>Work</b> <i class="fas fa-search-plus ml-2"></i>
                                                             </th>
                                                        }
                                                        {/* NAME SEARCH INPUT */}
@@ -233,7 +234,7 @@ function WorkItems(props) {
 
                                                        {/* BRANCH HEADER */}
                                                        {searchInput.every(item => item !== 'branch') &&
-                                                            <th onClick={() => openInput('branch')} ><b>Branch</b> <i class="fas fa-search-plus"></i>
+                                                            <th onClick={() => openInput('branch')} ><b>Branch</b> <i class="fas fa-search-plus ml-2"></i>
                                                             </th>
                                                        }
                                                        {/* BRANCH SEARCH INPUT */}
