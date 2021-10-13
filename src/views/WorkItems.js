@@ -376,14 +376,14 @@ function WorkItems(props) {
                                                                  <td className="text-right">
 
                                                                       {/* <Button color="info btn-md" onClick={() => openDocModal(item)}>{buttonLabel}Files</Button> */}
-                                                                      <Button onClick={() => openDocModal(item)} className="btn-icon" co size="sm">
+                                                                      <Button onClick={() => openDocModal(item)} className="btn-icon" size="sm">
                                                                            <i class="fas fa-folder-open"></i>
                                                                       </Button>{` `}
                                                                       <Button onClick={() => editItem(item)} className="btn-icon" size="sm">
                                                                            <i className="fa fa-edit"></i>
                                                                       </Button>{` `}
-                                                                      <Button onClick={() => deleteItem(item.id)} className="btn-icon" c size="sm">
-                                                                           <i className="fa fa-times" />
+                                                                      <Button onClick={() => deleteItem(item.id)} className="btn-icon" size="sm">
+                                                                           <i class="fas fa-trash-alt"></i>
                                                                       </Button>{` `}
                                                                  </td>
                                                             </tr>

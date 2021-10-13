@@ -1,12 +1,12 @@
 import { React, useEffect, useState } from 'react'
 import {
-     Card, CardImg, CardBody, CardText,
+     Card, CardImg, CardBody,
      Button,
      CardHeader,
      CardTitle,
-     Table,
      Row,
      Col,
+     UncontrolledAlert
 } from 'reactstrap';
 import { deleteFileById, uploadFileToWorkItem } from 'services/fileService';
 import { getWorkById } from 'services/works.service';
@@ -18,21 +18,34 @@ import '../../assets/scss/black-dashboard-react/custom/general.scss'
 function DocsModal(props) {
      const [workItem, setWorkItem] = useState({});
      const [filesLoading, setfilesLoading] = useState(true);
+     const [isError, setIsError] = useState(true);
+     const [errorMessage, setErrorMessage] = useState('');
 
      const [fileIcons] = useState({
           xlsx: "https://cdn.icon-icons.com/icons2/342/PNG/512/Excel2_35735.png",
           docx: "https://icons.iconarchive.com/icons/blackvariant/button-ui-ms-office-2016/256/Word-2-icon.png",
-          pdf: "https://icons.iconarchive.com/icons/graphicloads/filetype/256/pdf-icon.png"
+          pdf: "https://cdn-icons-png.flaticon.com/512/524/524553.png"
      })
 
      useEffect(() => {
           getFiles();
      }, [], [workItem])
 
+     useEffect(() => {
+          setTimeout(() => {
+               setErrorMessage(null);
+               setIsError(false)
+          }, 10000);
+     }, [isError])
+
 
      const getFiles = async () => {
           await getWorkById(props.updateItem.id)
-               .then(res => { setWorkItem(res.data); setfilesLoading(false) });
+               .then(res => { setWorkItem(res.data); setfilesLoading(false); });
+          setTimeout(() => {
+               setErrorMessage(null);
+               setIsError(false)
+          }, 10000);
      }
 
      const deleteFile = async (fileId) => {
@@ -50,15 +63,26 @@ function DocsModal(props) {
           let uploadedFiles = [];
           for (let i = 0; i < files.length; i++) {
                const res = await uploadFileToWorkItem(files[i], props.updateItem.id);
-               uploadedFiles.push(res.data[0]);
+
+               if (res && res.status === 200) {
+                    uploadedFiles.push(res.data[0]);
+               } else {
+                    if (res && res.data.error) {
+                         setIsError(true);
+                         setErrorMessage(res.data.data.errors[0].message);
+                    }
+               }
+               console.log(files.length === i)
           }
 
-          if (files.length === uploadedFiles.length) {
+          if (uploadedFiles.length > 0) {
                const newDocs = [...uploadedFiles, ...workItem.Documents];
                const updatedWorkItem = workItem;
                updatedWorkItem.Documents = newDocs;
                await updateWork(updatedWorkItem, updatedWorkItem.id)
                     .then(res => { getFiles(); })
+          } else {
+               setfilesLoading(false);
           }
      }
 
@@ -76,10 +100,20 @@ function DocsModal(props) {
                                         <Button onClick={props.closeDocModal} className="btn-sm" color="primary">
                                              Close
                                         </Button>
-                                        <input id='selectFile' hidden multiple type="file" onChange={(event) => fileSelectHandler(event.target.files)} />
+                                        <input id='selectFile' hidden multiple type="file" onChange={(event) => fileSelectHandler(event.target.files)}
+                                             accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/pdf , .pdf , application/vnd.ms-excel , .doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                                        />
                                    </div>
                               </CardHeader>
                               <CardBody>
+                                   {
+                                        isError && errorMessage &&
+                                        <UncontrolledAlert color="info">
+                                             <div> Some Files Could Not Be Uploaded</div>
+                                             <div>Reason: " {errorMessage} "</div>
+                                        </UncontrolledAlert>
+
+                                   }
 
                                    {
                                         filesLoading &&

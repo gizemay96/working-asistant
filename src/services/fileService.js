@@ -11,5 +11,7 @@ export const uploadFileToWorkItem = async (file) => {
 
     formData.append('files', file)
 
-    return await axios.post("http://localhost:1337/upload", formData)
+    return axios.post("http://localhost:1337/upload", formData)
+        .then(res => { return res; })
+        .catch(error => { return error.response });
 }
