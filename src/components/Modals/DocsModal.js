@@ -70,10 +70,10 @@ function DocsModal(props) {
                               <CardHeader className="file-modal-header">
                                    <CardTitle tag="h4">Documents</CardTitle>
                                    <div>
-                                        <Button onClick={upload} className="btn-sm" color="success">
+                                        <Button onClick={upload} className="btn-sm" color="primary">
                                              <i class="fas fa-upload"></i> Upload
                                         </Button>
-                                        <Button onClick={props.closeDocModal} className="btn-sm" color="danger">
+                                        <Button onClick={props.closeDocModal} className="btn-sm" color="primary">
                                              Close
                                         </Button>
                                         <input id='selectFile' hidden multiple type="file" onChange={(event) => fileSelectHandler(event.target.files)} />
@@ -102,14 +102,14 @@ function DocsModal(props) {
                                    {!filesLoading &&
                                         workItem.Documents.map((doc, ind) =>
                                              <>
-                                                  <div key={ind} className="d-flex mb-2 pb-3 align-items-start file-item">
+                                                  <div key={ind} className="d-flex mb-2 pb-3 align-items-center file-item">
                                                        <div className="col-2"><CardImg className="file-img" top src={fileIcons[doc.ext?.substring(1)]} alt="..." /></div>
                                                        <div className="col-7" style={{ color: "white", fontSize: "12px" }}>{doc.name}</div>
                                                        <div className="col-5">
-                                                            <Button target={doc.ext === '.pdf' ? '_blank' : ''} href={`http://localhost:1337${doc.url}`} className="btn-sm btn-round btn-icon" color="info">
+                                                            <Button target={doc.ext === '.pdf' ? '_blank' : ''} href={`http://localhost:1337${doc.url}`} className="btn-sm btn-round btn-icon btn-simple" color="info">
                                                                  <i class="fas fa-download"></i>
                                                             </Button>
-                                                            <Button onClick={() => deleteFile(doc.id)} className="btn-sm btn-round btn-icon ml-2" color="danger">
+                                                            <Button onClick={() => deleteFile(doc.id)} className="btn-sm btn-round btn-icon ml-2">
                                                                  <i class="fas fa-trash-alt"></i>
                                                             </Button>
                                                        </div>

@@ -119,6 +119,11 @@
 
 }
 
+.btn-danger-custom {
+  @include btn-styles(rgba(152, 31, 25, 0.726), rgb(4, 131, 0));
+
+}
+
 .btn-info {
   @include btn-styles($info, $info-states);
 
