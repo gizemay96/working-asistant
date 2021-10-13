@@ -4,7 +4,7 @@ export const getWorks = (params) => {
      const token = JSON.parse(localStorage.getItem('jwt'));
      const user = JSON.parse(localStorage.getItem('user'));
      const query = getQuery(params);
-     console.log(query)
+
      return axios
           .get(`http://localhost:1337/works?${query}&[users_permissions_user.id]=${user.id}`, {
                headers: {
@@ -16,6 +16,17 @@ export const getWorks = (params) => {
           });
 }
 
+
+export const getWorksCountWithDate = (ltDate , gtDate , params) => {
+     const user = JSON.parse(localStorage.getItem('user'));
+     const query = getQuery(params);
+
+     return axios
+          .get(`http://localhost:1337/works/count?[created_at_lt]=${ltDate}&[created_at_gt]=${gtDate}&[users_permissions_user.id]=${user.id}&${query}`)
+          .then(response => {
+               return response;
+          });
+}
 export const addWork = (params) => {
      const user = JSON.parse(localStorage.getItem('user'));
      params.users_permissions_user = user.id;
@@ -44,7 +55,6 @@ export const deleteWork = (id) => {
 
 
 const getQuery = (obj) => {
-     console.log(obj)
      let str;
      str = [];
      for (const p in obj) {

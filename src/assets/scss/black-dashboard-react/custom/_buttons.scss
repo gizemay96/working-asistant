@@ -115,7 +115,7 @@
 }
 
 .btn-success-custom {
-  @include btn-styles(rgb(9, 255, 0), rgb(4, 131, 0));
+  @include btn-styles(rgba(3, 82, 0, 0.856), rgb(4, 131, 0));
 
 }
 

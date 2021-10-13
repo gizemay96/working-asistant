@@ -291,7 +291,7 @@ function WorkItems(props) {
                                                                            color={item.dev.active ? "success-custom" : "danger"} size="sm">
                                                                       </Button>{` `}</span>
                                                                       <Tooltip placement="right" isOpen={tooltipOpen.id === item.id && tooltipOpen.type === 'dev' ? true : false} target="TooltipExample1" toggle={() => toggle('dev', item.id)}>
-                                                                         {item.dev.date ? Moment(item.dev.date).format('DD/MM/YYYY HH:mm') : '-'}
+                                                                           {item.dev.date ? Moment(item.dev.date).format('DD/MM/YYYY HH:mm') : '-'}
                                                                       </Tooltip>
                                                                  </td>
                                                                  <td>
@@ -299,7 +299,7 @@ function WorkItems(props) {
                                                                            color={item.fut.active ? "success-custom" : "danger"} size="sm">
                                                                       </Button>{` `}</span>
                                                                       <Tooltip placement="right" isOpen={tooltipOpen.id === item.id && tooltipOpen.type === 'fut' ? true : false} target="TooltipExample2" toggle={() => toggle('fut', item.id)}>
-                                                                        {item.fut.date ? Moment(item.fut.date).format('DD/MM/YYYY HH:mm') : '-'}
+                                                                           {item.fut.date ? Moment(item.fut.date).format('DD/MM/YYYY HH:mm') : '-'}
                                                                       </Tooltip>
                                                                  </td>
                                                                  <td>
@@ -307,7 +307,7 @@ function WorkItems(props) {
                                                                            color={item.uat.active ? "success-custom" : "danger"} size="sm">
                                                                       </Button>{` `}</span>
                                                                       <Tooltip placement="right" isOpen={tooltipOpen.id === item.id && tooltipOpen.type === 'uat' ? true : false} target="TooltipExample3" toggle={() => toggle('uat', item.id)}>
-                                                                        {item.uat.date ? Moment(item.uat.date).format('DD/MM/YYYY HH:mm') : '-'}
+                                                                           {item.uat.date ? Moment(item.uat.date).format('DD/MM/YYYY HH:mm') : '-'}
                                                                       </Tooltip>
                                                                  </td>
                                                                  <td>
@@ -315,7 +315,7 @@ function WorkItems(props) {
                                                                            color={item.preprod.active ? "success-custom" : "danger"} size="sm">
                                                                       </Button>{` `}</span>
                                                                       <Tooltip placement="right" isOpen={tooltipOpen.id === item.id && tooltipOpen.type === 'preprod' ? true : false} target="TooltipExample4" toggle={() => toggle('preprod', item.id)}>
-                                                                        {item.preprod.date ? Moment(item.preprod.date).format('DD/MM/YYYY HH:mm') : '-'}
+                                                                           {item.preprod.date ? Moment(item.preprod.date).format('DD/MM/YYYY HH:mm') : '-'}
                                                                       </Tooltip>
                                                                  </td>
                                                                  <td>

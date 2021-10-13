@@ -20,7 +20,7 @@ import {React , useState } from "react";
 import classNames from "classnames";
 // react plugin used to create charts
 import { Line, Bar } from "react-chartjs-2";
-import Chart1 from '../components/charts/chart1'
+import Chart from '../variables/chartsCustom'
 
 // reactstrap components
 import {
@@ -43,13 +43,7 @@ import {
   UncontrolledTooltip,
 } from "reactstrap";
 
-// core components
-import {
-  // chartExample1,
-  chartExample2,
-  chartExample3,
-  chartExample4,
-} from "variables/charts.js";
+import { useUser } from '../contexts/userContext'
 
 function Dashboard(props) {
   const [bigChartData, setbigChartData] = useState("data1");
@@ -57,7 +51,7 @@ function Dashboard(props) {
     setbigChartData(name);
   };
 
-
+  const { activeUser } = useUser();
 
   return (
     <>
@@ -69,7 +63,7 @@ function Dashboard(props) {
                 <Row>
                   <Col className="text-left" sm="6">
                     <h5 className="card-category">Total Shipments</h5>
-                    <CardTitle tag="h2">Performance</CardTitle>
+                    <CardTitle tag="h2">Total Works</CardTitle>
                   </Col>
                   <Col sm="6">
                     <ButtonGroup
@@ -132,7 +126,7 @@ function Dashboard(props) {
                 </Row>
               </CardHeader>
               <CardBody>
-                <Chart1 chartName={'totalWorks'} ></Chart1>
+                {activeUser && activeUser.id && <Chart chartName={'totalWorks'} ></Chart> }
               </CardBody>
             </Card>
           </Col>
@@ -141,55 +135,40 @@ function Dashboard(props) {
           <Col lg="4">
             <Card className="card-chart">
               <CardHeader>
-                <h5 className="card-category">Total Shipments</h5>
+                <h5 className="card-category">Half Year Data</h5>
                 <CardTitle tag="h3">
-                  <i className="tim-icons icon-bell-55 text-info" /> 763,215
+                  <i className="tim-icons icon-bell-55 text-success" /> Developments
                 </CardTitle>
               </CardHeader>
               <CardBody>
-                <div className="chart-area">
-                  <Line
-                    data={chartExample2.data}
-                    options={chartExample2.options}
-                  />
-                </div>
+              {activeUser && activeUser.id && <Chart chartName={'developments'} ></Chart> }
               </CardBody>
             </Card>
           </Col>
           <Col lg="4">
             <Card className="card-chart">
               <CardHeader>
-                <h5 className="card-category">Daily Sales</h5>
+                <h5 className="card-category">Half Year Data</h5>
                 <CardTitle tag="h3">
-                  <i className="tim-icons icon-delivery-fast text-primary" />{" "}
-                  3,500€
+                  <i className="tim-icons icon-delivery-fast text-danger" />{" "}
+                  BUGS
                 </CardTitle>
               </CardHeader>
               <CardBody>
-                <div className="chart-area">
-                  <Bar
-                    data={chartExample3.data}
-                    options={chartExample3.options}
-                  />
-                </div>
+              {activeUser && activeUser.id && <Chart chartName={'bugs'} ></Chart> }
               </CardBody>
             </Card>
           </Col>
           <Col lg="4">
             <Card className="card-chart">
               <CardHeader>
-                <h5 className="card-category">Completed Tasks</h5>
+                <h5 className="card-category">On Month Tasks</h5>
                 <CardTitle tag="h3">
-                  <i className="tim-icons icon-send text-success" /> 12,100K
+                  <i className="tim-icons icon-send text-success" /> This Month
                 </CardTitle>
               </CardHeader>
               <CardBody>
-                <div className="chart-area">
-                  <Line
-                    data={chartExample4.data}
-                    options={chartExample4.options}
-                  />
-                </div>
+              {activeUser && activeUser.id && <Chart chartName={'month'} ></Chart> }
               </CardBody>
             </Card>
           </Col>
