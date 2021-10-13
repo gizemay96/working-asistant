@@ -25,6 +25,7 @@ function DocsModal(props) {
      })
 
      useEffect(() => {
+          console.log(props)
           getFiles();
      }, [], [documentList])
 
@@ -42,12 +43,15 @@ function DocsModal(props) {
      }
 
      return (
-          <div>
+          <div className="file-modal-case">
                <Row>
                     <Col md="12">
                          <Card>
-                              <CardHeader>
+                              <CardHeader className="file-modal-header">
                                    <CardTitle tag="h4">Documents</CardTitle>
+                                   <Button onClick={props.closeDocModal} className="btn-sm" color="danger">
+                                      Close
+                                   </Button>
                               </CardHeader>
                               <CardBody>
 
@@ -64,7 +68,7 @@ function DocsModal(props) {
                                    }
 
                                    {
-                                        !filesLoading &&
+                                        !filesLoading && documentList.length > 0 &&
                                         <div className="d-flex mb-2 pb-3 align-items-start file-item">
                                              <div className="col-3" style={{ color: "white", fontSize: "12px" }}>File Name</div>
                                              <div className="col-6 pl-0" style={{ color: "white", fontSize: "12px" }}>File Name</div>
@@ -80,7 +84,7 @@ function DocsModal(props) {
                                                        <div className="col-2"><CardImg className="file-img" top src={fileIcons[doc.ext?.substring(1)]} alt="..." /></div>
                                                        <div className="col-7" style={{ color: "white", fontSize: "12px" }}>{doc.name}</div>
                                                        <div className="col-5">
-                                                            <Button target="_blank" href={`http://localhost:1337${doc.url}`} className="btn-sm btn-round btn-icon" color="info">
+                                                            <Button target={doc.ext === '.pdf' ? '_blank' : ''} href={`http://localhost:1337${doc.url}`} className="btn-sm btn-round btn-icon" color="info">
                                                                  <i class="fas fa-download"></i>
                                                             </Button>
                                                             <Button onClick={() => deleteFile(doc.id)} className="btn-sm btn-round btn-icon ml-2" color="danger">
@@ -91,59 +95,6 @@ function DocsModal(props) {
                                              </>
                                         )
                                    }
-
-
-
-
-
-
-
-
-
-
-
-
-                                   {/* <Table className="tablesorter" responsive>
-                                        <thead className="text-primary">
-                                             <tr>
-                                                  <th>File Type</th>
-                                                  <th>File Name</th>
-                                                  <th></th>
-                                             </tr>
-                                        </thead>
-                                        <tbody>
-                                             {
-                                                  filesLoading &&
-                                                  <tr>
-                                                       <td colspan="9">
-                                                            <div class="spinner">
-                                                                 <div class="dot1"></div>
-                                                                 <div class="dot2"></div>
-                                                            </div>
-                                                       </td>
-                                                  </tr>
-                                             }
-
-                                             {!filesLoading &&
-                                                  documentList.map((doc, ind) =>
-                                                       <>
-                                                            <tr key={ind}>
-                                                                 <td><CardImg className="file-img" top src={fileIcons[doc.ext?.substring(1)]} alt="..." /></td>
-                                                                 <td className="col-2" >{doc.name}</td>
-                                                                 <td className="text-center">
-                                                                      <Button target="_blank" href={`http://localhost:1337${doc.url}`} className="btn-sm btn-round btn-icon" color="info">
-                                                                           <i class="fas fa-download"></i>
-                                                                      </Button>
-                                                                      <Button onClick={() => deleteFile(doc.id)} className="btn-sm btn-round btn-icon ml-2" color="danger">
-                                                                           <i class="fas fa-trash-alt"></i>
-                                                                      </Button>
-                                                                 </td>
-                                                            </tr>
-                                                       </>
-                                                  )
-                                             }
-                                        </tbody>
-                                   </Table> */}
                               </CardBody>
                          </Card>
                     </Col>

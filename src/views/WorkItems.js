@@ -71,7 +71,10 @@ function WorkItems(props) {
      const toggleDocsModal = () => setDocsModal(!docsModal, docsModal === true ? setSelectedItem(null) : null);
 
      // Edit - Get - Delete Functions
-     const getItems = async (closeModal = false, getFor = '') => {
+     const getItems = async (closeModal = false, getFor = '', closeFileModal = false) => {
+          if (closeFileModal)
+               return toggleDocsModal();
+
           if (closeModal)
                toggleModal();
 
@@ -152,6 +155,10 @@ function WorkItems(props) {
                     break;
           }
           setCurrentPage({ ...currentPage, page: type === 'previous' ? currentPage.page - 1 : currentPage.page + 1 });
+     }
+
+     const closeDocModal = () => {
+          toggleDocsModal();
      }
 
      return (
@@ -251,7 +258,7 @@ function WorkItems(props) {
                                                        }
                                                        {/* NAME SEARCH INPUT */}
                                                        {searchInput.find(item => item === 'name') &&
-                                                            <th className="align-items-center p-0" >
+                                                            <th className="align-items-center p-0">
                                                                  <InputGroup>
                                                                       <InputGroupAddon onClick={() => filters.name_contains !== nameInputValue ? setFilter({ ...filters, name_contains: nameInputValue }) : null} addonType="append">
                                                                            <InputGroupText className="text-input-search-icon">
@@ -324,7 +331,7 @@ function WorkItems(props) {
                                                             <tr key={ind}>
                                                                  <td><i className={item.type === 'Bug' ? "fas fa-bug" : "fas fa-file-code"}></i> <span>{item.type}</span> </td>
                                                                  <td>{item.ticketId}</td>
-                                                                 <td>{item.name}</td>
+                                                                 <td  style={{maxWidth: "220px"}}>{item.name}</td>
                                                                  <td>{item.branch}</td>
                                                                  <td>
                                                                       <span style={{ textDecoration: "underline", color: "blue" }} href="#" id="TooltipExample1"><Button className="btn-icon btn-round "
@@ -368,8 +375,10 @@ function WorkItems(props) {
                                                                  </td>
                                                                  <td className="text-right">
 
-                                                                      <Button color="info btn-md" onClick={() => openDocModal(item)}>{buttonLabel}Files</Button>
-
+                                                                      {/* <Button color="info btn-md" onClick={() => openDocModal(item)}>{buttonLabel}Files</Button> */}
+                                                                      <Button onClick={() => openDocModal(item)} className="btn-icon" color="success" size="sm">
+                                                                           <i class="fas fa-folder-open"></i>
+                                                                      </Button>{` `}
                                                                       <Button onClick={() => editItem(item)} className="btn-icon" color="info" size="sm">
                                                                            <i className="fa fa-edit"></i>
                                                                       </Button>{` `}
@@ -406,7 +415,7 @@ function WorkItems(props) {
 
                <Modal isOpen={docsModal} toggle={toggleDocsModal} className={className}>
                     <ModalBody>
-                         <DocsModal updateItem={selectedItem}></DocsModal>
+                         <DocsModal updateItem={selectedItem} closeDocModal={closeDocModal}></DocsModal>
                     </ModalBody>
                </Modal>
 
