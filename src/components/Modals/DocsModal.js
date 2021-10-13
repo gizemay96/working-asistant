@@ -11,6 +11,7 @@ import {
 import { deleteFileById } from 'services/fileService';
 import { getWorkById } from 'services/works.service';
 import '../../assets/scss/black-dashboard-react/custom/_docsModal.scss'
+import '../../assets/scss/black-dashboard-react/custom/general.scss'
 
 
 function DocsModal(props) {
@@ -49,7 +50,60 @@ function DocsModal(props) {
                                    <CardTitle tag="h4">Documents</CardTitle>
                               </CardHeader>
                               <CardBody>
-                                   <Table className="tablesorter">
+
+                                   {
+                                        filesLoading &&
+                                        <tr>
+                                             <td colspan="9">
+                                                  <div class="spinner">
+                                                       <div class="dot1"></div>
+                                                       <div class="dot2"></div>
+                                                  </div>
+                                             </td>
+                                        </tr>
+                                   }
+
+                                   {
+                                        !filesLoading &&
+                                        <div className="d-flex mb-2 pb-3 align-items-start file-item">
+                                             <div className="col-3" style={{ color: "white", fontSize: "12px" }}>File Name</div>
+                                             <div className="col-6 pl-0" style={{ color: "white", fontSize: "12px" }}>File Name</div>
+                                             <div className="col-5">
+                                             </div>
+                                        </div>
+                                   }
+
+                                   {!filesLoading &&
+                                        documentList.map((doc, ind) =>
+                                             <>
+                                                  <div key={ind} className="d-flex mb-2 pb-3 align-items-start file-item">
+                                                       <div className="col-2"><CardImg className="file-img" top src={fileIcons[doc.ext?.substring(1)]} alt="..." /></div>
+                                                       <div className="col-7" style={{ color: "white", fontSize: "12px" }}>{doc.name}</div>
+                                                       <div className="col-5">
+                                                            <Button target="_blank" href={`http://localhost:1337${doc.url}`} className="btn-sm btn-round btn-icon" color="info">
+                                                                 <i class="fas fa-download"></i>
+                                                            </Button>
+                                                            <Button onClick={() => deleteFile(doc.id)} className="btn-sm btn-round btn-icon ml-2" color="danger">
+                                                                 <i class="fas fa-trash-alt"></i>
+                                                            </Button>
+                                                       </div>
+                                                  </div>
+                                             </>
+                                        )
+                                   }
+
+
+
+
+
+
+
+
+
+
+
+
+                                   {/* <Table className="tablesorter" responsive>
                                         <thead className="text-primary">
                                              <tr>
                                                   <th>File Type</th>
@@ -58,12 +112,24 @@ function DocsModal(props) {
                                              </tr>
                                         </thead>
                                         <tbody>
+                                             {
+                                                  filesLoading &&
+                                                  <tr>
+                                                       <td colspan="9">
+                                                            <div class="spinner">
+                                                                 <div class="dot1"></div>
+                                                                 <div class="dot2"></div>
+                                                            </div>
+                                                       </td>
+                                                  </tr>
+                                             }
+
                                              {!filesLoading &&
                                                   documentList.map((doc, ind) =>
                                                        <>
                                                             <tr key={ind}>
                                                                  <td><CardImg className="file-img" top src={fileIcons[doc.ext?.substring(1)]} alt="..." /></td>
-                                                                 <td>{doc.name}</td>
+                                                                 <td className="col-2" >{doc.name}</td>
                                                                  <td className="text-center">
                                                                       <Button target="_blank" href={`http://localhost:1337${doc.url}`} className="btn-sm btn-round btn-icon" color="info">
                                                                            <i class="fas fa-download"></i>
@@ -77,7 +143,7 @@ function DocsModal(props) {
                                                   )
                                              }
                                         </tbody>
-                                   </Table>
+                                   </Table> */}
                               </CardBody>
                          </Card>
                     </Col>
