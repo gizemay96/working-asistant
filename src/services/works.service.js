@@ -13,6 +13,18 @@ export const getWorks = async (params) => {
           })
 }
 
+export const getWorkById = async (id) => {
+     const token = JSON.parse(localStorage.getItem('jwt'));
+     const user = JSON.parse(localStorage.getItem('user'));
+
+     return await axios
+          .get(`http://localhost:1337/works/${id}?[users_permissions_user.id]=${user.id}`, {
+               headers: {
+                    Authorization: `Bearer ${token}`,
+               },
+          })
+}
+
 
 export const getWorksCountWithDate = (ltDate , gtDate , params) => {
      const user = JSON.parse(localStorage.getItem('user'));

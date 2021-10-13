@@ -21,6 +21,7 @@ import { Tooltip } from 'reactstrap';
 
 import { getWorks, deleteWork, getWorksCount } from '../services/works.service'
 import AddWork from "components/Modals/AddWork";
+import DocsModal from "components/Modals/DocsModal";
 
 function WorkItems(props) {
 
@@ -66,6 +67,9 @@ function WorkItems(props) {
      const [modal, setModal] = useState(false);
      const toggleModal = () => setModal(!modal, modal === true ? setSelectedItem(null) : null);
 
+     const [docsModal, setDocsModal] = useState(false);
+     const toggleDocsModal = () => setDocsModal(!docsModal, docsModal === true ? setSelectedItem(null) : null);
+
      // Edit - Get - Delete Functions
      const getItems = async (closeModal = false, getFor = '') => {
           if (closeModal)
@@ -96,6 +100,11 @@ function WorkItems(props) {
      const editItem = (item) => {
           setSelectedItem(item);
           toggleModal();
+     }
+
+     const openDocModal = (item) => {
+          setSelectedItem(item);
+          toggleDocsModal();
      }
 
      // Filtering Functions
@@ -358,6 +367,9 @@ function WorkItems(props) {
                                                                       </Tooltip>
                                                                  </td>
                                                                  <td className="text-right">
+
+                                                                      <Button color="info btn-md" onClick={() => openDocModal(item)}>{buttonLabel}Files</Button>
+
                                                                       <Button onClick={() => editItem(item)} className="btn-icon" color="info" size="sm">
                                                                            <i className="fa fa-edit"></i>
                                                                       </Button>{` `}
@@ -375,6 +387,7 @@ function WorkItems(props) {
                          </Col>
                     </Row>
 
+
                     <div className="d-flex justify-content-center">
                          <Button disabled={currentPage.page === 1} onClick={() => changePage('previous')} className="btn-icon" color="info" size="sm">
                               <i class="fas fa-caret-left"></i>
@@ -387,6 +400,20 @@ function WorkItems(props) {
                          </Button>{` `}
                     </div>
                </div>
+
+
+
+
+               <Modal isOpen={docsModal} toggle={toggleDocsModal} className={className}>
+                    <ModalBody>
+                         <DocsModal updateItem={selectedItem}></DocsModal>
+                    </ModalBody>
+               </Modal>
+
+
+
+
+
           </>
      );
 }
