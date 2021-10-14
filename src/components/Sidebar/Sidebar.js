@@ -33,7 +33,7 @@ import {
 
 var ps;
 
-import { useUser } from '../../contexts/userContext';
+import { useUser } from '../../contexts/UserContext';
 
 function Sidebar(props) {
   const location = useLocation();

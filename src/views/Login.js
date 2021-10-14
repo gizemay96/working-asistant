@@ -4,7 +4,7 @@ import { useFormik } from 'formik';
 import loginValidationShema from "../assets/validations/loginValidation";
 
 import { login } from '../services/user.service'
-import { useUser } from '../contexts/userContext'
+import { useUser } from '../contexts/UserContext'
 
 
 import {

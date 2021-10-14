@@ -43,7 +43,7 @@ import {
   UncontrolledTooltip,
 } from "reactstrap";
 
-import { useUser } from '../contexts/userContext'
+import { useUser } from '../contexts/UserContext'
 
 function Dashboard(props) {
   const [bigChartData, setbigChartData] = useState("data1");
