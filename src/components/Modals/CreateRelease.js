@@ -15,10 +15,16 @@ import {
     CardBody
 } from "reactstrap";
 
+import TextField from '@mui/material/TextField';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import DatePicker from '@mui/lab/DatePicker';
+
 
 
 function CreateRelease(props) {
     const [itemForUpdate] = useState(props.updateItem)
+    const [value, setValue] = React.useState(null);
 
     const formik = useFormik({
         initialValues: {
@@ -50,12 +56,22 @@ function CreateRelease(props) {
                 <Card className="container">
                     <CardBody>
                         <form onSubmit={formik.handleSubmit}>
+                            <LocalizationProvider dateAdapter={AdapterDateFns}>
+                                <DatePicker
+                                    label="Basic example"
+                                    value={value}
+                                    onChange={(newValue) => {
+                                        setValue(newValue);
+                                    }}
+                                    renderInput={(params) => <TextField {...params} />}
+                                />
+                            </LocalizationProvider>
                             <FormGroup>
                                 <Label for="Project">Project</Label>
                                 <Input
                                     id="Project"
                                     name="Project"
-                                    type="text"
+                                    type="date"
                                     onChange={formik.handleChange}
                                     value={formik.values.Project}
                                 />
