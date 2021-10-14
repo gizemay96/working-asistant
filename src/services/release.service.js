@@ -34,3 +34,12 @@ export const updateRelease = async (params) => {
              },
         })
  }
+
+ export const deleteRelease = async (id) => {
+     return await axios
+        .delete(`http://localhost:1337/releases/${id}`, {
+             headers: {
+                  Authorization: `Bearer ${token}`,
+             },
+        })
+ }

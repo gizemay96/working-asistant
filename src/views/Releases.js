@@ -1,6 +1,6 @@
 import { React, useEffect, useState } from 'react'
 import Moment from 'moment'
-import { getReleases } from 'services/release.service';
+import { getReleases, deleteRelease } from 'services/release.service';
 
 
 // reactstrap components
@@ -39,6 +39,11 @@ function Releases(props) {
           setReleaseData([...data.data]);
      }
 
+     const removeRelease = async (item) => {
+          const response = await deleteRelease(item.id);
+          getItems();
+     }
+
      const openReleaseItemsModal = (item) => {
           setSelectedRelease({ ...item });
           toggleReleaseItemsModal();
@@ -65,15 +70,21 @@ function Releases(props) {
                                                   <th>Release Date</th>
                                                   <th>Project</th>
                                                   <th>Scope</th>
+                                                  <th></th>
                                              </tr>
                                         </thead>
                                         <tbody>
                                              {
-                                                  releaseData.map(item =>
-                                                       <tr>
+                                                  releaseData.map((item, ind) =>
+                                                       <tr key={ind}>
                                                             <td>{Moment(item.releaseDate).format('DD/MM/YYYY')}</td>
                                                             <td>{item.Project}</td>
                                                             <td><Button onClick={() => openReleaseItemsModal(item)} color="info btn-simple btn-sm">Show</Button></td>
+                                                            <td className="text-center">
+                                                                 <Button onClick={() => removeRelease(item)} className="btn-icon text-rigth" size="sm">
+                                                                      <i class="fas fa-trash-alt"></i>
+                                                                 </Button>{` `}
+                                                            </td>
                                                        </tr>
 
                                                   )
@@ -93,7 +104,7 @@ function Releases(props) {
                <Modal isOpen={releaseItemsModal} toggle={toggleReleaseItemsModal} className={className}>
                     <ModalBody>
                          <ReleaseItemsModal
-                              
+
                               selectedRelease={selectedRelease}
                               closeReleaseItemsModal={closeReleaseItemsModal}>
                          </ReleaseItemsModal>
