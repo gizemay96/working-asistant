@@ -16,7 +16,9 @@ import {
      Modal,
      ModalBody
 } from "reactstrap";
+
 import ReleaseItemsModal from 'components/Modals/ReleaseItemsModal';
+import CreateRelease from 'components/Modals/CreateRelease';
 
 function Releases(props) {
      const [releaseData, setReleaseData] = useState([])
@@ -28,10 +30,14 @@ function Releases(props) {
 
 
      const {
+          buttonLabel,
           className = 'modal-md'
      } = props;
      const [releaseItemsModal, setReleaseItemsModal] = useState(false);
      const toggleReleaseItemsModal = () => setReleaseItemsModal(!releaseItemsModal);
+
+     const [createReleaseModal, setCreateReleaseModal] = useState(false);
+     const toggleCreateReleaseModal = () => setCreateReleaseModal(!createReleaseModal);
 
 
      const getItems = async () => {
@@ -53,15 +59,25 @@ function Releases(props) {
           toggleReleaseItemsModal();
      }
 
+     const closeCreateReleasModal = () => {
+          toggleCreateReleaseModal();
+     }
+
+
 
      return (
           <div className="content">
+
+               <div className="d-flex justify-content-end">
+                    <Button color="info btn-md" onClick={toggleCreateReleaseModal}>{buttonLabel}Create Release</Button>
+               </div>
+
+
                <Row>
                     <Col md="12">
                          <Card className="card-plain">
                               <CardHeader>
                                    <CardTitle tag="h1">Releases</CardTitle>
-                                   {/* <p className="category">Here is a subtitle for this table</p> */}
                               </CardHeader>
                               <CardBody className="table-case">
                                    <Table className="tablesorter">
@@ -110,6 +126,21 @@ function Releases(props) {
                          </ReleaseItemsModal>
                     </ModalBody>
                </Modal>
+
+
+
+               <Modal isOpen={createReleaseModal} toggle={toggleCreateReleaseModal} className={className}>
+                    <ModalBody>
+                         <CreateRelease
+
+                              selectedRelease={selectedRelease}
+                              closeReleaseItemsModal={closeCreateReleasModal}
+                         >
+                         </CreateRelease>
+                    </ModalBody>
+               </Modal>
+
+
           </div>
      )
 }
