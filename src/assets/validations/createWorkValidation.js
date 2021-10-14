@@ -1,10 +1,10 @@
 import * as yup from 'yup';
 
-const addWorkValidationShema = yup.object().shape({
+const createWorkValidationShema = yup.object().shape({
      type: yup.string().required(''),
      ticketId: yup.string().required(''),
      name: yup.string().required(''),
      branch: yup.string().required(''),
 });
 
-export default addWorkValidationShema;
+export default createWorkValidationShema;

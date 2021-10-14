@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 
-import { addWork, updateWork } from '../../services/works.service'
+import { createWork, updateWork } from '../../services/works.service'
 
-import addWorkValidationShema from "../../assets/validations/addWorkValidation";
-import '../../assets/scss/black-dashboard-react/custom/addWork.scss'
+import createWorkValidationShema from "../../assets/validations/createWorkValidation";
+import '../../assets/scss/black-dashboard-react/custom/createWork.scss'
 
 import {
      FormGroup,
@@ -16,7 +16,7 @@ import {
 } from "reactstrap";
 
 
-function AddWork(props) {
+function CreateWork(props) {
      const [itemForUpdate] = useState(props.updateItem)
      const [environments, setEnvironment] = useState({
           dev: itemForUpdate ? itemForUpdate.dev : {
@@ -58,7 +58,7 @@ function AddWork(props) {
                               props.closeModal(true)
                          });
                } else {
-                    addWork(values)
+                    createWork(values)
                          .then(res => {
                               formik.resetForm();
                               props.closeModal(true)
@@ -66,7 +66,7 @@ function AddWork(props) {
                }
 
           },
-          validationSchema: addWorkValidationShema,
+          validationSchema: createWorkValidationShema,
      });
 
      const changeEnv = (key) => {
@@ -207,4 +207,4 @@ function AddWork(props) {
      )
 }
 
-export default AddWork;
+export default CreateWork;

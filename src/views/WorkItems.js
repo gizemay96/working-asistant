@@ -20,7 +20,7 @@ import {
 import { Tooltip } from 'reactstrap';
 
 import { getWorks, deleteWork, getWorksCount } from '../services/works.service'
-import AddWork from "components/Modals/AddWork";
+import CreateWork from "components/Modals/CreateWork";
 import DocsModal from "components/Modals/DocsModal";
 
 function WorkItems(props) {
@@ -162,6 +162,7 @@ function WorkItems(props) {
      }
 
      return (
+
           <>
                <div className="content">
                     <div className="d-flex justify-content-between align-items-center">
@@ -185,7 +186,7 @@ function WorkItems(props) {
                                    <Button color="info btn-md" onClick={toggleModal}>{buttonLabel}Add Work</Button>
                                    <Modal isOpen={modal} toggle={toggleModal} className={className}>
                                         <ModalBody>
-                                             <AddWork updateItem={selectedItem} closeModal={getItems} ></AddWork>
+                                             <CreateWork updateItem={selectedItem} closeModal={getItems} ></CreateWork>
                                         </ModalBody>
                                    </Modal>
                               </div>
@@ -196,7 +197,7 @@ function WorkItems(props) {
                          <Col md="12">
                               <Card>
                                    <CardHeader>
-                                        <CardTitle tag="h4">My Works</CardTitle>
+                                        <CardTitle tag="h1">My Works</CardTitle>
                                    </CardHeader>
                                    <CardBody className="table-case">
                                         <Table className="tablesorter" hover>
@@ -413,19 +414,11 @@ function WorkItems(props) {
                     </div>
                </div>
 
-
-
-
                <Modal isOpen={docsModal} toggle={toggleDocsModal} className={className}>
                     <ModalBody>
                          <DocsModal updateItem={selectedItem} closeDocModal={closeDocModal}></DocsModal>
                     </ModalBody>
                </Modal>
-
-
-
-
-
           </>
      );
 }

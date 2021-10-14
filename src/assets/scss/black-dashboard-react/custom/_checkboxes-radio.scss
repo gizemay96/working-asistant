@@ -97,6 +97,7 @@
 .form-check input[type="checkbox"]:disabled + .form-check-sign,
 .form-check input[type="radio"]:disabled + .form-check-sign{
     pointer-events: none;
+    background-color: #6e6b6e;
 }
 
 .form-check-radio .form-check-label{

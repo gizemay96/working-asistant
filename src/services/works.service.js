@@ -53,7 +53,7 @@ export const getWorksCount = async (params) => {
 }
 
 
-export const addWork = (params) => {
+export const createWork = (params) => {
      params.users_permissions_user = user.id;
      return axios
           .post(`http://localhost:1337/works`, params, {
