@@ -1,4 +1,7 @@
 import axios from 'axios';
+import { getQuery } from './common.service';
+
+
 const token = JSON.parse(localStorage.getItem('jwt'));
 const user = JSON.parse(localStorage.getItem('user'));
 
@@ -83,30 +86,3 @@ export const deleteWork = async (id) => {
                },
           })
 }
-
-
-const getQuery = (obj) => {
-     let str;
-     str = [];
-     for (const p in obj) {
- 
-       if (obj.hasOwnProperty(p) && obj[p]) {
- 
- 
-         if (typeof obj[p] === 'object') {
- 
-           obj[p].forEach(item => {
-             str.push(encodeURIComponent(p) + '=' + encodeURIComponent(item));
-           });
- 
-         } else {
-           str.push(encodeURIComponent(p) + '=' + encodeURIComponent(obj[p]));
-         }
- 
-       }
- 
- 
- 
-     }
-     return str.join('&');
-   }

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { getQuery } from './common.service';
 
 export const login = (username, password) => {
     return axios
