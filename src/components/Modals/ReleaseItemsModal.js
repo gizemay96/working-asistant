@@ -26,7 +26,7 @@ function ReleaseItemsModal({ selectedRelease, closeReleaseItemsModal }, props) {
 
     const {
         buttonLabel,
-        className = 'modal-bg'
+        className = 'modal-l'
     } = props;
     const [workItemsModal, setworkItemsModal] = useState(false);
     const toggleWorkItemsModal = () => setworkItemsModal(!workItemsModal);

@@ -52,7 +52,13 @@
    }
 
 
-   .modal-bg{
+   .modal-md{
      max-width: 800px !important;
     //  overflow: auto;
    }
+
+   .modal-l{
+    max-width: 950px !important;
+    top: -182px !important;
+    min-height: 650px !important;
+  }

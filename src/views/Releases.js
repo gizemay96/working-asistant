@@ -28,8 +28,7 @@ function Releases(props) {
 
 
      const {
-          buttonLabel,
-          className = 'modal-bg'
+          className = 'modal-md'
      } = props;
      const [releaseItemsModal, setReleaseItemsModal] = useState(false);
      const toggleReleaseItemsModal = () => setReleaseItemsModal(!releaseItemsModal);
@@ -38,7 +37,6 @@ function Releases(props) {
      const getItems = async () => {
           const data = await getReleases();
           setReleaseData([...data.data]);
-          console.log(releaseData)
      }
 
      const openReleaseItemsModal = (item) => {
