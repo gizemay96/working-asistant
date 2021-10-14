@@ -53,18 +53,18 @@ function AddWork(props) {
           onSubmit: values => {
                if (itemForUpdate) {
                     updateWork(values, itemForUpdate.id)
-                    .then(res => {
-                         formik.resetForm();
-                         props.closeModal(true)
-                    });
+                         .then(res => {
+                              formik.resetForm();
+                              props.closeModal(true)
+                         });
                } else {
                     addWork(values)
-                    .then(res => {
-                         formik.resetForm();
-                         props.closeModal(true)
-                    });
+                         .then(res => {
+                              formik.resetForm();
+                              props.closeModal(true)
+                         });
                }
-           
+
           },
           validationSchema: addWorkValidationShema,
      });
@@ -78,7 +78,7 @@ function AddWork(props) {
                     data[mapKey].active = false
                     data[mapKey].date = '';
                }
-               else if(!data[mapKey].active) {
+               else if (!data[mapKey].active) {
                     data[mapKey].active = true;
                     data[mapKey].date = `${new Date().toLocaleString()}`;
                }
@@ -190,12 +190,14 @@ function AddWork(props) {
                                         </FormGroup>
 
                                    </div>
-                                   <Button color="primary" type="submit">
-                                        {itemForUpdate ? 'Update Item' : 'Add New'}
-                                   </Button>
-                                   <Button onClick={() => props.closeModal(true)} color="primary" type="button">
-                                        Close
-                                   </Button>
+                                   <div className="d-flex justify-content-between">
+                                        <Button onClick={() => props.closeModal(true)} color="primary" type="button">
+                                             Close
+                                        </Button>
+                                        <Button color="primary" type="submit">
+                                             {itemForUpdate ? 'Update Item' : 'Add New'}
+                                        </Button>
+                                   </div>
                               </form>
                          </CardBody>
                     </Card>

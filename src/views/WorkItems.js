@@ -83,7 +83,7 @@ function WorkItems(props) {
           setfilterApplying(false);
 
 
-          if (worksData.data.length === 0 && getFor === 'delete') {
+          if (worksData.data.length === 0 && getFor === 'delete' && currentPage.page > 1) {
                setCurrentPage({ ...currentPage, page: currentPage.page - 1 });
                setFilter({ ...filters, _start: filters._start - filters._limit });
           } else {
@@ -379,11 +379,11 @@ function WorkItems(props) {
                                                                  </td>
                                                                  <td className="text-right">
 
-                                                                      <Button onClick={() => openDocModal(item)} className="btn-icon" size="sm">
-                                                                           <i class="fas fa-folder-open"></i>
-                                                                      </Button>{` `}
                                                                       <Button onClick={() => editItem(item)} className="btn-icon" size="sm">
                                                                            <i className="fa fa-edit"></i>
+                                                                      </Button>{` `}
+                                                                      <Button onClick={() => openDocModal(item)} className="btn-icon" size="sm">
+                                                                           <i class="fas fa-folder-open"></i>
                                                                       </Button>{` `}
                                                                       <Button onClick={() => deleteItem(item.id)} className="btn-icon" size="sm">
                                                                            <i class="fas fa-trash-alt"></i>
