@@ -170,7 +170,7 @@ function WorkItems(props) {
                                    <DropdownToggle caret data-toggle="dropdown">
                                         Environment : {environments[filters.currentEnv - 1] || 'ALL'}
                                    </DropdownToggle>
-                                   <DropdownMenu>
+                                   <DropdownMenu className="dropdown-black">
                                         <DropdownItem onClick={() => filters.currentEnv !== 0 ? setFilter({ ...filters, currentEnv: 0 }) : null}>ALL</DropdownItem>
                                         <DropdownItem onClick={() => filters.currentEnv !== 1 ? setFilter({ ...filters, currentEnv: 1 }) : null}>DEV</DropdownItem>
                                         <DropdownItem onClick={() => filters.currentEnv !== 2 ? setFilter({ ...filters, currentEnv: 2 }) : null}>FUT</DropdownItem>

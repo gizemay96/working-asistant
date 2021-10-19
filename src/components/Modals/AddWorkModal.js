@@ -166,7 +166,7 @@ function AddWorkModal(props) {
 
                 <Row>
                     <Col md="12">
-                        <Card>
+                        <Card className="card-plain">
                             <CardHeader>
                                 <CardTitle tag="h4">My Works</CardTitle>
                             </CardHeader>
@@ -293,7 +293,7 @@ function AddWorkModal(props) {
                                         }
                                         {!filterApplying &&
                                             workItems.map((item, ind) =>
-                                                <tr key={ind}>
+                                                <tr key={ind} className="table-body-tr">
                                                     <td><i className={item.type === 'Bug' ? "fas fa-bug" : "fas fa-file-code"}></i> <span>{item.type}</span> </td>
                                                     <td>{item.ticketId}</td>
                                                     <td style={{ maxWidth: "220px" }}>{item.name}</td>

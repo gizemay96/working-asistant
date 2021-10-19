@@ -81,7 +81,7 @@ function ReleaseItemsModal({ selectedRelease, closeReleaseItemsModal }, props) {
                     <Card className="card-plain">
                         <CardHeader className="d-flex justify-content-between">
                             <div>
-                                <CardTitle tag="h4">( {Moment(selectedRelease.releaseDate).format('DD-MM-YYYY')} ) Release Scope</CardTitle>
+                                <CardTitle tag="h2">( {Moment(selectedRelease.releaseDate).format('DD-MM-YYYY')} ) Release Scope</CardTitle>
                                 <p className="category">You can add or delete item</p>
                             </div>
                             <div>
@@ -108,7 +108,7 @@ function ReleaseItemsModal({ selectedRelease, closeReleaseItemsModal }, props) {
 
                                     {!loadingData && releaseItemsData.works.length > 0 &&
                                         releaseItemsData.works.map(item =>
-                                            <tr>
+                                            <tr className="table-body-tr">
                                                 <td><i className={item.type === 'Bug' ? "fas fa-bug" : "fas fa-file-code"}></i> <span>{item.type}</span> </td>
                                                 <td>{item.ticketId}</td>
                                                 <td>{item.name}</td>
