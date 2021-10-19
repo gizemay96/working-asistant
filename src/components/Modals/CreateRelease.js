@@ -24,7 +24,7 @@ function CreateRelease(props) {
   const [itemForUpdate] = useState(props.updateItem);
 
   useEffect(() => {
-
+    formik.setValues({ releaseDate: selectedDate })
   }, [selectedDate])
 
   const formik = useFormik({
@@ -39,7 +39,7 @@ function CreateRelease(props) {
       }
 
     },
-      validationSchema: createReleaseValidationShema,
+    validationSchema: createReleaseValidationShema,
   });
 
 
@@ -48,9 +48,9 @@ function CreateRelease(props) {
 
     <div className={styles.homepage}>
       <div className="content">
-        <Card className="card-plain" style={{padding: "30px 30px"}}>
+        <Card className="card-plain" style={{ padding: "30px 30px" }}>
           <CardBody>
-            <CustomDatePicker setDateToParent={setDateFromChild}></CustomDatePicker>
+            <CustomDatePicker setDateToParent={(date) => setDateFromChild(date)}></CustomDatePicker>
             <form onSubmit={formik.handleSubmit}>
               <FormGroup>
                 <Label for="Project">Project</Label>

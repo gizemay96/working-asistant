@@ -81,7 +81,7 @@ const CustomPickersDay = styled(PickersDay, {
 }));
 
 function CustomDatePicker({setDateToParent}) {
-    const [value, setValue] = useState(new Date());
+    const [valueDate, setValue] = useState();
     const [isOpen, setIsOpen] = useState(false);
 
     const handleClickAway = () => { if (isOpen) { console.log('ww'); setIsOpen(false); } };
@@ -89,13 +89,14 @@ function CustomDatePicker({setDateToParent}) {
 
 
     useEffect(() => {
-        setDateToParent(value);
+        console.log(valueDate)
+        setDateToParent(valueDate);
         renderWeekPickerDay();
-    }, [value])
+    }, [valueDate])
 
 
     const renderWeekPickerDay = (date, selectedDates, pickersDayProps) => {
-        if (!value) {
+        if (!valueDate) {
             return <CustomPickersDay {...pickersDayProps} />;
         }
 
@@ -119,7 +120,7 @@ function CustomDatePicker({setDateToParent}) {
                                 onClose={handleClick}
                                 onOpen={handleClick}
                                 label="Release Date"
-                                value={value}
+                                value={valueDate}
                                 inputFormat="dd/MM/yyyy"
                                 onChange={(newValue) => { setValue(newValue); }}
                                 renderDay={renderWeekPickerDay}

@@ -25,6 +25,7 @@ import CreateRelease from 'components/Modals/CreateRelease';
 function Releases(props) {
      const [releaseData, setReleaseData] = useState([])
      const [selectedRelease, setSelectedRelease] = useState({})
+     const [loading, setLoading] = useState(true)
 
      useEffect(() => {
           getItems();
@@ -45,15 +46,18 @@ function Releases(props) {
      const getItems = async () => {
           const data = await getReleases();
           setReleaseData([...data.data]);
+          setLoading(false);
      }
 
      const saveRelease = async(saveData) => {
-          toggleCreateReleaseModal();
+          setLoading(true);
           const response = await createRelease(saveData);
+          toggleCreateReleaseModal();
           getItems();
      }
 
      const removeRelease = async (item) => {
+          setLoading(true);
           const response = await deleteRelease(item.id);
           getItems();
      }
@@ -98,7 +102,19 @@ function Releases(props) {
                                              </tr>
                                         </thead>
                                         <tbody>
-                                             {
+                                             {    loading &&
+                                                     <tr>
+                                                     <td colspan="9">
+                                                          <div class="spinner">
+                                                               <div class="dot1"></div>
+                                                               <div class="dot2"></div>
+                                                          </div>
+                                                     </td>
+                                                </tr>
+                                             }
+
+
+                                             {   !loading &&
                                                   releaseData.map((item, ind) =>
                                                        <tr key={ind} className="table-body-tr">
                                                             <td>{Moment(item.releaseDate).format('DD/MM/YYYY')}</td>
