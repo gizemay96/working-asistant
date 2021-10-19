@@ -66,6 +66,14 @@ const theme = createTheme({
                 }
             }
         },
+
+        MuiInputLabel:{
+            styleOverrides:{
+                root:{
+                    fontSize: "19px"
+                }
+            }
+        }
     },
 });
 
@@ -80,7 +88,7 @@ const CustomPickersDay = styled(PickersDay, {
     },
 }));
 
-function CustomDatePicker({setDateToParent}) {
+function CustomDatePicker(props) {
     const [valueDate, setValue] = useState();
     const [isOpen, setIsOpen] = useState(false);
 
@@ -90,7 +98,7 @@ function CustomDatePicker({setDateToParent}) {
 
     useEffect(() => {
         console.log(valueDate)
-        setDateToParent(valueDate);
+        props.setDateToParent(valueDate);
         renderWeekPickerDay();
     }, [valueDate])
 
@@ -119,7 +127,7 @@ function CustomDatePicker({setDateToParent}) {
                                 open={isOpen}
                                 onClose={handleClick}
                                 onOpen={handleClick}
-                                label="Release Date"
+                                label={props.label}
                                 value={valueDate}
                                 inputFormat="dd/MM/yyyy"
                                 onChange={(newValue) => { setValue(newValue); }}

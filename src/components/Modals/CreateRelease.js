@@ -37,7 +37,6 @@ function CreateRelease(props) {
       } else {
         props.closeAndSaveRelease(values)
       }
-
     },
     validationSchema: createReleaseValidationShema,
   });
@@ -48,18 +47,22 @@ function CreateRelease(props) {
 
     <div className={styles.homepage}>
       <div className="content">
-        <Card className="card-plain" style={{ padding: "30px 30px" }}>
+          <h2 className="text-center p-0 m-0">
+            Create Release
+          </h2>
+        <Card className="card-plain" style={{ padding: "30px 30px 0 30px" }}>
           <CardBody>
-            <CustomDatePicker setDateToParent={(date) => setDateFromChild(date)}></CustomDatePicker>
+            <CustomDatePicker label="Release Date" setDateToParent={(date) => setDateFromChild(date)}></CustomDatePicker>
             <form onSubmit={formik.handleSubmit}>
-              <FormGroup>
-                <Label for="Project">Project</Label>
+              <FormGroup className="mt-3">
+                <Label for="Project">Project Name</Label>
                 <Input
                   id="Project"
                   name="Project"
                   type="text"
                   onChange={formik.handleChange}
                   value={formik.values.Project}
+                  style={{height: "50px"}}
                 />
               </FormGroup>
               <div className="d-flex justify-content-between">
