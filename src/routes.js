@@ -41,7 +41,7 @@ var routes = [
     path: "/work-items",
     name: "My Works",
     rtlName: "الرموز",
-    icon: "tim-icons icon-atom",
+    icon: "tim-icons icon-notes",
     component: WorkItems,
     layout: "/admin",
     authControl: true
@@ -50,7 +50,7 @@ var routes = [
     path: "/releases",
     name: "Releases",
     rtlName: "الرموز",
-    icon: "tim-icons icon-atom",
+    icon: "tim-icons icon-trophy",
     component: Releases,
     layout: "/admin",
     authControl: true

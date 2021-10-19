@@ -31,7 +31,7 @@ function Releases(props) {
 
      const {
           buttonLabel,
-          className = 'modal-md'
+          className = 'modal-sm'
      } = props;
      const [releaseItemsModal, setReleaseItemsModal] = useState(false);
      const toggleReleaseItemsModal = () => setReleaseItemsModal(!releaseItemsModal);

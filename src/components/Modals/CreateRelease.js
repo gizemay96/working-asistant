@@ -6,6 +6,7 @@ import { createWork, updateWork } from '../../services/works.service'
 // import createWorkValidationShema from "../../assets/validations/createWorkValidation";
 import '../../assets/scss/black-dashboard-react/custom/createWork.scss'
 import styles from '../../assets/scss/black-dashboard-react/custom/test.module.scss';
+import ruLocale from 'date-fns/locale/ru';
 
 import {
   FormGroup,
@@ -24,6 +25,31 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { styled } from '@mui/material/styles';
 import PickersDay from '@mui/lab/PickersDay';
 import { ClickAwayListener } from "@material-ui/core";
+
+
+const TextFieldCustom = styled(TextField)({
+  '& label.Mui-focused': {
+    color: '#c852e5',
+  },
+  '& label.Mui-focused': {
+    color: '#c852e5',
+  },
+  '& .MuiOutlinedInput-root': {
+    '& fieldset': {
+      borderColor: 'white',
+    },
+    '&:hover fieldset': {
+      borderColor: '#c852e5',
+    },
+    '&.Mui-focused fieldset': {
+      borderColor: '#c852e5',
+    },
+    color: "white"
+  },
+});
+
+
+
 
 const theme = createTheme({
   palette: {
@@ -49,14 +75,14 @@ const theme = createTheme({
         }
       }
     },
-    MuiIconButton:{
-      styleOverrides:{
-        root:{
+    MuiIconButton: {
+      styleOverrides: {
+        root: {
           outline: "none"
-          
+
         }
       }
-    }
+    },
   },
 });
 
@@ -143,11 +169,12 @@ function CreateRelease(props) {
                       open={isOpen}
                       onClose={handleClick}
                       onOpen={handleClick}
-                      label="Basic example"
+                      label="Release Date"
                       value={value}
+                      inputFormat="dd/MM/yyyy"
                       onChange={(newValue) => { setValue(newValue); }}
                       renderDay={renderWeekPickerDay}
-                      renderInput={(params) => <TextField {...params} style={{ width: "100%", color: "white" }} />}
+                      renderInput={(params) => <TextFieldCustom onClick={handleClick} id="custom-css-outlined-input" {...params} style={{ width: "100%", color: "white", outlineColor: "white", borderBlock: "none" }} />}
                     />
                   </div>
                 </LocalizationProvider>
