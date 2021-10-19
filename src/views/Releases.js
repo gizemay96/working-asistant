@@ -1,6 +1,8 @@
 import { React, useEffect, useState } from 'react'
 import Moment from 'moment'
-import { getReleases, deleteRelease } from 'services/release.service';
+import { getReleases, deleteRelease , createRelease } from 'services/release.service';
+
+import "../assets/scss/black-dashboard-react/custom/general.scss"
 
 
 // reactstrap components
@@ -28,10 +30,10 @@ function Releases(props) {
           getItems();
      }, [])
 
-
      const {
           buttonLabel,
-          className = 'modal-sm'
+          className = 'modal-md',
+          classNameCreateRelease = 'modal-sm'
      } = props;
      const [releaseItemsModal, setReleaseItemsModal] = useState(false);
      const toggleReleaseItemsModal = () => setReleaseItemsModal(!releaseItemsModal);
@@ -43,6 +45,12 @@ function Releases(props) {
      const getItems = async () => {
           const data = await getReleases();
           setReleaseData([...data.data]);
+     }
+
+     const saveRelease = async(saveData) => {
+          toggleCreateReleaseModal();
+          const response = await createRelease(saveData);
+          getItems();
      }
 
      const removeRelease = async (item) => {
@@ -82,7 +90,7 @@ function Releases(props) {
                               <CardBody className="table-case">
                                    <Table className="tablesorter">
                                         <thead className="text-primary">
-                                             <tr>
+                                             <tr className="table-head-tr">
                                                   <th>Release Date</th>
                                                   <th>Project</th>
                                                   <th>Scope</th>
@@ -92,7 +100,7 @@ function Releases(props) {
                                         <tbody>
                                              {
                                                   releaseData.map((item, ind) =>
-                                                       <tr key={ind}>
+                                                       <tr key={ind} className="table-body-tr">
                                                             <td>{Moment(item.releaseDate).format('DD/MM/YYYY')}</td>
                                                             <td>{item.Project}</td>
                                                             <td><Button onClick={() => openReleaseItemsModal(item)} color="info btn-simple btn-sm">Show</Button></td>
@@ -129,12 +137,12 @@ function Releases(props) {
 
 
 
-               <Modal isOpen={createReleaseModal} toggle={toggleCreateReleaseModal} className={className}>
+               <Modal isOpen={createReleaseModal} toggle={toggleCreateReleaseModal} className={classNameCreateRelease}>
                     <ModalBody>
                          <CreateRelease
-
                               selectedRelease={selectedRelease}
-                              closeReleaseItemsModal={closeCreateReleasModal}
+                              closeCreateReleasModal={closeCreateReleasModal}
+                              closeAndSaveRelease={(saveData) => saveRelease(saveData)}
                          >
                          </CreateRelease>
                     </ModalBody>

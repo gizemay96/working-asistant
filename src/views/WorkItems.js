@@ -62,7 +62,7 @@ function WorkItems(props) {
      // Below fields are for Tooltip Add/Update Modal
      const {
           buttonLabel,
-          className
+          className = "modal-sm"
      } = props;
      const [modal, setModal] = useState(false);
      const toggleModal = () => setModal(!modal, modal === true ? setSelectedItem(null) : null);
@@ -162,7 +162,6 @@ function WorkItems(props) {
      }
 
      return (
-
           <>
                <div className="content">
                     <div className="d-flex justify-content-between align-items-center">
@@ -203,7 +202,7 @@ function WorkItems(props) {
                                         <Table className="tablesorter" hover>
                                              <thead className="text-primary">
                                                   {/* WORK TYPE HEADER */}
-                                                  <tr>
+                                                  <tr className="table-head-tr">
                                                        {searchInput.every(item => item !== 'type') &&
                                                             <th onClick={() => openInput('type')} ><b>Type</b> <i class="fas fa-search-plus ml-2"></i>
                                                             </th>
@@ -329,7 +328,7 @@ function WorkItems(props) {
                                                   }
                                                   {!filterApplying &&
                                                        workItems.map((item, ind) =>
-                                                            <tr key={ind}>
+                                                            <tr key={ind} className="table-body-tr">
                                                                  <td><i className={item.type === 'Bug' ? "fas fa-bug" : "fas fa-file-code"}></i> <span>{item.type}</span> </td>
                                                                  <td>{item.ticketId}</td>
                                                                  <td style={{ maxWidth: "220px" }}>{item.name}</td>
@@ -337,45 +336,45 @@ function WorkItems(props) {
                                                                  <td>
                                                                       <div>
                                                                            <p><span style={{ textDecoration: "underline", color: "blue" }} href="#" id={"TooltipExampleDev" + ind}><Button disabled className="btn-icon btn-round env-circle btn-simple"
-                                                                                color={item.dev.active ? "success" : "danger"} size="sm">
+                                                                                color={item.dev?.active ? "success" : "danger"} size="sm">
                                                                            </Button></span></p>
                                                                            <Tooltip placement="right" isOpen={tooltipOpen === 'TooltipExampleDev' + ind} target={"TooltipExampleDev" + ind} toggle={() => setTooltipOpen(tooltipOpen === 'TooltipExampleDev' + ind ? '' : 'TooltipExampleDev' + ind)}>
-                                                                                {item.dev.date ? Moment(item.dev.date).format('DD/MM/YYYY HH:mm') : '-'}
+                                                                                {item.dev?.date ? Moment(item.dev.date).format('DD/MM/YYYY HH:mm') : '-'}
                                                                            </Tooltip>
                                                                       </div>
                                                                  </td>
                                                                  <td>
                                                                       <div>
                                                                            <p><span style={{ textDecoration: "underline", color: "blue" }} href="#" id={"TooltipExampleFut" + ind}><Button disabled className="btn-icon btn-round env-circle btn-simple"
-                                                                                color={item.fut.active ? "success" : "danger"} size="sm">
+                                                                                color={item.fut?.active ? "success" : "danger"} size="sm">
                                                                            </Button></span></p>
                                                                            <Tooltip placement="right" isOpen={tooltipOpen === 'TooltipExampleFut' + ind} target={"TooltipExampleFut" + ind} toggle={() => setTooltipOpen(tooltipOpen === 'TooltipExampleFut' + ind ? '' : 'TooltipExampleFut' + ind)}>
-                                                                                {item.fut.date ? Moment(item.fut.date).format('DD/MM/YYYY HH:mm') : '-'}
+                                                                                {item.fut?.date ? Moment(item.fut.date).format('DD/MM/YYYY HH:mm') : '-'}
                                                                            </Tooltip>
                                                                       </div>
                                                                  </td>
                                                                  <td>
                                                                       <p><span style={{ textDecoration: "underline", color: "blue" }} href="#" id={"TooltipExampleUat" + ind}><Button disabled className="btn-icon btn-round env-circle btn-simple"
-                                                                           color={item.uat.active ? "success" : "danger"} size="sm">
+                                                                           color={item.uat?.active ? "success" : "danger"} size="sm">
                                                                       </Button></span></p>
                                                                       <Tooltip placement="right" isOpen={tooltipOpen === 'TooltipExampleUat' + ind} target={"TooltipExampleUat" + ind} toggle={() => setTooltipOpen(tooltipOpen === 'TooltipExampleUat' + ind ? '' : 'TooltipExampleUat' + ind)}>
-                                                                           {item.uat.date ? Moment(item.uat.date).format('DD/MM/YYYY HH:mm') : '-'}
+                                                                           {item.uat?.date ? Moment(item.uat.date).format('DD/MM/YYYY HH:mm') : '-'}
                                                                       </Tooltip>
                                                                  </td>
                                                                  <td>
                                                                       <p><span style={{ textDecoration: "underline", color: "blue" }} href="#" id={"TooltipExamplePreP" + ind}><Button disabled className="btn-icon btn-round env-circle btn-simple"
-                                                                           color={item.preprod.active ? "success" : "danger"} size="sm">
+                                                                           color={item.preprod?.active ? "success" : "danger"} size="sm">
                                                                       </Button></span></p>
                                                                       <Tooltip placement="right" isOpen={tooltipOpen === 'TooltipExamplePreP' + ind} target={"TooltipExamplePreP" + ind} toggle={() => setTooltipOpen(tooltipOpen === 'TooltipExamplePreP' + ind ? '' : 'TooltipExamplePreP' + ind)}>
-                                                                           {item.preprod.date ? Moment(item.preprod.date).format('DD/MM/YYYY HH:mm') : '-'}
+                                                                           {item.preprod?.date ? Moment(item.preprod.date).format('DD/MM/YYYY HH:mm') : '-'}
                                                                       </Tooltip>
                                                                  </td>
                                                                  <td>
                                                                       <p><span style={{ textDecoration: "underline", color: "blue" }} href="#" id={"TooltipExampleProd" + ind}><Button disabled className="btn-icon btn-round env-circle btn-simple"
-                                                                           color={item.prod.active ? "success" : "danger"} size="sm">
+                                                                           color={item.prod?.active ? "success" : "danger"} size="sm">
                                                                       </Button></span></p>
                                                                       <Tooltip placement="right" isOpen={tooltipOpen === 'TooltipExampleProd' + ind} target={"TooltipExampleProd" + ind} toggle={() => setTooltipOpen(tooltipOpen === 'TooltipExampleProd' + ind ? '' : 'TooltipExampleProd' + ind)}>
-                                                                           {item.prod.date ? Moment(item.prod.date).format('DD/MM/YYYY HH:mm') : '-'}
+                                                                           {item.prod?.date ? Moment(item.prod.date).format('DD/MM/YYYY HH:mm') : '-'}
                                                                       </Tooltip>
                                                                  </td>
                                                                  <td className="text-right">

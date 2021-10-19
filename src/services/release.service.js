@@ -26,6 +26,17 @@ export const getReleaseById = async (id) => {
        })
 }
 
+export const createRelease = async (params) => {
+     params.users_permissions_user = user.id;
+     return await axios
+        .post(`http://localhost:1337/releases`, params , {
+             headers: {
+                  Authorization: `Bearer ${token}`,
+             },
+        })
+ }
+
+
 export const updateRelease = async (params) => {
      return await axios
         .put(`http://localhost:1337/releases/${params.id}`, params , {
