@@ -4,13 +4,14 @@ import { getQuery } from './common.service';
 
 const token = JSON.parse(localStorage.getItem('jwt'));
 const user = JSON.parse(localStorage.getItem('user'));
+const url = "https://waa-app.herokuapp.com/works"
 
 
 export const getWorks = async (params) => {
      const query = getQuery(params);
 
      return await axios
-          .get(`http://localhost:1337/works?${query}&[users_permissions_user.id]=${user.id}`, {
+          .get(`${url}?${query}&[users_permissions_user._id]=${user.id}`, {
                headers: {
                     Authorization: `Bearer ${token}`,
                },
@@ -18,8 +19,8 @@ export const getWorks = async (params) => {
 }
 
 export const getWorkById = async (id) => {
-       return await axios
-          .get(`http://localhost:1337/works/${id}?[users_permissions_user.id]=${user.id}`, {
+     return await axios
+          .get(`${url}/${id}?[users_permissions_user._id]=${user.id}`, {
                headers: {
                     Authorization: `Bearer ${token}`,
                },
@@ -27,11 +28,11 @@ export const getWorkById = async (id) => {
 }
 
 
-export const getWorksCountWithDate = (ltDate , gtDate , params) => {
+export const getWorksCountWithDate = (ltDate, gtDate, params) => {
      const query = getQuery(params);
 
      return axios
-          .get(`http://localhost:1337/works/count?[created_at_lt]=${ltDate}&[created_at_gt]=${gtDate}&[users_permissions_user.id]=${user.id}&${query}`, {
+          .get(`${url}/count?[createdAt_lt]=${ltDate}&[createdAt_gt]=${gtDate}&[users_permissions_user._id]=${user.id}&${query}`, {
                headers: {
                     Authorization: `Bearer ${token}`,
                },
@@ -45,7 +46,7 @@ export const getWorksCount = async (params) => {
      const query = getQuery(params);
 
      return await axios
-          .get(`http://localhost:1337/works/count?[users_permissions_user.id]=${user.id}&${query}`, {
+          .get(`${url}/count?[users_permissions_user._id]=${user.id}&${query}`, {
                headers: {
                     Authorization: `Bearer ${token}`,
                },
@@ -56,7 +57,7 @@ export const getWorksCount = async (params) => {
 export const createWork = (params) => {
      params.users_permissions_user = user.id;
      return axios
-          .post(`http://localhost:1337/works`, params, {
+          .post(`${url}`, params, {
                headers: {
                     Authorization: `Bearer ${token}`,
                },
@@ -66,9 +67,9 @@ export const createWork = (params) => {
           });
 }
 
-export const updateWork = async (params , updateId) => {
+export const updateWork = async (params, updateId) => {
      return await axios
-          .put(`http://localhost:1337/works/${updateId}`, params, {
+          .put(`${url}/${updateId}`, params, {
                headers: {
                     Authorization: `Bearer ${token}`,
                },
@@ -80,7 +81,7 @@ export const updateWork = async (params , updateId) => {
 
 export const deleteWork = async (id) => {
      return await axios
-          .delete(`http://localhost:1337/works/${id}`, {
+          .delete(`${url}/${id}`, {
                headers: {
                     Authorization: `Bearer ${token}`,
                },

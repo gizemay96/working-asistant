@@ -10,26 +10,7 @@ import { styled } from '@mui/material/styles';
 import { ClickAwayListener } from "@material-ui/core";
 
 
-const TextFieldCustom = styled(TextField)({
-    '& label.Mui-focused': {
-        color: '#c852e5',
-    },
-    '& label.Mui-focused': {
-        color: '#c852e5',
-    },
-    '& .MuiOutlinedInput-root': {
-        '& fieldset': {
-            borderColor: 'white',
-        },
-        '&:hover fieldset': {
-            borderColor: '#c852e5',
-        },
-        '&.Mui-focused fieldset': {
-            borderColor: '#c852e5',
-        },
-        color: "white"
-    },
-});
+
 
 
 
@@ -101,6 +82,33 @@ function CustomDatePicker(props) {
         props.setDateToParent(valueDate);
         renderWeekPickerDay();
     }, [valueDate])
+
+    const TextFieldCustom = styled(TextField)({
+        '& label.Mui-focused': {
+            color: '#c852e5',
+        },
+        '& label.Mui-focused': {
+            color: '#c852e5',
+        },
+        '& .MuiOutlinedInput-root': {
+            '& fieldset': {
+                borderColor: '#2b3553',
+            },
+            '&:hover fieldset': {
+                borderColor: '#2b3553',
+            },
+            '&.Mui-focused fieldset': {
+                borderColor: '#c852e5',
+            },
+            color: "white",
+            marginBottom: props.marginBottom
+    
+        },
+        '& .MuiOutlinedInput-input': {
+            fontSize: props.inputFontSize,
+            padding:  props.inputPadding
+        },
+    });
 
 
     const renderWeekPickerDay = (date, selectedDates, pickersDayProps) => {

@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { getQuery } from './common.service';
-
+const url = "https://waa-app.herokuapp.com/auth"
 export const login = (username, password) => {
     return axios
-        .post('http://localhost:1337/auth/local', {
+        .post(`${url}/local`, {
             identifier: username,
             password: password,
         })

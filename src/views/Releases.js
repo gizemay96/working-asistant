@@ -1,6 +1,6 @@
 import { React, useEffect, useState } from 'react'
 import Moment from 'moment'
-import { getReleases, deleteRelease , createRelease } from 'services/release.service';
+import { getReleases, deleteRelease, createRelease } from 'services/release.service';
 
 import "../assets/scss/black-dashboard-react/custom/general.scss"
 
@@ -16,16 +16,28 @@ import {
      Col,
      Button,
      Modal,
-     ModalBody
+     ModalBody,
+     InputGroup,
+     InputGroupAddon,
+     InputGroupText,
+     Input
 } from "reactstrap";
 
 import ReleaseItemsModal from 'components/Modals/ReleaseItemsModal';
 import CreateRelease from 'components/Modals/CreateRelease';
+import CustomDatePicker from 'components/MinorComponents/CustomDatePicker';
 
 function Releases(props) {
      const [releaseData, setReleaseData] = useState([])
      const [selectedRelease, setSelectedRelease] = useState({})
+     const [searchInput, setSearchInput] = useState([]);
      const [loading, setLoading] = useState(true)
+
+     const [filters, setFilter] = useState({
+          project_contains: '',
+     });
+
+     const [projectInputValue, setticketIdInputValue] = useState('');
 
      useEffect(() => {
           getItems();
@@ -33,7 +45,7 @@ function Releases(props) {
 
      const {
           buttonLabel,
-          className = 'modal-md',
+          className = 'modal-sm',
           classNameCreateRelease = 'modal-sm'
      } = props;
      const [releaseItemsModal, setReleaseItemsModal] = useState(false);
@@ -49,7 +61,7 @@ function Releases(props) {
           setLoading(false);
      }
 
-     const saveRelease = async(saveData) => {
+     const saveRelease = async (saveData) => {
           setLoading(true);
           const response = await createRelease(saveData);
           toggleCreateReleaseModal();
@@ -75,6 +87,34 @@ function Releases(props) {
           toggleCreateReleaseModal();
      }
 
+     // Filtering Functions
+     const removeFilter = (type) => {
+
+          let openedInputType = type;
+          if (type === 'project_contains') {
+               openedInputType = 'project';
+               setticketIdInputValue('');
+          }
+
+          const inputs = searchInput;
+          inputs.splice(inputs.findIndex(item => item === openedInputType), 1)
+          setSearchInput([...inputs]);
+
+          if (filters[type]) {
+               setFilter({ ...filters, [type]: '' });
+          }
+     }
+
+     const openInput = (value) => {
+          const inputs = searchInput;
+          inputs.push(value);
+          setSearchInput([...inputs]);
+     }
+
+     const getValue = () => {
+          console.log('')
+     }
+
 
 
      return (
@@ -95,26 +135,72 @@ function Releases(props) {
                                    <Table className="tablesorter">
                                         <thead className="text-primary">
                                              <tr className="table-head-tr">
-                                                  <th>Release Date</th>
-                                                  <th>Project</th>
-                                                  <th>Scope</th>
-                                                  <th></th>
+                                                  {
+                                                       searchInput.every(item => item !== 'releaseDate') &&
+                                                       <th style={{ minWidth: "200px" }} onClick={() => openInput('releaseDate')} ><b>Release Date</b> <i class="fas fa-search-plus ml-2"></i>
+                                                       </th>
+                                                  }
+
+                                                  {searchInput.find(item => item === 'releaseDate') &&
+                                                        <th className="p-0 row" >
+                                                        <span className="col-6">
+                                                        <CustomDatePicker 
+                                                        label={'Select Date'} 
+                                                        inputFontSize="14px"
+                                                        inputPadding="9px 10px"
+                                                        labelFontSize="15px"
+                                                        setDateToParent={getValue}></CustomDatePicker>
+                                                        </span>
+                                                        <span className="col-6">
+                                                        <i onClick={() => removeFilter('ticketId_contains')} className="fas fa-times-circle col-md-1 p-0 close-search-icon"></i>
+                                                        </span>
+                                                   </th>
+                                                  }
+
+                                                  {
+                                                       searchInput.every(item => item !== 'project') &&
+                                                       <th style={{ minWidth: "200px" }} onClick={() => openInput('project')} ><b>Project</b> <i class="fas fa-search-plus ml-2"></i>
+                                                       </th>
+                                                  }
+                                                  {/* Project INPUT */}
+                                                  {searchInput.find(item => item === 'project') &&
+                                                       <th className="align-items-center p-0" >
+                                                            <InputGroup>
+                                                                 <InputGroupAddon onClick={() => filters.project_contains !== projectInputValue ? setFilter({ ...filters, project_contains: projectInputValue }) : null} addonType="prepend">
+                                                                      <InputGroupText className="text-input-search-icon">
+                                                                           <i className="fas fa-search-plus" />
+                                                                      </InputGroupText>
+                                                                 </InputGroupAddon>
+                                                                 <Input
+                                                                      type="text"
+                                                                      name="project"
+                                                                      id="project"
+                                                                      value={projectInputValue}
+                                                                      onChange={(e) => setticketIdInputValue(e.target.value)}
+                                                                      onKeyDown={(event) => event.key === 'Enter' && filters.project_contains !== projectInputValue ? setFilter({ ...filters, project_contains: projectInputValue }) : null}
+                                                                 />
+                                                                 <i onClick={() => removeFilter('ticketId_contains')} className="fas fa-times-circle col-md-1 p-0 close-search-icon"></i>
+                                                            </InputGroup>
+                                                       </th>
+                                                  }
+                                                  <th style={{ minWidth: "200px" }}>Scope</th>
+                                                  <th style={{ minWidth: "50px" }}></th>
                                              </tr>
                                         </thead>
                                         <tbody>
-                                             {    loading &&
-                                                     <tr>
-                                                     <td colspan="9">
-                                                          <div class="spinner">
-                                                               <div class="dot1"></div>
-                                                               <div class="dot2"></div>
-                                                          </div>
-                                                     </td>
-                                                </tr>
+                                             {loading &&
+                                                  <tr>
+                                                       <td colspan="9">
+                                                            <div class="spinner">
+                                                                 <div class="dot1"></div>
+                                                                 <div class="dot2"></div>
+                                                            </div>
+                                                       </td>
+                                                  </tr>
                                              }
 
 
-                                             {   !loading &&
+                                             {!loading &&
                                                   releaseData.map((item, ind) =>
                                                        <tr key={ind} className="table-body-tr">
                                                             <td>{Moment(item.releaseDate).format('DD/MM/YYYY')}</td>

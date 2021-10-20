@@ -20,7 +20,7 @@ import AddWorkModal from '../Modals/AddWorkModal';
 function ReleaseItemsModal({ selectedRelease, closeReleaseItemsModal }, props) {
     const [releaseItemsData, setReleaseItemsData] = useState({});
     const [loadingData, setLoadingData] = useState(true);
-
+    const [removing, setremoving] = useState(false);
     const [selectedItems, setSelectedItems] = useState([]);
 
 
@@ -35,19 +35,26 @@ function ReleaseItemsModal({ selectedRelease, closeReleaseItemsModal }, props) {
     useEffect(() => {
         setLoadingData(true);
         getItems();
-    }, [], [releaseItemsData])
+    }, [])
 
     useEffect(() => {
+    }, [removing])
+
+    useEffect(() => {
+        setLoadingData(true);
         const selectedItemIds = selectedItems?.map(item => item.id) || [];
         const alreadyAddedItemIds = releaseItemsData.works?.map(item => item.id) || [];
         let sameItems = selectedItemIds.every(element => {
             return alreadyAddedItemIds.includes(element);
         });
-        if (!sameItems) {
-            toggleWorkItemsModal();
+
+        if (!sameItems && !removing) {
             updateReleaseItems(selectedItems);
+            toggleWorkItemsModal();
+        } else if (removing) {
+            updateReleaseItems();
         }
-    }, [selectedItems])
+    }, [selectedItems]);
 
     const getItems = async () => {
         const response = await getReleaseById(selectedRelease.id)
@@ -59,9 +66,13 @@ function ReleaseItemsModal({ selectedRelease, closeReleaseItemsModal }, props) {
         const updatedRelease = releaseItemsData;
         updatedRelease.works = selectedItems;
         const response = await updateRelease(updatedRelease);
+        getItems();
+        setremoving(false);
     }
 
     const removeItem = (item) => {
+        setLoadingData(true);
+        setremoving(true);
         let items = releaseItemsData.works;
 
         const ind = items.findIndex(addedItem => addedItem.id === item.id);
@@ -69,7 +80,6 @@ function ReleaseItemsModal({ selectedRelease, closeReleaseItemsModal }, props) {
             items[ind].checked = false;
             items.splice(ind, 1);
             setSelectedItems([...items]);
-            updateReleaseItems();
         }
     }
 
@@ -81,12 +91,12 @@ function ReleaseItemsModal({ selectedRelease, closeReleaseItemsModal }, props) {
                     <Card className="card-plain">
                         <CardHeader className="d-flex justify-content-between">
                             <div>
-                                <CardTitle tag="h2">( {Moment(selectedRelease.releaseDate).format('DD-MM-YYYY')} ) Release Scope</CardTitle>
+                                <CardTitle tag="h4">( {Moment(selectedRelease.releaseDate).format('DD-MM-YYYY')} ) Release Scope</CardTitle>
                                 <p className="category">You can add or delete item</p>
                             </div>
                             <div>
                                 <Button onClick={toggleWorkItemsModal} className="btn-sm" color="primary">
-                                    Add Scope Item <i class="fas fa-plus-circle"></i>
+                                    Add <i class="fas fa-plus-circle"></i>
                                 </Button>
                                 <Button onClick={closeReleaseItemsModal} className="btn-sm" color="primary">
                                     Close <i class="fas fa-times-circle"></i>
@@ -99,21 +109,28 @@ function ReleaseItemsModal({ selectedRelease, closeReleaseItemsModal }, props) {
                                     <tr>
                                         <th>Type</th>
                                         <th>Ticket Id</th>
-                                        <th>Name</th>
-                                        <th>Branch</th>
-                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
 
+                                    {
+                                        loadingData &&
+                                        <tr>
+                                            <td colspan="9">
+                                                <div class="spinner">
+                                                    <div class="dot1"></div>
+                                                    <div class="dot2"></div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+
                                     {!loadingData && releaseItemsData.works.length > 0 &&
-                                        releaseItemsData.works.map(item =>
-                                            <tr className="table-body-tr">
+                                        releaseItemsData.works.map((item, index) =>
+                                            <tr key={index} className="table-body-tr">
                                                 <td><i className={item.type === 'Bug' ? "fas fa-bug" : "fas fa-file-code"}></i> <span>{item.type}</span> </td>
                                                 <td>{item.ticketId}</td>
-                                                <td>{item.name}</td>
-                                                <td>{item.branch}</td>
-                                                <td className="text-right d-flex">
+                                                <td className="text-right">
                                                     <Button onClick={() => removeItem(item)} className="btn-icon" size="sm">
                                                         <i class="fas fa-trash-alt"></i>
                                                     </Button>{` `}

@@ -4,13 +4,14 @@ import { getQuery } from './common.service';
 
 const token = JSON.parse(localStorage.getItem('jwt'));
 const user = JSON.parse(localStorage.getItem('user'));
+const url = "https://waa-app.herokuapp.com/releases"
 
 
 export const getReleases = async (params) => {
      const query = getQuery(params);
 
      return await axios
-          .get(`http://localhost:1337/releases?${query}&[users_permissions_user.id]=${user.id}`, {
+          .get(`${url}?${query}&[users_permissions_user._id]=${user._id}`, {
                headers: {
                     Authorization: `Bearer ${token}`,
                },
@@ -19,7 +20,7 @@ export const getReleases = async (params) => {
 
 export const getReleaseById = async (id) => {
     return await axios
-       .get(`http://localhost:1337/releases/${id}?[users_permissions_user.id]=${user.id}`, {
+       .get(`${url}/${id}?[users_permissions_user._id]=${user._id}`, {
             headers: {
                  Authorization: `Bearer ${token}`,
             },
@@ -27,9 +28,9 @@ export const getReleaseById = async (id) => {
 }
 
 export const createRelease = async (params) => {
-     params.users_permissions_user = user.id;
+     params.users_permissions_user = user._id;
      return await axios
-        .post(`http://localhost:1337/releases`, params , {
+        .post(`${url}`, params , {
              headers: {
                   Authorization: `Bearer ${token}`,
              },
@@ -39,7 +40,7 @@ export const createRelease = async (params) => {
 
 export const updateRelease = async (params) => {
      return await axios
-        .put(`http://localhost:1337/releases/${params.id}`, params , {
+        .put(`${url}/${params.id}`, params , {
              headers: {
                   Authorization: `Bearer ${token}`,
              },
@@ -48,7 +49,7 @@ export const updateRelease = async (params) => {
 
  export const deleteRelease = async (id) => {
      return await axios
-        .delete(`http://localhost:1337/releases/${id}`, {
+        .delete(`${url}/${id}`, {
              headers: {
                   Authorization: `Bearer ${token}`,
              },
