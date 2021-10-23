@@ -57,7 +57,6 @@ const AdminNavbar = (props) => {
   });
 
   React.useEffect(() => {
-    console.log(activeUser)
   }, [activeUser]);
 
   // function that adds color white/transparent to the navbar on resize (this is for the collapse)

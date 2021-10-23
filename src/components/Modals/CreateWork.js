@@ -84,7 +84,7 @@ function CreateWork(props) {
                }
                formik.setFieldValue("currentEnv", ind2 + 1);
           });
-          console.log(data)
+
           setEnvironment({ ...data });
      }
 

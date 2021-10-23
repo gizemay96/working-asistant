@@ -91,7 +91,6 @@ function DocsModal(props) {
                          setErrorMessage(res.data.data.errors[0].message);
                     }
                }
-               console.log(files.length === i)
           }
 
           if (uploadedFiles.length > 0) {

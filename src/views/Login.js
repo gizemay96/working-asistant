@@ -32,7 +32,6 @@ const Login = ({history}) => {
                          history.push('/')
                     )
                     .catch(err => {
-                         console.log(err.response)
                     });
           },
           validationSchema: loginValidationShema,

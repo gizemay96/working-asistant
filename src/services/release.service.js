@@ -8,7 +8,6 @@ const url = process.env.REACT_APP_PROD_ENV;
 
 
 export const getReleases = async (params) => {
-     console.log(process.env)
      const query = getQuery(params);
 
      return await axios

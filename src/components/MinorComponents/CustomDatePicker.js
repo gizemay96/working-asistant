@@ -73,12 +73,11 @@ function CustomDatePicker(props) {
     const [valueDate, setValue] = useState();
     const [isOpen, setIsOpen] = useState(false);
 
-    const handleClickAway = () => { if (isOpen) { console.log('ww'); setIsOpen(false); } };
+    const handleClickAway = () => { if (isOpen) { setIsOpen(false); } };
     const handleClick = () => setIsOpen(!isOpen);
 
 
     useEffect(() => {
-        console.log(valueDate)
         props.setDateToParent(valueDate);
         renderWeekPickerDay();
     }, [valueDate])
