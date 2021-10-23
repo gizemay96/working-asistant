@@ -41,10 +41,9 @@ function Releases(props) {
      const [projectInputValue, setProjectInputValue] = useState('');
 
      useEffect(() => {
-          console.log(filters)
           getItems();
      }, [filters])
-     
+
 
      const {
           buttonLabel,
@@ -114,8 +113,11 @@ function Releases(props) {
           setSearchInput([...inputs]);
      }
 
-     const getValue = () => {
-          console.log('')
+     const setSelectedReleaseDate = (date) => {
+          if (date !== undefined) {
+               const formattedDate = new Date(date).toISOString();
+               setFilter({ ...filters, releaseDate: formattedDate });
+          }
      }
 
 
@@ -145,19 +147,19 @@ function Releases(props) {
                                                   }
 
                                                   {searchInput.find(item => item === 'releaseDate') &&
-                                                        <th className="p-0 row" >
-                                                        <span className="col-6">
-                                                        <CustomDatePicker 
-                                                        label={'Select Date'} 
-                                                        inputFontSize="14px"
-                                                        inputPadding="9px 10px"
-                                                        labelFontSize="15px"
-                                                        setDateToParent={(date) => setSelectedRelease(date)}></CustomDatePicker>
-                                                        </span>
-                                                        <span className="col-6">
-                                                        <i onClick={() => removeFilter('ticketId_contains')} className="fas fa-times-circle col-md-1 p-0 close-search-icon"></i>
-                                                        </span>
-                                                   </th>
+                                                       <th className="p-0 row" >
+                                                            <span className="col-6">
+                                                                 <CustomDatePicker
+                                                                      label={'Select Date'}
+                                                                      inputFontSize="14px"
+                                                                      inputPadding="9px 10px"
+                                                                      labelFontSize="15px"
+                                                                      setDateToParent={(date) => setSelectedReleaseDate(date)}></CustomDatePicker>
+                                                            </span>
+                                                            <span className="col-6">
+                                                                 <i onClick={() => removeFilter('releaseDate')} className="fas fa-times-circle col-md-1 p-0 close-search-icon"></i>
+                                                            </span>
+                                                       </th>
                                                   }
 
                                                   {
@@ -169,7 +171,7 @@ function Releases(props) {
                                                   {searchInput.find(item => item === 'project') &&
                                                        <th className="align-items-center p-0" >
                                                             <InputGroup>
-                                                                 <InputGroupAddon onClick={() => filters.Project_contains !== projectInputValue ? 
+                                                                 <InputGroupAddon onClick={() => filters.Project_contains !== projectInputValue ?
                                                                       setFilter({ ...filters, Project_contains: projectInputValue }) : null} addonType="prepend">
                                                                       <InputGroupText className="text-input-search-icon">
                                                                            <i className="fas fa-search-plus" />
@@ -181,8 +183,8 @@ function Releases(props) {
                                                                       id="project"
                                                                       value={projectInputValue}
                                                                       onChange={(e) => setProjectInputValue(e.target.value)}
-                                                                      onKeyDown={(event) => event.key === 'Enter' && filters.Project_contains !== projectInputValue ? 
-                                                                      setFilter({ ...filters, Project_contains: projectInputValue }) : null}
+                                                                      onKeyDown={(event) => event.key === 'Enter' && filters.Project_contains !== projectInputValue ?
+                                                                           setFilter({ ...filters, Project_contains: projectInputValue }) : null}
                                                                  />
                                                                  <i onClick={() => removeFilter('Project_contains')} className="fas fa-times-circle col-md-1 p-0 close-search-icon"></i>
                                                             </InputGroup>
