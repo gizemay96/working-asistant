@@ -51,9 +51,10 @@ function DocsModal(props) {
      const deleteFile = async (fileId) => {
           const item = workItem;
           item.Documents.splice(item.Documents.findIndex(item => item.id === fileId), 1);
-
           setfilesLoading(true);
           await updateWork(item, item.id)
+          .then(res => getFiles());
+          await deleteFileById(fileId)
                .then(res => getFiles());
      }
 
