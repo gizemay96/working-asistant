@@ -4,14 +4,15 @@ import { getQuery } from './common.service';
 
 const token = JSON.parse(localStorage.getItem('jwt'));
 const user = JSON.parse(localStorage.getItem('user'));
-const url = "https://waa-app.herokuapp.com/releases"
+const url = process.env.REACT_APP_PROD_ENV;
 
 
 export const getReleases = async (params) => {
+     console.log(process.env)
      const query = getQuery(params);
 
      return await axios
-          .get(`${url}?${query}&[users_permissions_user._id]=${user._id}`, {
+          .get(`${url}/releases?${query}&[users_permissions_user._id]=${user._id}`, {
                headers: {
                     Authorization: `Bearer ${token}`,
                },
@@ -19,39 +20,39 @@ export const getReleases = async (params) => {
 }
 
 export const getReleaseById = async (id) => {
-    return await axios
-       .get(`${url}/${id}?[users_permissions_user._id]=${user._id}`, {
-            headers: {
-                 Authorization: `Bearer ${token}`,
-            },
-       })
+     return await axios
+          .get(`${url}/releases/${id}?[users_permissions_user._id]=${user._id}`, {
+               headers: {
+                    Authorization: `Bearer ${token}`,
+               },
+          })
 }
 
 export const createRelease = async (params) => {
      params.users_permissions_user = user._id;
      return await axios
-        .post(`${url}`, params , {
-             headers: {
-                  Authorization: `Bearer ${token}`,
-             },
-        })
- }
+          .post(`${url}/releases`, params, {
+               headers: {
+                    Authorization: `Bearer ${token}`,
+               },
+          })
+}
 
 
 export const updateRelease = async (params) => {
      return await axios
-        .put(`${url}/${params.id}`, params , {
-             headers: {
-                  Authorization: `Bearer ${token}`,
-             },
-        })
- }
+          .put(`${url}/releases/${params.id}`, params, {
+               headers: {
+                    Authorization: `Bearer ${token}`,
+               },
+          })
+}
 
- export const deleteRelease = async (id) => {
+export const deleteRelease = async (id) => {
      return await axios
-        .delete(`${url}/${id}`, {
-             headers: {
-                  Authorization: `Bearer ${token}`,
-             },
-        })
- }
+          .delete(`${url}/releases/${id}`, {
+               headers: {
+                    Authorization: `Bearer ${token}`,
+               },
+          })
+}

@@ -147,7 +147,7 @@ function Sidebar(props) {
                       onClick={props.toggleSidebar}
                     >
                       <i className={prop.icon} />
-                      <p>{rtlActive ? prop.rtlName : prop.name}</p>
+                      <p style={{ fontSize: "13px" }} >{rtlActive ? prop.rtlName : prop.name}</p>
                     </NavLink>
                   </li>
                 )

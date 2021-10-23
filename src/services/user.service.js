@@ -1,9 +1,11 @@
 import axios from 'axios';
 import { getQuery } from './common.service';
-const url = "https://waa-app.herokuapp.com/auth"
+
+const url = process.env.REACT_APP_PROD_ENV;
+
 export const login = (username, password) => {
     return axios
-        .post(`${url}/local`, {
+        .post(`${url}/auth/local`, {
             identifier: username,
             password: password,
         })
