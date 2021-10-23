@@ -34,14 +34,17 @@ function Releases(props) {
      const [loading, setLoading] = useState(true)
 
      const [filters, setFilter] = useState({
-          project_contains: '',
+          releaseDate: null,
+          Project_contains: '',
      });
 
-     const [projectInputValue, setticketIdInputValue] = useState('');
+     const [projectInputValue, setProjectInputValue] = useState('');
 
      useEffect(() => {
+          console.log(filters)
           getItems();
-     }, [])
+     }, [filters])
+     
 
      const {
           buttonLabel,
@@ -56,7 +59,7 @@ function Releases(props) {
 
 
      const getItems = async () => {
-          const data = await getReleases();
+          const data = await getReleases(filters);
           setReleaseData([...data.data]);
           setLoading(false);
      }
@@ -91,9 +94,9 @@ function Releases(props) {
      const removeFilter = (type) => {
 
           let openedInputType = type;
-          if (type === 'project_contains') {
+          if (type === 'Project_contains') {
                openedInputType = 'project';
-               setticketIdInputValue('');
+               setProjectInputValue('');
           }
 
           const inputs = searchInput;
@@ -149,7 +152,7 @@ function Releases(props) {
                                                         inputFontSize="14px"
                                                         inputPadding="9px 10px"
                                                         labelFontSize="15px"
-                                                        setDateToParent={getValue}></CustomDatePicker>
+                                                        setDateToParent={(date) => setSelectedRelease(date)}></CustomDatePicker>
                                                         </span>
                                                         <span className="col-6">
                                                         <i onClick={() => removeFilter('ticketId_contains')} className="fas fa-times-circle col-md-1 p-0 close-search-icon"></i>
@@ -166,7 +169,8 @@ function Releases(props) {
                                                   {searchInput.find(item => item === 'project') &&
                                                        <th className="align-items-center p-0" >
                                                             <InputGroup>
-                                                                 <InputGroupAddon onClick={() => filters.project_contains !== projectInputValue ? setFilter({ ...filters, project_contains: projectInputValue }) : null} addonType="prepend">
+                                                                 <InputGroupAddon onClick={() => filters.Project_contains !== projectInputValue ? 
+                                                                      setFilter({ ...filters, Project_contains: projectInputValue }) : null} addonType="prepend">
                                                                       <InputGroupText className="text-input-search-icon">
                                                                            <i className="fas fa-search-plus" />
                                                                       </InputGroupText>
@@ -176,10 +180,11 @@ function Releases(props) {
                                                                       name="project"
                                                                       id="project"
                                                                       value={projectInputValue}
-                                                                      onChange={(e) => setticketIdInputValue(e.target.value)}
-                                                                      onKeyDown={(event) => event.key === 'Enter' && filters.project_contains !== projectInputValue ? setFilter({ ...filters, project_contains: projectInputValue }) : null}
+                                                                      onChange={(e) => setProjectInputValue(e.target.value)}
+                                                                      onKeyDown={(event) => event.key === 'Enter' && filters.Project_contains !== projectInputValue ? 
+                                                                      setFilter({ ...filters, Project_contains: projectInputValue }) : null}
                                                                  />
-                                                                 <i onClick={() => removeFilter('ticketId_contains')} className="fas fa-times-circle col-md-1 p-0 close-search-icon"></i>
+                                                                 <i onClick={() => removeFilter('Project_contains')} className="fas fa-times-circle col-md-1 p-0 close-search-icon"></i>
                                                             </InputGroup>
                                                        </th>
                                                   }
