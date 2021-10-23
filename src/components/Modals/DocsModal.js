@@ -20,11 +20,12 @@ import '../../assets/scss/black-dashboard-react/custom/general.scss'
 
 function DocsModal(props) {
      const [workItem, setWorkItem] = useState({});
-     const [filesLoading, setfilesLoading] = useState(true);
+     const [workNotes, setWorkNotes] = useState('');
+     const [loading, setLoading] = useState(true);
      const [isError, setIsError] = useState(true);
      const [errorMessage, setErrorMessage] = useState('');
 
-     const [activeTab, setActiveTab] = useState('1');
+     const [activeTab, setActiveTab] = useState('2');
 
      const toggle = tab => {
           if (activeTab !== tab) setActiveTab(tab);
@@ -38,19 +39,24 @@ function DocsModal(props) {
 
      useEffect(() => {
           getFiles();
-     }, [], [workItem])
+     }, [], [workItem]);
+
 
      useEffect(() => {
           setTimeout(() => {
                setErrorMessage(null);
                setIsError(false)
           }, 10000);
-     }, [isError])
+     }, [isError]);
 
 
      const getFiles = async () => {
           await getWorkById(props.updateItem.id)
-               .then(res => { setWorkItem(res.data); setfilesLoading(false); });
+               .then(res => {
+                    setWorkItem(res.data);
+                    setWorkNotes(res.data.notes);
+                    setLoading(false);
+               });
           setTimeout(() => {
                setErrorMessage(null);
                setIsError(false)
@@ -60,7 +66,7 @@ function DocsModal(props) {
      const deleteFile = async (fileId) => {
           const item = workItem;
           item.Documents.splice(item.Documents.findIndex(item => item.id === fileId), 1);
-          setfilesLoading(true);
+          setLoading(true);
           await updateWork(item, item.id)
                .then(res => getFiles());
           await deleteFileById(fileId)
@@ -72,7 +78,7 @@ function DocsModal(props) {
      }
 
      const fileSelectHandler = async (files) => {
-          setfilesLoading(true);
+          setLoading(true);
           let uploadedFiles = [];
           for (let i = 0; i < files.length; i++) {
                const res = await uploadFileToWorkItem(files[i], props.updateItem.id);
@@ -95,8 +101,16 @@ function DocsModal(props) {
                await updateWork(updatedWorkItem, updatedWorkItem.id)
                     .then(res => { getFiles(); })
           } else {
-               setfilesLoading(false);
+               setLoading(false);
           }
+     }
+
+     const saveWorkNotes = async() => {
+          setLoading(true);
+          const newItem = workItem;
+               newItem.notes = workNotes;
+               await updateWork(newItem, newItem.id)
+                    .then(res => { getFiles(); })
      }
 
      return (
@@ -153,7 +167,7 @@ function DocsModal(props) {
                                                             }
 
                                                             {
-                                                                 filesLoading &&
+                                                                 loading &&
                                                                  <div class="spinner">
                                                                       <div class="dot1"></div>
                                                                       <div class="dot2"></div>
@@ -161,7 +175,7 @@ function DocsModal(props) {
                                                             }
 
                                                             {
-                                                                 !filesLoading && workItem.Documents && workItem.Documents?.length > 0 &&
+                                                                 !loading && workItem.Documents && workItem.Documents?.length > 0 &&
                                                                  <div key="upload" className="d-flex mb-2 pb-3 align-items-start file-item">
                                                                       <div className="col-3" style={{ color: "white", fontSize: "12px" }}>File Name</div>
                                                                       <div className="col-6 pl-0" style={{ color: "white", fontSize: "12px" }}>File Name</div>
@@ -170,7 +184,7 @@ function DocsModal(props) {
                                                                  </div>
                                                             }
 
-                                                            {!filesLoading &&
+                                                            {!loading &&
                                                                  workItem.Documents.map((doc, ind) =>
                                                                       <>
                                                                            <div key={ind} className="d-flex mb-2 pb-3 align-items-center file-item">
@@ -203,14 +217,34 @@ function DocsModal(props) {
                                         <Card>
                                              <CardHeader>Enter Your Notes</CardHeader>
                                              <CardBody>
-                                                  <Input style={{ height: "170px" , padding: "10px", fontSize: "14px" , maxHeight:"200px" }} type="textarea"></Input>
+                                                  {
+                                                       loading &&
+                                                       <div class="spinner">
+                                                            <div class="dot1"></div>
+                                                            <div class="dot2"></div>
+                                                       </div>
+                                                  }
+
+                                                  {
+                                                       !loading &&
+                                                       <>
+
+                                                            <Input
+                                                                 value={workNotes}
+                                                                 type="textarea"
+                                                                 onChange={(event => setWorkNotes(event.target.value))}
+                                                                 style={{ height: "170px", padding: "10px", fontSize: "14px", maxHeight: "200px" }}
+                                                            ></Input>
+                                                            <div className="text-right">
+                                                                 <Button disabled={workNotes === workItem.notes} onClick={saveWorkNotes} className="col-6 btn-sm mt-3 mb-3" color="primary">
+                                                                      <i class="fas fa-save"></i> Save Changes
+                                                                 </Button>
+                                                            </div>
+
+                                                       </>
+                                                  }
                                              </CardBody>
 
-                                            <div className="text-center">
-                                            <Button className="col-6 btn-sm mt-3 mb-3" color="primary">
-                                                  <i class="fas fa-save"></i> Save Changes
-                                             </Button>
-                                            </div>
                                         </Card>
                                    </Col>
                               </Row>
