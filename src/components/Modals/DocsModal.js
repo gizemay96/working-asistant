@@ -25,7 +25,7 @@ function DocsModal(props) {
      const [isError, setIsError] = useState(true);
      const [errorMessage, setErrorMessage] = useState('');
 
-     const [activeTab, setActiveTab] = useState('2');
+     const [activeTab, setActiveTab] = useState('1');
 
      const toggle = tab => {
           if (activeTab !== tab) setActiveTab(tab);
