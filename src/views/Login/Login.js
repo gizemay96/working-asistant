@@ -1,10 +1,10 @@
 import React from 'react';
 import { useFormik } from 'formik';
-import logo1 from '../assets/img/waa2.png'
-import loginValidationShema from "../assets/validations/loginValidation";
+import logo1 from 'assets/img/waa2.png'
+import loginValidationShema from "assets/validations/loginValidation";
 
-import { login } from '../services/user.service'
-import { useUser } from '../contexts/UserContext'
+import { login } from 'services/user.service'
+import { useUser } from 'contexts/UserContext'
 
 
 import {
@@ -48,7 +48,7 @@ const Login = ({ history }) => {
                          <CardBody>
                               <form onSubmit={handleSubmit}>
                                    <FormGroup>
-                                        <Label for="exampleEmail">Email address</Label>
+                                        <Label className="log-reg-label" for="exampleEmail">Email address</Label>
                                         <Input
                                              id="identifier"
                                              name="identifier"
@@ -66,7 +66,7 @@ const Login = ({ history }) => {
                                         </FormText>
                                    </FormGroup>
                                    <FormGroup>
-                                        <Label for="examplePassword">Password</Label>
+                                        <Label className="log-reg-label" for="examplePassword">Password</Label>
                                         <Input
                                              id="password"
                                              name="password"

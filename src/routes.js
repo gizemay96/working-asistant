@@ -17,7 +17,7 @@
 */
 import Dashboard from "views/Dashboard.js";
 import Icons from "views/Icons.js";
-import Login from "views/Login";
+import Login from "views/Login/Login";
 import Map from "views/Map.js";
 import Notifications from "views/Notifications.js";
 import Rtl from "views/Rtl.js";
@@ -26,7 +26,7 @@ import Typography from "views/Typography.js";
 import UserProfile from "views/UserProfile.js";
 import WorkItems from "views/WorkItems";
 import Releases from "views/Releases";
-import Register from "views/Register";
+import Register from "views/Register/Register";
 
 var routes = [
   {

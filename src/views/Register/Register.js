@@ -1,10 +1,10 @@
 import React from 'react'
 import { useFormik } from 'formik';
-import logo1 from '../assets/img/waa2.png'
-import registerValidationShema from "../assets/validations/registerValidation";
+import logo1 from 'assets/img/waa2.png'
+import registerValidationShema from "assets/validations/registerValidation";
 
-import { register } from '../services/user.service'
-import { useUser } from '../contexts/UserContext'
+import { register } from 'services/user.service'
+import { useUser } from 'contexts/UserContext'
 
 
 import {
@@ -52,7 +52,7 @@ function Register({ history }) {
                          <CardBody>
                               <form onSubmit={handleSubmit}>
                               <FormGroup>
-                                        <Label for="exampleEmail">User Name</Label>
+                                        <Label className="log-reg-label" for="exampleEmail">User Name</Label>
                                         <Input
                                              id="username"
                                              name="username"
@@ -67,7 +67,7 @@ function Register({ history }) {
                                         </span>
                                    </FormGroup>
                                    <FormGroup>
-                                        <Label for="exampleEmail">Email address</Label>
+                                        <Label className="log-reg-label" for="exampleEmail">Email address</Label>
                                         <Input
                                              id="email"
                                              name="email"
@@ -85,7 +85,7 @@ function Register({ history }) {
                                         </FormText>
                                    </FormGroup>
                                    <FormGroup>
-                                        <Label for="examplePassword">Password</Label>
+                                        <Label className="log-reg-label" for="examplePassword">Password</Label>
                                         <Input
                                              id="password"
                                              name="password"
@@ -101,7 +101,7 @@ function Register({ history }) {
                                         </span>
                                    </FormGroup>
                                    <FormGroup>
-                                        <Label for="exampleconfirmPassword">Confirm Password</Label>
+                                        <Label className="log-reg-label" for="exampleconfirmPassword">Confirm Password</Label>
                                         <Input
                                              id="confirmPassword"
                                              name="confirmPassword"
