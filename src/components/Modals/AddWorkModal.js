@@ -174,7 +174,7 @@ function AddWorkModal(props) {
                                 <Table className="tablesorter" hover>
                                     <thead className="text-primary">
                                         {/* WORK TYPE HEADER */}
-                                        <tr>
+                                        <tr className="table-head-tr">
                                             {searchInput.every(item => item !== 'type') &&
                                                 <th onClick={() => openInput('type')} ><b>Type</b> <i class="fas fa-search-plus ml-2"></i>
                                                 </th>

@@ -26,6 +26,7 @@ import Typography from "views/Typography.js";
 import UserProfile from "views/UserProfile.js";
 import WorkItems from "views/WorkItems";
 import Releases from "views/Releases";
+import Register from "views/Register";
 
 var routes = [
   {
@@ -70,6 +71,15 @@ var routes = [
     rtlName: "الرموز",
     icon: "tim-icons icon-atom",
     component: Login,
+    layout: "/admin",
+    authControl: false
+  },
+  {
+    path: "/register",
+    name: "Register",
+    rtlName: "الرموز",
+    icon: "tim-icons icon-atom",
+    component: Register,
     layout: "/admin",
     authControl: false
   },

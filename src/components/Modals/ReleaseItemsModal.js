@@ -106,7 +106,7 @@ function ReleaseItemsModal({ selectedRelease, closeReleaseItemsModal }, props) {
                         <CardBody className="table-case">
                             <Table className="tablesorter">
                                 <thead className="text-primary">
-                                    <tr>
+                                    <tr className="table-head-tr">
                                         <th>Type</th>
                                         <th>Ticket Id</th>
                                     </tr>

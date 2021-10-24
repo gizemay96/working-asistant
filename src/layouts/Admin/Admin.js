@@ -30,6 +30,7 @@ import routes from "routes.js";
 
 import logo from "assets/img/react-logo.png";
 import { BackgroundColorContext } from "contexts/BackgroundColorContext";
+import logo1 from '../../assets/img/waa2.png'
 
 var ps;
 
@@ -111,7 +112,7 @@ function Admin(props) {
               logo={{
                 outterLink: "https://www.creative-tim.com/",
                 text: "Creative Tim",
-                imgSrc: logo,
+                imgSrc: logo1,
               }}
               toggleSidebar={toggleSidebar}
             />

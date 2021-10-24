@@ -3,12 +3,22 @@ import { getQuery } from './common.service';
 
 const url = process.env.REACT_APP_PROD_ENV;
 
-export const login = (username, password) => {
+export const login = (params) => {
     return axios
-        .post(`${url}/auth/local`, {
-            identifier: username,
-            password: password,
-        })
+        .post(`${url}/auth/local`, params)
+        .then(response => {
+            // Handle success.
+            if (response.data.jwt) {
+                localStorage.setItem('user', JSON.stringify(response.data.user));
+                localStorage.setItem('jwt', JSON.stringify(response.data.jwt));
+            }
+            return response.data.user;
+        });
+}
+
+export const register = (params) => {
+    return axios
+        .post(`${url}/auth/local/register`, params)
         .then(response => {
             // Handle success.
             if (response.data.jwt) {

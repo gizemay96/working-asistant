@@ -74,27 +74,11 @@ function Sidebar(props) {
   if (logo !== undefined) {
     if (logo.outterLink !== undefined) {
       logoImg = (
-        <a
-          href={logo.outterLink}
-          className="simple-text logo-mini"
-          target="_blank"
-          onClick={props.toggleSidebar}
-        >
-          <div className="logo-img">
-            <img src={logo.imgSrc} alt="react-logo" />
-          </div>
-        </a>
+        <div className="d-flex justify-content-center">
+          <img className="mr-2" style={{width: "100px"}} src={logo.imgSrc} ></img>
+        </div>
       );
-      logoText = (
-        <a
-          href={logo.outterLink}
-          className="simple-text logo-normal"
-          target="_blank"
-          onClick={props.toggleSidebar}
-        >
-          {logo.text}
-        </a>
-      );
+
     } else {
       logoImg = (
         <Link

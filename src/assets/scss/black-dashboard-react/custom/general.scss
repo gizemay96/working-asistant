@@ -1,3 +1,7 @@
+*{
+  font-family: 'Fredoka One', cursive;
+}
+
 .table-case {
   overflow: auto;
 }
@@ -87,12 +91,12 @@
 
 .table-body-tr > td{
   font-size: 17px;
-  font-family: 'Roboto';
 }
 
 .table-head-tr > th{
 font-size: 14px !important;
-text-shadow: 0px 0px 3px #2c6af6;
+color: #1d8cf8 !important;
+letter-spacing: 2px;
 }
 
 .dopdown-menu{
@@ -101,4 +105,20 @@ text-shadow: 0px 0px 3px #2c6af6;
 
 .dark-blue-picker label{
   font-size: 16px !important;
+}
+
+.file-modal-case{
+  .nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
+   color: white;
+   background-color: #c453eaab;
+  }
+}
+
+.login-card{
+  max-width: 700px !important;
+  padding: 30px 10px !important;
+}
+
+.form-error{
+  color: #c951e4 !important;
 }
