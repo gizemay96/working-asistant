@@ -33,7 +33,9 @@ function Register({ history }) {
                register(values)
                     .then(res =>
                          setActiveUser(res),
-                         history.push('/')
+                         setTimeout(() => {
+                              history.push('/')
+                         }, 500)
                     )
                     .catch(err => {
                     });

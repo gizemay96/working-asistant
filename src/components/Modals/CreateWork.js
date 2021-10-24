@@ -93,10 +93,13 @@ function CreateWork(props) {
           <div>
                <div className="content">
                     <Card className="container">
+                         <div className="text-center mt-3">
+                         <h3>Create Work</h3>
+                         </div>
                          <CardBody>
                               <form onSubmit={formik.handleSubmit}>
                                    <FormGroup>
-                                        <Label for="type">Work Type</Label>
+                                        <Label className="log-reg-label" for="type">Work Type</Label>
                                         <Input
                                              type="select"
                                              name="type"
@@ -109,7 +112,7 @@ function CreateWork(props) {
                                         </Input>
                                    </FormGroup>
                                    <FormGroup>
-                                        <Label for="ticketId">Ticket Id</Label>
+                                        <Label className="log-reg-label" for="ticketId">Ticket Id</Label>
                                         <Input
                                              id="ticketId"
                                              name="ticketId"
@@ -119,7 +122,7 @@ function CreateWork(props) {
                                         />
                                    </FormGroup>
                                    <FormGroup>
-                                        <Label for="name">Work Name</Label>
+                                        <Label className="log-reg-label" for="name">Work Name</Label>
                                         <Input
                                              id="name"
                                              name="name"
@@ -129,7 +132,7 @@ function CreateWork(props) {
                                         />
                                    </FormGroup>
                                    <FormGroup>
-                                        <Label for="branch">Work Branch</Label>
+                                        <Label className="log-reg-label" for="branch">Work Branch</Label>
                                         <Input
                                              id="branch"
                                              name="branch"
@@ -138,7 +141,7 @@ function CreateWork(props) {
                                              value={formik.values.branch}
                                         />
                                    </FormGroup>
-                                   <Label for="branch">Environments</Label>
+                                   <Label className="log-reg-label" for="branch">Environments</Label>
                                    <div className="d-flex justify-content-between">
                                         <FormGroup>
                                              <span style={{ textDecoration: "underline", color: "blue" }} href="#" id="TooltipExample1">

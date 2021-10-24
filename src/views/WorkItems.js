@@ -194,9 +194,12 @@ function WorkItems(props) {
 
                     <Row>
                          <Col md="12">
-                              <Card>
+                              <Card className="mt-3">
                                    <CardHeader>
-                                        <CardTitle tag="h1">My Works</CardTitle>
+                                        <CardTitle className="d-flex justify-content-between">
+                                             <h1>My Works</h1>
+                                             <h4>Total : {currentPage.total}  Item </h4>
+                                             </CardTitle>
                                    </CardHeader>
                                    <CardBody className="table-case">
                                         <Table className="tablesorter" hover>

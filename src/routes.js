@@ -99,15 +99,15 @@ var routes = [
   //   component: Notifications,
   //   layout: "/admin",
   // },
-  {
-    path: "/user-profile",
-    name: "User Profile",
-    rtlName: "ملف تعريفي للمستخدم",
-    icon: "tim-icons icon-single-02",
-    component: UserProfile,
-    layout: "/admin",
-    authControl: true
-  },
+  // {
+  //   path: "/user-profile",
+  //   name: "User Profile",
+  //   rtlName: "ملف تعريفي للمستخدم",
+  //   icon: "tim-icons icon-single-02",
+  //   component: UserProfile,
+  //   layout: "/admin",
+  //   authControl: true
+  // },
   // {
   //   path: "/tables",
   //   name: "Table List",

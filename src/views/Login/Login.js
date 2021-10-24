@@ -30,7 +30,9 @@ const Login = ({ history }) => {
                login(values)
                     .then(res =>
                          setActiveUser(res),
-                         history.push('/')
+                         setTimeout(() => {
+                              history.push('/')
+                         }, 500)
                     )
                     .catch(err => {
                     });

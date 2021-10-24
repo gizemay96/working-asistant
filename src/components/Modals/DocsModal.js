@@ -190,7 +190,7 @@ function DocsModal(props) {
                                                                                 <div className="col-2"><CardImg className="file-img" top src={fileIcons[doc.ext?.substring(1)]} alt="..." /></div>
                                                                                 <div className="col-7" style={{ color: "white", fontSize: "12px" }}>{doc.name}</div>
                                                                                 <div className="col-5">
-                                                                                     <Button target={doc.ext === '.pdf' ? '_blank' : ''} href={`http://localhost:1337${doc.url}`} className="btn-sm btn-round btn-icon btn-simple" color="info">
+                                                                                     <Button target={doc.ext === '.pdf' ? '_blank' : ''} href={`https://waa-app.herokuapp.com${doc.url}`} className="btn-sm btn-round btn-icon btn-simple" color="info">
                                                                                           <i class="fas fa-download"></i>
                                                                                      </Button>
                                                                                      <Button onClick={() => deleteFile(doc.id)} className="btn-sm btn-round btn-icon ml-2">
