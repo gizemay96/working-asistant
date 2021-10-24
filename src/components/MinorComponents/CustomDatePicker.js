@@ -1,4 +1,4 @@
-import {React , useState , useEffect} from 'react'
+import { React, useState, useEffect } from 'react'
 
 import TextField from '@mui/material/TextField';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
@@ -11,53 +11,6 @@ import { ClickAwayListener } from "@material-ui/core";
 
 
 
-
-
-
-
-const theme = createTheme({
-    palette: {
-        neutral: {
-            main: '#64748B',
-            contrastText: '#fff',
-        },
-    },
-    components: {
-        MuiPaper: {
-            styleOverrides: {
-                root: {
-                    backgroundColor: "#07152a"
-                }
-            }
-        },
-        MuiButtonBase: {
-            styleOverrides: {
-                root: {
-                    outline: 'none',
-                    color: 'white',
-                    border: "none"
-                }
-            }
-        },
-        MuiIconButton: {
-            styleOverrides: {
-                root: {
-                    outline: "none"
-
-                }
-            }
-        },
-
-        MuiInputLabel:{
-            styleOverrides:{
-                root:{
-                    fontSize: "19px"
-                }
-            }
-        }
-    },
-});
-
 const CustomPickersDay = styled(PickersDay, {
     shouldForwardProp: (prop) =>
         prop !== 'dayIsBetween' && prop !== 'isFirstDay' && prop !== 'isLastDay',
@@ -69,43 +22,91 @@ const CustomPickersDay = styled(PickersDay, {
     },
 }));
 
+const TextFieldCustom = styled(TextField)({
+    '& label.Mui-focused': {
+        color: '#c852e5',
+    },
+    '& label.Mui-focused': {
+        color: '#c852e5',
+    },
+    '& .MuiOutlinedInput-root': {
+        '& fieldset': {
+            borderColor: '#2b3553',
+        },
+        '&:hover fieldset': {
+            borderColor: '#2b3553',
+        },
+        '&.Mui-focused fieldset': {
+            borderColor: '#c852e5',
+        },
+        color: "white",
+    },
+});
+
 function CustomDatePicker(props) {
     const [valueDate, setValue] = useState();
     const [isOpen, setIsOpen] = useState(false);
 
-    const handleClickAway = () => { if (isOpen) { setIsOpen(false); } };
+    const handleClickAway = () => { if (isOpen) { console.log('ww'); setIsOpen(false); } };
     const handleClick = () => setIsOpen(!isOpen);
 
 
     useEffect(() => {
+        console.log(valueDate)
         props.setDateToParent(valueDate);
         renderWeekPickerDay();
     }, [valueDate])
 
-    const TextFieldCustom = styled(TextField)({
-        '& label.Mui-focused': {
-            color: '#c852e5',
-        },
-        '& label.Mui-focused': {
-            color: '#c852e5',
-        },
-        '& .MuiOutlinedInput-root': {
-            '& fieldset': {
-                borderColor: '#2b3553',
+
+    const theme = createTheme({
+        palette: {
+            neutral: {
+                main: '#64748B',
+                contrastText: '#fff',
             },
-            '&:hover fieldset': {
-                borderColor: '#2b3553',
-            },
-            '&.Mui-focused fieldset': {
-                borderColor: '#c852e5',
-            },
-            color: "white",
-            marginBottom: props.marginBottom
-    
         },
-        '& .MuiOutlinedInput-input': {
-            fontSize: props.inputFontSize,
-            padding:  props.inputPadding
+        components: {
+            MuiPaper: {
+                styleOverrides: {
+                    root: {
+                        backgroundColor: "#07152a"
+                    }
+                }
+            },
+            MuiButtonBase: {
+                styleOverrides: {
+                    root: {
+                        outline: 'none',
+                        color: 'white',
+                        border: "none"
+                    }
+                }
+            },
+            MuiIconButton: {
+                styleOverrides: {
+                    root: {
+                        outline: "none"
+
+                    }
+                }
+            },
+
+            MuiInputLabel: {
+                styleOverrides: {
+                    root: {
+                        fontSize: "19px"
+                    }
+                }
+            },
+
+            MuiOutlinedInput: {
+                styleOverrides: {
+                    input: {
+                        fontSize: props.inputFontSize,
+                        padding: props.inputPadding
+                    }
+                }
+            }
         },
     });
 
