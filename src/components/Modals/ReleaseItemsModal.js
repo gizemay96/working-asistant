@@ -103,7 +103,7 @@ function ReleaseItemsModal({ selectedRelease, closeReleaseItemsModal }, props) {
                                 </Button>
                             </div>
                         </CardHeader>
-                        <CardBody className="table-case">
+                        <CardBody className="table-case release-items-modal-body">
                             <Table className="tablesorter">
                                 <thead className="text-primary">
                                     <tr className="table-head-tr">

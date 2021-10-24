@@ -46,7 +46,7 @@ function WorkItems(props) {
           branch_contains: '',
           ticketId_contains: '',
           _start: 0,
-          _limit: 9
+          _limit: 10
      });
 
 
