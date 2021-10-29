@@ -1,5 +1,5 @@
 * {
-  font-family: 'Fredoka One', cursive;
+  font-family: 'Nunito', cursive;
 }
 
 .table-case {
@@ -163,4 +163,10 @@
 .release-items-modal-body {
     max-height: 400px;
     overflow: auto;
+}
+
+.nav-link{
+  p{
+    letter-spacing: 2px;
+  }
 }
