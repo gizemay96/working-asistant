@@ -1,5 +1,5 @@
 * {
-  font-family: 'Nunito', cursive;
+  font-family: "Nunito", cursive;
 }
 
 .table-case {
@@ -13,8 +13,8 @@
   position: relative;
   text-align: center;
 
-  -webkit-animation: sk-rotate 2.0s infinite linear;
-  animation: sk-rotate 2.0s infinite linear;
+  -webkit-animation: sk-rotate 2s infinite linear;
+  animation: sk-rotate 2s infinite linear;
 }
 
 .dot1,
@@ -27,53 +27,51 @@
   background-color: #2970f6;
   border-radius: 100%;
 
-  -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
-  animation: sk-bounce 2.0s infinite ease-in-out;
+  -webkit-animation: sk-bounce 2s infinite ease-in-out;
+  animation: sk-bounce 2s infinite ease-in-out;
 }
 
 .dot2 {
   top: auto;
   bottom: 0;
-  -webkit-animation-delay: -1.0s;
-  animation-delay: -1.0s;
+  -webkit-animation-delay: -1s;
+  animation-delay: -1s;
 }
 
 @-webkit-keyframes sk-rotate {
   100% {
-    -webkit-transform: rotate(360deg)
+    -webkit-transform: rotate(360deg);
   }
 }
 
 @keyframes sk-rotate {
   100% {
     transform: rotate(360deg);
-    -webkit-transform: rotate(360deg)
+    -webkit-transform: rotate(360deg);
   }
 }
 
 @-webkit-keyframes sk-bounce {
-
   0%,
   100% {
-    -webkit-transform: scale(0.0)
+    -webkit-transform: scale(0);
   }
 
   50% {
-    -webkit-transform: scale(1.0)
+    -webkit-transform: scale(1);
   }
 }
 
 @keyframes sk-bounce {
-
   0%,
   100% {
-    transform: scale(0.0);
-    -webkit-transform: scale(0.0);
+    transform: scale(0);
+    -webkit-transform: scale(0);
   }
 
   50% {
-    transform: scale(1.0);
-    -webkit-transform: scale(1.0);
+    transform: scale(1);
+    -webkit-transform: scale(1);
   }
 }
 
@@ -93,13 +91,11 @@
   min-height: 650px !important;
 }
 
-.modal-l>.modal-content,
-.modal-md>.modal-content,
-.modal-sm>.modal-content {
+.modal-l > .modal-content,
+.modal-md > .modal-content,
+.modal-sm > .modal-content {
   border-radius: 20px;
 }
-
-
 
 .css-1w13o7u-MuiTypography-root,
 .css-1bx5ylf,
@@ -109,20 +105,17 @@
 .css-i4bv87-MuiSvgIcon-root,
 .css-hc7ms0 {
   color: white !important;
-
 }
-
-
 
 .table-body-tr {
   height: 80px;
 }
 
-.table-body-tr>td {
+.table-body-tr > td {
   font-size: 17px;
 }
 
-.table-head-tr>th {
+.table-head-tr > th {
   font-size: 14px !important;
   color: #1d8cf8 !important;
   letter-spacing: 2px;
@@ -137,7 +130,6 @@
 }
 
 .file-modal-case {
-
   .nav-tabs .nav-link.active,
   .nav-tabs .nav-item.show .nav-link {
     color: white;
@@ -161,12 +153,20 @@
 }
 
 .release-items-modal-body {
-    max-height: 400px;
-    overflow: auto;
+  max-height: 400px;
+  overflow: auto;
 }
 
-.nav-link{
-  p{
+.nav-link {
+  p {
     letter-spacing: 2px;
+  }
+}
+
+select {
+  option {
+    background: #202840;
+    color: white;
+    font-size: 13px;
   }
 }

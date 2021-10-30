@@ -128,7 +128,6 @@ function CustomDatePicker(props) {
     return (
         <div>
             <ThemeProvider theme={theme}>
-                <ClickAwayListener onClickAway={handleClickAway}>
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
                         <div className="dark-blue-picker">
                             <DatePicker
@@ -144,7 +143,6 @@ function CustomDatePicker(props) {
                             />
                         </div>
                     </LocalizationProvider>
-                </ClickAwayListener>
             </ThemeProvider>
         </div>
     )

@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { getQuery } from './common.service';
 
 
 const token = JSON.parse(localStorage.getItem('jwt'));

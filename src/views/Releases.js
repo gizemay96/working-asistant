@@ -26,6 +26,7 @@ import {
 import ReleaseItemsModal from 'components/Modals/ReleaseItemsModal';
 import CreateRelease from 'components/Modals/CreateRelease';
 import CustomDatePicker from 'components/MinorComponents/CustomDatePicker';
+import DeleteConfirmation from 'components/Confirmations/DeleteConfirmation';
 
 function Releases(props) {
      const [releaseData, setReleaseData] = useState([])
@@ -42,7 +43,7 @@ function Releases(props) {
 
      useEffect(() => {
           getItems();
-     }, [filters])
+     }, [filters]);
 
 
      const {
@@ -55,7 +56,10 @@ function Releases(props) {
 
      const [createReleaseModal, setCreateReleaseModal] = useState(false);
      const toggleCreateReleaseModal = () => setCreateReleaseModal(!createReleaseModal);
-     
+
+     const [deleteConfirmModal, setDeleteConfirmModal] = useState(false);
+     const toggleDeleteConfirmModal = () => setDeleteConfirmModal(!deleteConfirmModal);
+
 
 
      const getItems = async () => {
@@ -67,14 +71,19 @@ function Releases(props) {
      const saveRelease = async (saveData) => {
           setLoading(true);
           const response = await createRelease(saveData);
-          toggleCreateReleaseModal();
-          getItems();
+          if (response) {
+               toggleCreateReleaseModal();
+               getItems();
+          }
      }
 
      const removeRelease = async (item) => {
           setLoading(true);
           const response = await deleteRelease(item.id);
-          getItems();
+          if (response) {
+               confirmationModalActions();
+               getItems();
+          }
      }
 
      const openReleaseItemsModal = (item) => {
@@ -89,6 +98,14 @@ function Releases(props) {
      const closeCreateReleasModal = () => {
           toggleCreateReleaseModal();
      }
+
+     const confirmationModalActions = (item = null, onlyClose = true) => {
+          if (!onlyClose)
+               setSelectedRelease({ ...item });
+
+          toggleDeleteConfirmModal();
+     }
+
 
      // Filtering Functions
      const removeFilter = (type) => {
@@ -215,7 +232,7 @@ function Releases(props) {
                                                             <td>{item.Project}</td>
                                                             <td><Button onClick={() => openReleaseItemsModal(item)} color="info btn-simple btn-sm">Show</Button></td>
                                                             <td className="text-center">
-                                                                 <Button onClick={() => removeRelease(item)} className="btn-icon text-rigth" size="sm">
+                                                                 <Button onClick={() => confirmationModalActions(item, false)} className="btn-icon text-rigth" size="sm">
                                                                       <i class="fas fa-trash-alt"></i>
                                                                  </Button>{` `}
                                                             </td>
@@ -257,6 +274,13 @@ function Releases(props) {
                          </CreateRelease>
                     </ModalBody>
                </Modal>
+
+               <Modal isOpen={deleteConfirmModal} toggle={toggleDeleteConfirmModal} className={className}>
+                    <ModalBody>
+                         <DeleteConfirmation message="Are You Sure You Want Delete ?" actionYes={() => removeRelease(selectedRelease)} actionNo={confirmationModalActions}></DeleteConfirmation>
+                    </ModalBody>
+               </Modal>
+
 
 
           </div>

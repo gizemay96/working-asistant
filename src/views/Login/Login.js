@@ -43,7 +43,7 @@ const Login = ({ history }) => {
           <div className="content">
                <div className="container">
                     <div className="d-flex justify-content-center">
-                         <img className="mb-5" style={{ width: "200px" }} src={logo1} ></img>
+                         <img alt="logo" className="mb-5" style={{ width: "200px" }} src={logo1} ></img>
                     </div>
                     <Card className="container login-card">
                          <CardHeader className="text-center"><h1>Login</h1></CardHeader>

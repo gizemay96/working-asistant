@@ -30,28 +30,31 @@ export default function BackgroundColorWrapper({ chartName = '' }) {
                     }));
 
                     setTotalWorks(totalWorkData);
+                    break;
 
                case 'developments':
                     const developmentsData = await Promise.all(monthsHaflYear.map(async (month, ind) => {
                          params = { type: 'Development' }
-                         const ltDate = `${new Date(`${month}.30.${new Date().getFullYear()}`).toISOString()}`
+                         const ltDate = `${new Date(`${month}.31.${new Date().getFullYear()}`).toISOString()}`
                          const gtDate = `${new Date(`${month}.2.${new Date().getFullYear()}`).toISOString()}`
                          const resp = await getWorksCountWithDate(ltDate, gtDate, params);
                          return resp.data;
                     }));
 
                     setdevelopmentsData(developmentsData);
+                    break;
 
                case 'bugs':
                     const bugsData = await Promise.all(monthsHaflYear.map(async (month, ind) => {
                          params = { type: 'Bug' }
-                         const ltDate = `${new Date(`${month}.30.${new Date().getFullYear()}`).toISOString()}`
+                         const ltDate = `${new Date(`${month}.31.${new Date().getFullYear()}`).toISOString()}`
                          const gtDate = `${new Date(`${month}.2.${new Date().getFullYear()}`).toISOString()}`
                          const resp = await getWorksCountWithDate(ltDate, gtDate, params);
                          return resp.data;
                     }));
 
                     setbugsData(bugsData);
+                    break;
 
                case 'month':
                     var date = new Date();
@@ -68,6 +71,7 @@ export default function BackgroundColorWrapper({ chartName = '' }) {
                     }));
 
                     setmonthData(monthData);
+                    break;
                default:
                     break;
           }

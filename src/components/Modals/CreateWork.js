@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useFormik } from 'formik';
 
 import { createWork, updateWork } from '../../services/works.service'
@@ -80,7 +80,7 @@ function CreateWork(props) {
                }
                else if (!data[mapKey].active) {
                     data[mapKey].active = true;
-                    data[mapKey].date = `${new Date().toLocaleString()}`;
+                    data[mapKey].date = `${new Date().toISOString()}`;
                }
                formik.setFieldValue("currentEnv", ind2 + 1);
           });

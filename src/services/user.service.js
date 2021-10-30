@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { getQuery } from './common.service';
 
 const url = process.env.REACT_APP_PROD_ENV;
 

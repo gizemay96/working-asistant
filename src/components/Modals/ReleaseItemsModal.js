@@ -16,20 +16,24 @@ import {
     Modal, ModalBody
 } from "reactstrap";
 import AddWorkModal from '../Modals/AddWorkModal';
+import DeleteConfirmation from 'components/Confirmations/DeleteConfirmation';
 
 function ReleaseItemsModal({ selectedRelease, closeReleaseItemsModal }, props) {
     const [releaseItemsData, setReleaseItemsData] = useState({});
     const [loadingData, setLoadingData] = useState(true);
     const [removing, setremoving] = useState(false);
     const [selectedItems, setSelectedItems] = useState([]);
+    const [selectedItemForDelete, setSelectedItemForDelete] = useState({});
 
 
     const {
-        buttonLabel,
         className = 'modal-l'
     } = props;
     const [workItemsModal, setworkItemsModal] = useState(false);
     const toggleWorkItemsModal = () => setworkItemsModal(!workItemsModal);
+
+    const [deleteConfirmModal, setDeleteConfirmModal] = useState(false);
+    const toggleDeleteConfirmModal = () => setDeleteConfirmModal(!deleteConfirmModal);
 
 
     useEffect(() => {
@@ -66,22 +70,35 @@ function ReleaseItemsModal({ selectedRelease, closeReleaseItemsModal }, props) {
         const updatedRelease = releaseItemsData;
         updatedRelease.works = selectedItems;
         const response = await updateRelease(updatedRelease);
-        getItems();
-        setremoving(false);
+        if (response) {
+            setremoving(false);
+            getItems();
+        }
     }
 
     const removeItem = (item) => {
         setLoadingData(true);
         setremoving(true);
+        console.log(releaseItemsData.works, item)
         let items = releaseItemsData.works;
 
         const ind = items.findIndex(addedItem => addedItem.id === item.id);
+        console.log(ind)
         if (ind > -1) {
             items[ind].checked = false;
             items.splice(ind, 1);
             setSelectedItems([...items]);
         }
+        toggleDeleteConfirmModal();
     }
+
+    const confirmationModalActions = (item = null, onlyClose = true) => {
+        if (!onlyClose)
+            setSelectedItemForDelete({ ...item });
+
+        toggleDeleteConfirmModal();
+    }
+
 
 
     return (
@@ -131,7 +148,7 @@ function ReleaseItemsModal({ selectedRelease, closeReleaseItemsModal }, props) {
                                                 <td><i className={item.type === 'Bug' ? "fas fa-bug" : "fas fa-file-code"}></i> <span>{item.type}</span> </td>
                                                 <td>{item.ticketId}</td>
                                                 <td className="text-right">
-                                                    <Button onClick={() => removeItem(item)} className="btn-icon" size="sm">
+                                                    <Button onClick={() => confirmationModalActions(item, false)} className="btn-icon" size="sm">
                                                         <i class="fas fa-trash-alt"></i>
                                                     </Button>{` `}
                                                 </td>
@@ -150,6 +167,12 @@ function ReleaseItemsModal({ selectedRelease, closeReleaseItemsModal }, props) {
             <Modal isOpen={workItemsModal} toggle={toggleWorkItemsModal} className={className}>
                 <ModalBody>
                     <AddWorkModal closeModal={toggleWorkItemsModal} initData={releaseItemsData.works} updateReleaseItems={setSelectedItems} ></AddWorkModal>
+                </ModalBody>
+            </Modal>
+
+            <Modal isOpen={deleteConfirmModal} toggle={toggleDeleteConfirmModal} className={className}>
+                <ModalBody>
+                    <DeleteConfirmation message="Are You Sure You Want Delete ?" actionYes={() => removeItem(selectedItemForDelete)} actionNo={confirmationModalActions}></DeleteConfirmation>
                 </ModalBody>
             </Modal>
         </div>

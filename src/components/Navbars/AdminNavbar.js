@@ -22,14 +22,12 @@ import { useUser } from '../../contexts/UserContext'
 
 // reactstrap components
 import {
-  Button,
   Collapse,
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
   UncontrolledDropdown,
   Input,
-  InputGroup,
   NavbarBrand,
   Navbar,
   NavLink,

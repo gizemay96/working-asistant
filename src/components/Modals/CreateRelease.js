@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 
-import { createWork, updateWork } from '../../services/works.service'
-
 import createReleaseValidationShema from "../../assets/validations/createReleaseValidation";
 import '../../assets/scss/black-dashboard-react/custom/createWork.scss'
 import styles from '../../assets/scss/black-dashboard-react/custom/test.module.scss';

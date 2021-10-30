@@ -1,6 +1,5 @@
 import { React, useState, useEffect } from "react";
 import '../../assets/scss/black-dashboard-react/custom/workItems.scss'
-import Moment from 'moment'
 
 // reactstrap components
 import {

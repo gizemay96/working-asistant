@@ -22,6 +22,7 @@ import { Tooltip } from 'reactstrap';
 import { getWorks, deleteWork, getWorksCount } from '../services/works.service'
 import CreateWork from "components/Modals/CreateWork";
 import DocsModal from "components/Modals/DocsModal";
+import DeleteConfirmation from "components/Confirmations/DeleteConfirmation";
 
 function WorkItems(props) {
 
@@ -70,6 +71,10 @@ function WorkItems(props) {
      const [docsModal, setDocsModal] = useState(false);
      const toggleDocsModal = () => setDocsModal(!docsModal, docsModal === true ? setSelectedItem(null) : null);
 
+
+     const [deleteConfirmModal, setDeleteConfirmModal] = useState(false);
+     const toggleDeleteConfirmModal = () => setDeleteConfirmModal(!deleteConfirmModal);
+
      // Edit - Get - Delete Functions
      const getItems = async (closeModal = false, getFor = '', closeFileModal = false) => {
           if (closeFileModal)
@@ -97,7 +102,8 @@ function WorkItems(props) {
      const deleteItem = async (id) => {
           setfilterApplying(true);
           await deleteWork(id)
-               .then(res => { getItems(false, 'delete'); })
+               .then(res => { getItems(false, 'delete'); });
+          confirmationModalActions();
      }
 
      const editItem = (item) => {
@@ -108,6 +114,13 @@ function WorkItems(props) {
      const openDocModal = (item) => {
           setSelectedItem(item);
           toggleDocsModal();
+     }
+
+     const confirmationModalActions = (item = null, onlyClose = true) => {
+          if (!onlyClose)
+               setSelectedItem(item);
+
+          toggleDeleteConfirmModal();
      }
 
      // Filtering Functions
@@ -183,11 +196,6 @@ function WorkItems(props) {
                          <div>
                               <div>
                                    <Button color="info btn-md" onClick={toggleModal}>{buttonLabel}Add Work</Button>
-                                   <Modal isOpen={modal} toggle={toggleModal} className={className}>
-                                        <ModalBody>
-                                             <CreateWork updateItem={selectedItem} closeModal={getItems} ></CreateWork>
-                                        </ModalBody>
-                                   </Modal>
                               </div>
                          </div>
                     </div>
@@ -199,7 +207,7 @@ function WorkItems(props) {
                                         <CardTitle className="d-flex justify-content-between">
                                              <h1>My Works</h1>
                                              <h4>Total : {currentPage.total}  Item </h4>
-                                             </CardTitle>
+                                        </CardTitle>
                                    </CardHeader>
                                    <CardBody className="table-case">
                                         <Table className="tablesorter" hover>
@@ -388,7 +396,7 @@ function WorkItems(props) {
                                                                       <Button onClick={() => openDocModal(item)} className="btn-icon" size="sm">
                                                                            <i class="fas fa-folder-open"></i>
                                                                       </Button>{` `}
-                                                                      <Button onClick={() => deleteItem(item.id)} className="btn-icon" size="sm">
+                                                                      <Button onClick={() => confirmationModalActions(item, false)} className="btn-icon" size="sm">
                                                                            <i class="fas fa-trash-alt"></i>
                                                                       </Button>{` `}
                                                                  </td>
@@ -416,11 +424,27 @@ function WorkItems(props) {
                     </div>
                </div>
 
+
+
+               {/* MODALS */}
+               <Modal style={{ top: "-120px" }} isOpen={modal} toggle={toggleModal} className={className}>
+                    <ModalBody>
+                         <CreateWork updateItem={selectedItem} closeModal={getItems} ></CreateWork>
+                    </ModalBody>
+               </Modal>
+
                <Modal isOpen={docsModal} toggle={toggleDocsModal} className={className}>
                     <ModalBody>
                          <DocsModal updateItem={selectedItem} closeDocModal={closeDocModal}></DocsModal>
                     </ModalBody>
                </Modal>
+
+               <Modal isOpen={deleteConfirmModal} toggle={toggleDeleteConfirmModal} className={className}>
+                    <ModalBody>
+                         <DeleteConfirmation message="Are You Sure You Want Delete ?" actionYes={() => deleteItem(selectedItem.id)} actionNo={confirmationModalActions}></DeleteConfirmation>
+                    </ModalBody>
+               </Modal>
+
           </>
      );
 }
