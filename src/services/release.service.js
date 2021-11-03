@@ -11,7 +11,7 @@ export const getReleases = async (params) => {
      const query = getQuery(params);
 
      return await axios
-          .get(`${url}/releases?${query}&[users_permissions_user._id]=${user._id}`, {
+          .get(`${url}/releases?${query}&[users_permissions_user._id]=${user.id || user._id}`, {
                headers: {
                     Authorization: `Bearer ${token}`,
                },
@@ -20,7 +20,7 @@ export const getReleases = async (params) => {
 
 export const getReleaseById = async (id) => {
      return await axios
-          .get(`${url}/releases/${id}?[users_permissions_user._id]=${user._id}`, {
+          .get(`${url}/releases/${id}?[users_permissions_user._id]=${user.id || user._id}`, {
                headers: {
                     Authorization: `Bearer ${token}`,
                },
@@ -28,7 +28,7 @@ export const getReleaseById = async (id) => {
 }
 
 export const createRelease = async (params) => {
-     params.users_permissions_user = user._id;
+     params.users_permissions_user = user.id || user._id;
      return await axios
           .post(`${url}/releases`, params, {
                headers: {

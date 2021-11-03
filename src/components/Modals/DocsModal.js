@@ -4,7 +4,7 @@ import {
      Button,
      CardHeader,
      CardTitle,
-     
+
      Row,
      Col,
      UncontrolledAlert,
@@ -105,12 +105,12 @@ function DocsModal(props) {
           }
      }
 
-     const saveWorkNotes = async() => {
+     const saveWorkNotes = async () => {
           setLoading(true);
           const newItem = workItem;
-               newItem.notes = workNotes;
-               await updateWork(newItem, newItem.id)
-                    .then(res => { getFiles(); })
+          newItem.notes = workNotes;
+          await updateWork(newItem, newItem.id)
+               .then(res => { getFiles(); })
      }
 
      return (
@@ -120,6 +120,7 @@ function DocsModal(props) {
                     <Nav tabs>
                          <NavItem>
                               <NavLink
+                                   style={{ cursor: 'pointer' }}
                                    className={classnames({ active: activeTab === '1' })}
                                    onClick={() => { toggle('1'); }}
                               >
@@ -128,6 +129,7 @@ function DocsModal(props) {
                          </NavItem>
                          <NavItem>
                               <NavLink
+                                   style={{ cursor: 'pointer' }}
                                    className={classnames({ active: activeTab === '2' })}
                                    onClick={() => { toggle('2'); }}
                               >
