@@ -11,7 +11,7 @@ export const getWorks = async (params) => {
      const query = getQuery(params);
 
      return await axios
-          .get(`${url}/works?${query}&[users_permissions_user._id]=${user.id}`, {
+          .get(`${url}/works?${query}&[users_permissions_user._id]=${user.id || user._id}`, {
                headers: {
                     Authorization: `Bearer ${token}`,
                },
@@ -20,7 +20,7 @@ export const getWorks = async (params) => {
 
 export const getWorkById = async (id) => {
      return await axios
-          .get(`${url}/works/${id}?[users_permissions_user._id]=${user.id}`, {
+          .get(`${url}/works/${id}?[users_permissions_user._id]=${user.id || user._id}`, {
                headers: {
                     Authorization: `Bearer ${token}`,
                },
@@ -32,7 +32,7 @@ export const getWorksCountWithDate = (ltDate, gtDate, params) => {
      const query = getQuery(params);
 
      return axios
-          .get(`${url}/works/count?[createdAt_lt]=${ltDate}&[createdAt_gt]=${gtDate}&[users_permissions_user._id]=${user.id}&${query}`, {
+          .get(`${url}/works/count?[createdAt_lt]=${ltDate}&[createdAt_gt]=${gtDate}&[users_permissions_user._id]=${user.id || user._id}&${query}`, {
                headers: {
                     Authorization: `Bearer ${token}`,
                },
@@ -46,7 +46,7 @@ export const getWorksCount = async (params) => {
      const query = getQuery(params);
 
      return await axios
-          .get(`${url}/works/count?[users_permissions_user._id]=${user.id}&${query}`, {
+          .get(`${url}/works/count?[users_permissions_user._id]=${user.id || user._id}&${query}`, {
                headers: {
                     Authorization: `Bearer ${token}`,
                },
@@ -55,7 +55,7 @@ export const getWorksCount = async (params) => {
 
 
 export const createWork = (params) => {
-     params.users_permissions_user = user.id;
+     params.users_permissions_user = user.id || user._id;
      return axios
           .post(`${url}/works`, params, {
                headers: {
