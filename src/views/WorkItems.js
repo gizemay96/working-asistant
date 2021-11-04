@@ -66,10 +66,10 @@ function WorkItems(props) {
           className = "modal-sm"
      } = props;
      const [modal, setModal] = useState(false);
-     const toggleModal = () => setModal(!modal, modal === true ? setSelectedItem(null) : null);
+     const toggleModal = () => setModal(!modal, modal == true ? setSelectedItem(null) : null);
 
      const [docsModal, setDocsModal] = useState(false);
-     const toggleDocsModal = () => setDocsModal(!docsModal, docsModal === true ? setSelectedItem(null) : null);
+     const toggleDocsModal = () => setDocsModal(!docsModal, docsModal == true ? setSelectedItem(null) : null);
 
 
      const [deleteConfirmModal, setDeleteConfirmModal] = useState(false);
@@ -88,7 +88,7 @@ function WorkItems(props) {
           setfilterApplying(false);
 
 
-          if (worksData.data.length === 0 && getFor === 'delete' && currentPage.page > 1) {
+          if (worksData.data.length == 0 && getFor == 'delete' && currentPage.page > 1) {
                setCurrentPage({ ...currentPage, page: currentPage.page - 1 });
                setFilter({ ...filters, _start: filters._start - filters._limit });
           } else {
@@ -127,21 +127,21 @@ function WorkItems(props) {
      const removeFilter = (type) => {
 
           let openedInputType = type;
-          if (type === 'name_contains') {
+          if (type == 'name_contains') {
                openedInputType = 'name';
                setNameInputValue('');
           }
-          if (type === 'branch_contains') {
+          if (type == 'branch_contains') {
                openedInputType = 'branch';
                setBranchInputValue('');
           }
-          if (type === 'ticketId_contains') {
+          if (type == 'ticketId_contains') {
                openedInputType = 'ticketId';
                setticketIdInputValue('');
           }
 
           const inputs = searchInput;
-          inputs.splice(inputs.findIndex(item => item === openedInputType), 1)
+          inputs.splice(inputs.findIndex(item => item == openedInputType), 1)
           setSearchInput([...inputs]);
 
           if (filters[type]) {
@@ -167,7 +167,7 @@ function WorkItems(props) {
                default:
                     break;
           }
-          setCurrentPage({ ...currentPage, page: type === 'previous' ? currentPage.page - 1 : currentPage.page + 1 });
+          setCurrentPage({ ...currentPage, page: type == 'previous' ? currentPage.page - 1 : currentPage.page + 1 });
      }
 
      const closeDocModal = () => {
@@ -219,13 +219,13 @@ function WorkItems(props) {
                                                             </th>
                                                        }
                                                        {/* WORK TYPE SEARCH INPUT */}
-                                                       {searchInput.find(item => item === 'type') &&
+                                                       {searchInput.find(item => item == 'type') &&
                                                             <th className="d-flex p-0" >
                                                                  <Input
                                                                       type="select"
                                                                       name="type"
                                                                       id="type"
-                                                                      onChange={(event) => setFilter({ ...filters, type: event.target.value === 'All' ? '' : event.target.value })}
+                                                                      onChange={(event) => setFilter({ ...filters, type: event.target.value == 'All' ? '' : event.target.value })}
                                                                  >
                                                                       <option>All</option>
                                                                       <option>Development</option>
@@ -241,7 +241,7 @@ function WorkItems(props) {
                                                             </th>
                                                        }
                                                        {/* TICKET ID SEARCH INPUT */}
-                                                       {searchInput.find(item => item === 'ticketId') &&
+                                                       {searchInput.find(item => item == 'ticketId') &&
                                                             <th className="align-items-center p-0" >
                                                                  <InputGroup>
                                                                       <InputGroupAddon onClick={() => filters.ticketId_contains !== ticketIdInputValue ? setFilter({ ...filters, ticketId_contains: ticketIdInputValue }) : null} addonType="append">
@@ -255,7 +255,7 @@ function WorkItems(props) {
                                                                            id="workName"
                                                                            value={ticketIdInputValue}
                                                                            onChange={(e) => setticketIdInputValue(e.target.value)}
-                                                                           onKeyDown={(event) => event.key === 'Enter' && filters.ticketId_contains !== ticketIdInputValue ? setFilter({ ...filters, ticketId_contains: ticketIdInputValue }) : null}
+                                                                           onKeyDown={(event) => event.key == 'Enter' && filters.ticketId_contains !== ticketIdInputValue ? setFilter({ ...filters, ticketId_contains: ticketIdInputValue }) : null}
                                                                       />
                                                                       <i onClick={() => removeFilter('ticketId_contains')} className="fas fa-times-circle col-md-1 p-0 close-search-icon"></i>
                                                                  </InputGroup>
@@ -268,7 +268,7 @@ function WorkItems(props) {
                                                             </th>
                                                        }
                                                        {/* NAME SEARCH INPUT */}
-                                                       {searchInput.find(item => item === 'name') &&
+                                                       {searchInput.find(item => item == 'name') &&
                                                             <th className="align-items-center p-0">
                                                                  <InputGroup>
                                                                       <InputGroupAddon onClick={() => filters.name_contains !== nameInputValue ? setFilter({ ...filters, name_contains: nameInputValue }) : null} addonType="append">
@@ -282,7 +282,7 @@ function WorkItems(props) {
                                                                            id="workName"
                                                                            value={nameInputValue}
                                                                            onChange={(e) => setNameInputValue(e.target.value)}
-                                                                           onKeyDown={(event) => event.key === 'Enter' && filters.name_contains !== nameInputValue ? setFilter({ ...filters, name_contains: nameInputValue }) : null}
+                                                                           onKeyDown={(event) => event.key == 'Enter' && filters.name_contains !== nameInputValue ? setFilter({ ...filters, name_contains: nameInputValue }) : null}
                                                                       />
                                                                       <i onClick={() => removeFilter('name_contains')} className="fas fa-times-circle col-md-1 p-0 close-search-icon"></i>
                                                                  </InputGroup>
@@ -295,7 +295,7 @@ function WorkItems(props) {
                                                             </th>
                                                        }
                                                        {/* BRANCH SEARCH INPUT */}
-                                                       {searchInput.find(item => item === 'branch') &&
+                                                       {searchInput.find(item => item == 'branch') &&
                                                             <th className="align-items-center p-0" >
                                                                  <InputGroup>
                                                                       <InputGroupAddon onClick={() => filters.branch_contains !== nameInputValue ? setFilter({ ...filters, branch_contains: branchInputValue }) : null} addonType="append">
@@ -309,7 +309,7 @@ function WorkItems(props) {
                                                                            id="branchName"
                                                                            value={branchInputValue}
                                                                            onChange={(e) => setBranchInputValue(e.target.value)}
-                                                                           onKeyDown={(event) => event.key === 'Enter' && filters.branch_contains !== nameInputValue ? setFilter({ ...filters, branch_contains: branchInputValue }) : null}
+                                                                           onKeyDown={(event) => event.key == 'Enter' && filters.branch_contains !== nameInputValue ? setFilter({ ...filters, branch_contains: branchInputValue }) : null}
                                                                       />
                                                                       <i onClick={() => removeFilter('branch_contains')} className="fas fa-times-circle col-md-1 p-0 close-search-icon"></i>
                                                                  </InputGroup>
@@ -340,7 +340,7 @@ function WorkItems(props) {
                                                   {!filterApplying &&
                                                        workItems.map((item, ind) =>
                                                             <tr key={ind} className="table-body-tr">
-                                                                 <td><i className={item.type === 'Bug' ? "fas fa-bug" : "fas fa-file-code"}></i> <span>{item.type}</span> </td>
+                                                                 <td><i className={item.type == 'Bug' ? "fas fa-bug" : "fas fa-file-code"}></i> <span>{item.type}</span> </td>
                                                                  <td>{item.ticketId}</td>
                                                                  <td style={{ maxWidth: "220px" }}>{item.name}</td>
                                                                  <td>{item.branch}</td>
@@ -349,7 +349,7 @@ function WorkItems(props) {
                                                                            <p><span style={{ textDecoration: "underline", color: "blue" }} href="#" id={"TooltipExampleDev" + ind}><Button disabled className="btn-icon btn-round env-circle btn-simple"
                                                                                 color={item.dev?.active ? "success" : "danger"} size="sm">
                                                                            </Button></span></p>
-                                                                           <Tooltip placement="right" isOpen={tooltipOpen === 'TooltipExampleDev' + ind} target={"TooltipExampleDev" + ind} toggle={() => setTooltipOpen(tooltipOpen === 'TooltipExampleDev' + ind ? '' : 'TooltipExampleDev' + ind)}>
+                                                                           <Tooltip placement="right" isOpen={tooltipOpen == 'TooltipExampleDev' + ind} target={"TooltipExampleDev" + ind} toggle={() => setTooltipOpen(tooltipOpen == 'TooltipExampleDev' + ind ? '' : 'TooltipExampleDev' + ind)}>
                                                                                 {item.dev?.date ? Moment(item.dev.date).format('DD/MM/YYYY HH:mm') : '-'}
                                                                            </Tooltip>
                                                                       </div>
@@ -359,7 +359,7 @@ function WorkItems(props) {
                                                                            <p><span style={{ textDecoration: "underline", color: "blue" }} href="#" id={"TooltipExampleFut" + ind}><Button disabled className="btn-icon btn-round env-circle btn-simple"
                                                                                 color={item.fut?.active ? "success" : "danger"} size="sm">
                                                                            </Button></span></p>
-                                                                           <Tooltip placement="right" isOpen={tooltipOpen === 'TooltipExampleFut' + ind} target={"TooltipExampleFut" + ind} toggle={() => setTooltipOpen(tooltipOpen === 'TooltipExampleFut' + ind ? '' : 'TooltipExampleFut' + ind)}>
+                                                                           <Tooltip placement="right" isOpen={tooltipOpen == 'TooltipExampleFut' + ind} target={"TooltipExampleFut" + ind} toggle={() => setTooltipOpen(tooltipOpen == 'TooltipExampleFut' + ind ? '' : 'TooltipExampleFut' + ind)}>
                                                                                 {item.fut?.date ? Moment(item.fut.date).format('DD/MM/YYYY HH:mm') : '-'}
                                                                            </Tooltip>
                                                                       </div>
@@ -368,7 +368,7 @@ function WorkItems(props) {
                                                                       <p><span style={{ textDecoration: "underline", color: "blue" }} href="#" id={"TooltipExampleUat" + ind}><Button disabled className="btn-icon btn-round env-circle btn-simple"
                                                                            color={item.uat?.active ? "success" : "danger"} size="sm">
                                                                       </Button></span></p>
-                                                                      <Tooltip placement="right" isOpen={tooltipOpen === 'TooltipExampleUat' + ind} target={"TooltipExampleUat" + ind} toggle={() => setTooltipOpen(tooltipOpen === 'TooltipExampleUat' + ind ? '' : 'TooltipExampleUat' + ind)}>
+                                                                      <Tooltip placement="right" isOpen={tooltipOpen == 'TooltipExampleUat' + ind} target={"TooltipExampleUat" + ind} toggle={() => setTooltipOpen(tooltipOpen == 'TooltipExampleUat' + ind ? '' : 'TooltipExampleUat' + ind)}>
                                                                            {item.uat?.date ? Moment(item.uat.date).format('DD/MM/YYYY HH:mm') : '-'}
                                                                       </Tooltip>
                                                                  </td>
@@ -376,7 +376,7 @@ function WorkItems(props) {
                                                                       <p><span style={{ textDecoration: "underline", color: "blue" }} href="#" id={"TooltipExamplePreP" + ind}><Button disabled className="btn-icon btn-round env-circle btn-simple"
                                                                            color={item.preprod?.active ? "success" : "danger"} size="sm">
                                                                       </Button></span></p>
-                                                                      <Tooltip placement="right" isOpen={tooltipOpen === 'TooltipExamplePreP' + ind} target={"TooltipExamplePreP" + ind} toggle={() => setTooltipOpen(tooltipOpen === 'TooltipExamplePreP' + ind ? '' : 'TooltipExamplePreP' + ind)}>
+                                                                      <Tooltip placement="right" isOpen={tooltipOpen == 'TooltipExamplePreP' + ind} target={"TooltipExamplePreP" + ind} toggle={() => setTooltipOpen(tooltipOpen == 'TooltipExamplePreP' + ind ? '' : 'TooltipExamplePreP' + ind)}>
                                                                            {item.preprod?.date ? Moment(item.preprod.date).format('DD/MM/YYYY HH:mm') : '-'}
                                                                       </Tooltip>
                                                                  </td>
@@ -384,7 +384,7 @@ function WorkItems(props) {
                                                                       <p><span style={{ textDecoration: "underline", color: "blue" }} href="#" id={"TooltipExampleProd" + ind}><Button disabled className="btn-icon btn-round env-circle btn-simple"
                                                                            color={item.prod?.active ? "success" : "danger"} size="sm">
                                                                       </Button></span></p>
-                                                                      <Tooltip placement="right" isOpen={tooltipOpen === 'TooltipExampleProd' + ind} target={"TooltipExampleProd" + ind} toggle={() => setTooltipOpen(tooltipOpen === 'TooltipExampleProd' + ind ? '' : 'TooltipExampleProd' + ind)}>
+                                                                      <Tooltip placement="right" isOpen={tooltipOpen == 'TooltipExampleProd' + ind} target={"TooltipExampleProd" + ind} toggle={() => setTooltipOpen(tooltipOpen == 'TooltipExampleProd' + ind ? '' : 'TooltipExampleProd' + ind)}>
                                                                            {item.prod?.date ? Moment(item.prod.date).format('DD/MM/YYYY HH:mm') : '-'}
                                                                       </Tooltip>
                                                                  </td>
@@ -412,7 +412,7 @@ function WorkItems(props) {
 
 
                     <div className="d-flex justify-content-center">
-                         <Button disabled={currentPage.page === 1} onClick={() => changePage('previous')} className="btn-icon" color="info" size="sm">
+                         <Button disabled={currentPage.page == 1} onClick={() => changePage('previous')} className="btn-icon" color="info" size="sm">
                               <i class="fas fa-caret-left"></i>
                          </Button>{` `}
                          <Button disabled className="btn-simple ml-4 mr-4" color="info" size="sm">

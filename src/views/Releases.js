@@ -111,13 +111,13 @@ function Releases(props) {
      const removeFilter = (type) => {
 
           let openedInputType = type;
-          if (type === 'Project_contains') {
+          if (type == 'Project_contains') {
                openedInputType = 'project';
                setProjectInputValue('');
           }
 
           const inputs = searchInput;
-          inputs.splice(inputs.findIndex(item => item === openedInputType), 1)
+          inputs.splice(inputs.findIndex(item => item == openedInputType), 1)
           setSearchInput([...inputs]);
 
           if (filters[type]) {
@@ -164,7 +164,7 @@ function Releases(props) {
                                                        </th>
                                                   }
 
-                                                  {searchInput.find(item => item === 'releaseDate') &&
+                                                  {searchInput.find(item => item == 'releaseDate') &&
                                                        <th className="p-0 row" >
                                                             <span className="col-6">
                                                                  <CustomDatePicker
@@ -186,7 +186,7 @@ function Releases(props) {
                                                        </th>
                                                   }
                                                   {/* Project INPUT */}
-                                                  {searchInput.find(item => item === 'project') &&
+                                                  {searchInput.find(item => item == 'project') &&
                                                        <th className="align-items-center p-0" >
                                                             <InputGroup>
                                                                  <InputGroupAddon onClick={() => filters.Project_contains !== projectInputValue ?
@@ -201,7 +201,7 @@ function Releases(props) {
                                                                       id="project"
                                                                       value={projectInputValue}
                                                                       onChange={(e) => setProjectInputValue(e.target.value)}
-                                                                      onKeyDown={(event) => event.key === 'Enter' && filters.Project_contains !== projectInputValue ?
+                                                                      onKeyDown={(event) => event.key == 'Enter' && filters.Project_contains !== projectInputValue ?
                                                                            setFilter({ ...filters, Project_contains: projectInputValue }) : null}
                                                                  />
                                                                  <i onClick={() => removeFilter('Project_contains')} className="fas fa-times-circle col-md-1 p-0 close-search-icon"></i>
