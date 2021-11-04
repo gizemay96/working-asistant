@@ -7,7 +7,7 @@ export const getQuery = (obj) => {
       if (obj.hasOwnProperty(p) && obj[p]) {
 
 
-        if (typeof obj[p] === 'object') {
+        if (typeof obj[p] == 'object') {
 
           obj[p].forEach(item => {
             str.push(encodeURIComponent(p) + '=' + encodeURIComponent(item));
