@@ -82,7 +82,7 @@ function ReleaseItemsModal({ selectedRelease, closeReleaseItemsModal }, props) {
         console.log(releaseItemsData.works, item)
         let items = releaseItemsData.works;
 
-        const ind = items.findIndex(addedItem => addedItem.id == item.id);
+        const ind = items.findIndex(addedItem => addedItem.id === item.id);
         console.log(ind)
         if (ind > -1) {
             items[ind].checked = false;
@@ -145,7 +145,7 @@ function ReleaseItemsModal({ selectedRelease, closeReleaseItemsModal }, props) {
                                     {!loadingData && releaseItemsData.works.length > 0 &&
                                         releaseItemsData.works.map((item, index) =>
                                             <tr key={index} className="table-body-tr">
-                                                <td><i className={item.type == 'Bug' ? "fas fa-bug" : "fas fa-file-code"}></i> <span>{item.type}</span> </td>
+                                                <td><i className={item.type === 'Bug' ? "fas fa-bug" : "fas fa-file-code"}></i> <span>{item.type}</span> </td>
                                                 <td>{item.ticketId}</td>
                                                 <td className="text-right">
                                                     <Button onClick={() => confirmationModalActions(item, false)} className="btn-icon" size="sm">

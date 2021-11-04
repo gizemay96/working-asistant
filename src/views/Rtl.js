@@ -59,7 +59,7 @@ function Rtl() {
                       <Button
                         tag="label"
                         className={classNames("btn-simple", {
-                          active: bigChartData == "data1",
+                          active: bigChartData === "data1",
                         })}
                         color="info"
                         id="0"
@@ -79,7 +79,7 @@ function Rtl() {
                         size="sm"
                         tag="label"
                         className={classNames("btn-simple", {
-                          active: bigChartData == "data2",
+                          active: bigChartData === "data2",
                         })}
                         onClick={() => setBgChartData("data2")}
                       >
@@ -96,7 +96,7 @@ function Rtl() {
                         size="sm"
                         tag="label"
                         className={classNames("btn-simple", {
-                          active: bigChartData == "data3",
+                          active: bigChartData === "data3",
                         })}
                         onClick={() => setBgChartData("data3")}
                       >
