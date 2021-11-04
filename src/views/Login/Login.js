@@ -27,18 +27,21 @@ const Login = ({ history }) => {
                password: '',
           },
           onSubmit: values => {
-               login(values)
-                    .then(res =>
-                         setActiveUser(res),
-                         setTimeout(() => {
-                              history.push('/')
-                         }, 500)
-                    )
-                    .catch(err => {
-                    });
+               loginAction(values);
           },
           validationSchema: loginValidationShema,
      });
+
+     const loginAction = async (values) => {
+          const res = await login(values)
+          if (res) {
+               setActiveUser(res);
+               setTimeout(() => {
+                    history.push('/')
+               }, 500)
+          }
+
+     }
      return (
           <div className="content">
                <div className="container">
@@ -72,7 +75,7 @@ const Login = ({ history }) => {
                                         <Input
                                              id="password"
                                              name="password"
-                                             type="text"
+                                             type="password"
                                              onChange={handleChange}
                                              value={values.password}
                                              autoComplete="off"

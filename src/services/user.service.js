@@ -28,6 +28,10 @@ export const register = (params) => {
         });
 }
 
+export const getInfo = (type) => {
+    return type === 'user' ? JSON.parse(localStorage.getItem('user')) : JSON.parse(localStorage.getItem('jwt'));;
+}
+
 function logout() {
     // remove user from local storage to log user out
     localStorage.removeItem('user');
