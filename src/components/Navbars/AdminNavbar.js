@@ -18,7 +18,7 @@
 import React from "react";
 // nodejs library that concatenates classes
 import classNames from "classnames";
-import { useUser } from '../../contexts/userContext'
+import { useUser } from '../../contexts/UserContext'
 
 // reactstrap components
 import {
